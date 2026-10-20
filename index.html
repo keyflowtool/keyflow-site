@@ -304,6 +304,15 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   .maker{grid-template-columns:minmax(0,1fr)}
   .brand small{display:none}
 }
+/* Small phones: the numbers become a compact list, number on the left and label on the right. */
+@media (max-width:560px){
+  .stats-row{grid-template-columns:minmax(0,1fr)}
+  .stats-row div,.stats-row div:nth-child(-n+2){flex-direction:row;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+  .stats-row div:first-child{border-top:0}
+  .stats-row b{font-size:30px;min-width:76px}
+  .stats-row .has-plus span::before{display:none}
+  .stats-row span{font-size:10.5px;letter-spacing:.1em}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
