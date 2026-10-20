@@ -385,7 +385,15 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Reset only the scale of your controls.</p>
+<p>Send only the scale of your controls back to the rig's defaults.</p>
+<ul>
+<li><b>Selected keys:</b> reset only the scale keys selected in the Graph Editor, on their own frames. No new keys.</li>
+<li><b>Selected channels:</b> reset only the scale channels selected in the Channel Box, on the current frame.</li>
+<li><b>Nothing selected:</b> reset scale on the current frame.</li>
+<li><b>Locked channels:</b> skipped, and the message tells you how many.</li>
+<li><b>One undo:</b> a single Ctrl+Z brings everything back.</li>
+</ul>
+<p><b>Good for:</b> putting a squashed or stretched control back to its normal size.</p>
       </div>
     </div>
   </section>
