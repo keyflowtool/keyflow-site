@@ -24,7 +24,6 @@
     const c = a.cloneNode(true);
     c.removeAttribute("class");
     if (a.classList.contains("on")) c.className = "on";
-    if (c.target === "_blank") c.insertAdjacentHTML("beforeend", '<span class="mnav-ext" aria-hidden="true">↗</span>');
     panel.appendChild(c);
   });
 

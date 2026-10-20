@@ -83,8 +83,8 @@ html{overflow-y:scroll}
 .mnav-btn,.mnav-panel{display:none}
 @media (max-width:900px){
   .has-mnav .nav-links{display:none!important}
-  .has-mnav .nav .wrap>.btn{margin-left:auto}
-  .mnav-btn{display:grid;place-items:center;flex:none;width:40px;height:40px;margin-left:-6px;padding:0;border:1px solid var(--line-2,#383e37);border-radius:999px;background:transparent;color:var(--fg,#f2f4ee);cursor:pointer}
+  .has-mnav .nav .wrap>.btn{display:none}  /* nobody downloads a Maya tool on a phone: the trial button stays in Pricing */
+  .mnav-btn{display:grid;place-items:center;flex:none;width:40px;height:40px;margin-left:auto;padding:0;border:1px solid var(--line-2,#383e37);border-radius:999px;background:transparent;color:var(--fg,#f2f4ee);cursor:pointer}
   .mnav-btn:hover{border-color:var(--muted,#9ca295)}
   .mnav-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
   .mnav-btn path{transition:transform .2s,opacity .2s;transform-box:view-box;transform-origin:12px 12px}
@@ -96,5 +96,4 @@ html{overflow-y:scroll}
   .mnav-panel a:last-child{border-bottom:0}
   .mnav-panel a.on{color:var(--orange,#fe791c)}
   .mnav-panel a:hover{color:var(--lime,#a3cb3c)}
-  .mnav-ext{color:var(--muted,#9ca295);font-size:15px}
 }
