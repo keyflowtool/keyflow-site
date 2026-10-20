@@ -13,7 +13,9 @@
   btn.setAttribute("aria-label", "Menu");
   btn.setAttribute("aria-expanded", "false");
   btn.setAttribute("aria-controls", "mnav-panel");
-  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="l1" d="M4 7h16"/><path class="l2" d="M4 12h16"/><path class="l3" d="M4 17h16"/></svg>';
+  // Two drawn icons with the same weight; the button swaps them (a rotated hamburger looked thin and off-center).
+  btn.innerHTML = '<svg class="ic-menu" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>' +
+                  '<svg class="ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></svg>';
 
   const panel = document.createElement("nav");
   panel.id = "mnav-panel";
