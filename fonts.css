@@ -82,8 +82,8 @@ html{overflow-y:scroll}
 /* Phone menu (mobile-nav.js): under 900 px the top links collapse into a ☰ button with a drop-down panel. */
 .mnav-btn,.mnav-panel{display:none}
 @media (max-width:900px){
-  .has-mnav .nav-links{display:none!important}
-  .has-mnav .nav .wrap>.btn{display:none}  /* nobody downloads a Maya tool on a phone: the trial button stays in Pricing */
+  .nav .nav-links{display:none!important}
+  .nav .wrap>.btn{display:none!important}  /* nobody downloads a Maya tool on a phone: the trial button stays in Pricing */
   .mnav-btn{display:grid;place-items:center;flex:none;width:40px;height:40px;margin-left:auto;padding:0;border:1px solid var(--line-2,#383e37);border-radius:999px;background:transparent;color:var(--fg,#f2f4ee);cursor:pointer}
   .mnav-btn:hover{border-color:var(--muted,#9ca295)}
   .mnav-btn svg{grid-area:1/1;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
@@ -95,4 +95,16 @@ html{overflow-y:scroll}
   .mnav-panel a:last-child{border-bottom:0}
   .mnav-panel a.on{color:var(--orange,#fe791c)}
   .mnav-panel a:hover{color:var(--lime,#a3cb3c)}
+}
+
+/* Phones: the home and the module pages show only the lists (modules / tools); the big cards stay on desktop. */
+.tindex{display:none!important}
+@media (max-width:900px){
+  #modules #grid,.grid:has(> .tool-card){display:none!important}
+  .tindex{display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+  .tindex .mi-cell{border-right:0!important;border-bottom:1px solid var(--line,#2a2f29)!important}
+  .tindex .mi-cell:last-child{border-bottom:0!important}
+  .tindex .mi-name{white-space:normal}
+  /* on a module page the tools come first; other modules are one tap away in the ☰ menu */
+  .mindex:has(+ .tindex){display:none!important}
 }
