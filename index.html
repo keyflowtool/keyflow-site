@@ -1,0 +1,607 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KeyFlow for Maya</title>
+<meta name="description" content="KeyFlow — +81 animation tools for Autodesk Maya in a toolbar you build yourself.">
+<link rel="stylesheet" href="fonts.css">
+<script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
+<style>
+/* Layout: logo-led hero beside a live KeyFlow toolbar, then a filterable index of the 14 modules, principles, licence, pricing. */
+:root{
+  --bg:#101210; --panel:#171a17; --panel-2:#1e221e; --line:#2a2f29; --line-2:#383e37;
+  --fg:#f2f4ee; --muted:#9ca295; --dim:#6d7368;
+  --lime:#a3cb3c; --lime-soft:rgba(163,203,60,.12); --orange:#fe791c; --orange-soft:rgba(254,121,28,.14);
+  --g-blend:#3f6e3b; --g-scale:#7c5b2e; --g-keys:#2d6e78; --g-time:#5b4a86; --g-pose:#8a3f52; --g-rig:#2f5c8f; --g-flow:#4c5a2c;
+  --display:"Fredoka","Varela Round","Nunito",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+  --r:14px; --r-sm:8px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.eyebrow{font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.eyebrow b{color:var(--lime);font-weight:700}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(16,18,16,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{height:24px;width:auto}
+.brand small{font:600 12px var(--body);color:var(--muted);border-left:1px solid var(--line-2);padding-left:10px}
+.nav-links{display:flex;gap:4px;margin-left:auto}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:500;font-size:14px;padding:8px 16px;border-radius:999px}
+.nav-links a:hover{color:var(--fg);background:var(--panel-2)}
+.nav-links a.on{background:var(--orange);color:#121510}
+.nav-links a.on:hover{background:#ff8f3d;color:#121510}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font:600 15px var(--body);padding:12px 20px;border-radius:999px;border:1px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-lime{background:var(--lime);color:#121510}
+.btn-lime:hover{background:#b4d94e}
+.btn-ghost{border-color:var(--line-2);color:var(--fg)}
+.btn-ghost:hover{border-color:var(--muted)}
+.btn-sm{padding:8px 16px;font-size:14px}
+
+/* hero */
+.hero{padding-block:clamp(48px,8vw,96px) clamp(48px,7vw,88px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero-logo{width:min(300px,62%);height:auto;display:block;margin-bottom:28px}
+.hero h1{font-size:clamp(34px,4.4vw,56px);font-weight:600;letter-spacing:-.015em}
+.hero h1 .o{color:var(--orange)}
+.hero h1 .l{color:var(--lime)}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:34em;margin:24px 0 32px}
+.lede{text-wrap:pretty}
+.hero .lede:has(+ .lede-2){margin-bottom:10px}
+.lede-2{color:var(--fg);margin-top:0}
+.lede strong{color:var(--fg);font-weight:600}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.specs{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px;padding:0;list-style:none}
+.specs li{font:500 12.5px var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.specs li.ver-pill{padding:0;border:0}
+.specs li.ver-pill a{display:block;font:700 12.5px var(--mono);color:#121510;background:var(--orange);border-radius:999px;padding:7px 13px;text-decoration:none}
+.specs li.ver-pill a:hover{background:#ff8f3d}
+.specs li.os{display:inline-flex;align-items:center;gap:7px}
+.os-ico{width:12px;height:12px;fill:var(--fg);flex:none}
+.specs li b{color:var(--fg);font-weight:700}
+
+/* toolbar mock */
+.tb-stage{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.tb{background:#2b2b2b;border:1px solid #3a3a3a;border-radius:12px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.02) inset;font-family:"Segoe UI",var(--body);overflow:hidden}
+.tb-head{display:flex;align-items:center;gap:8px;padding:10px 14px;font:700 13px "Segoe UI",var(--body);letter-spacing:.04em;color:#e8e8e8;background:#333;border-bottom:1px solid #222}
+.tb-head svg{width:18px;height:18px;flex:none}
+.tb-head span{margin-left:auto;color:#888;font-weight:400}
+.tb-body{padding:10px;display:grid;gap:8px;max-height:min(560px,70vh);overflow:auto;scrollbar-color:#555 #2b2b2b}
+.tb-sec{position:sticky;top:-10px;z-index:1;border:1px solid transparent;border-radius:6px;padding:7px 10px;font:700 12.5px "Segoe UI",var(--body);letter-spacing:.05em;color:#fff}
+.tb-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tb-btn{display:flex;align-items:center;gap:8px;min-width:0;background:#3b3b3b;border:1px solid #444;color:#e6e6e6;border-radius:5px;padding:7px 9px;font:13px "Segoe UI",var(--body);text-align:left;cursor:pointer;transition:background .12s,border-color .12s}
+.ico{width:24px;height:24px;flex:none;background:url(icons.webp) no-repeat;background-size:1000% 700%}
+.tb-btn i.ico{min-width:24px}
+.tip-prev .big-ico{display:none;position:absolute;inset:16%;background:url(icons.webp) no-repeat;background-size:1000% 700%}
+.tip-prev.has-ico .big-ico{display:block}
+.tip-prev.has-ico::before,.tip-prev.has-ico .k,.tip-prev.has-ico .dot{display:none}
+.nav-links a.nav-cl{display:inline-flex}
+.nav-cl b{font:700 10.5px var(--mono);color:#121510;background:var(--orange);border-radius:999px;padding:2px 7px}
+.tb-btn i{font:700 10.5px var(--mono);font-style:normal;min-width:26px;color:var(--c,#9c9)}
+.tb-btn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-btn:hover,.tb-btn:focus-visible,.tb-btn.on{background:#3f6266;border-color:#6aa9ae;outline:none}
+.tip{background:var(--panel);border:1px solid var(--line-2);border-radius:12px;padding:16px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:center;height:132px;overflow:hidden}
+.tip-prev{aspect-ratio:1;max-width:100%;border-radius:10px;background:var(--panel-2);position:relative;overflow:hidden;border:1px solid var(--line)}
+.tip-prev::before{content:"";position:absolute;left:14%;right:14%;top:50%;height:2px;background:var(--line-2)}
+.tip-prev .dot{position:absolute;top:50%;left:14%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--orange);animation:slide 1.8s cubic-bezier(.6,0,.3,1.25) infinite alternate}
+.tip-prev .k{position:absolute;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--lime);transform:rotate(45deg)}
+@keyframes slide{to{left:86%}}
+.tb-group{display:grid;gap:8px}
+.tip{transition:opacity .18s ease-out,visibility .18s}
+.tip.idle{opacity:0;visibility:hidden;pointer-events:none}
+.tip.pop>*{animation:tipfade .18s ease-out}
+@keyframes tipfade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+a.tip{color:inherit;text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s}
+a.tip:hover{border-color:var(--lime);background:var(--panel-2)}
+.tip .go-mod{float:right;color:var(--lime);font-weight:700}
+.card.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%,40%{border-color:var(--lime);box-shadow:0 0 0 3px var(--lime-soft)}100%{box-shadow:0 0 0 0 transparent}}
+.tip h3{font-size:20px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tip p{margin:0;color:var(--muted);font-size:14px;line-height:1.5;height:3em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tip .meta{margin-top:8px;font:500 11.5px var(--mono);color:var(--dim)}
+.tip .meta b{color:var(--lime);font-weight:700}
+
+/* stats strip */
+.stats{border-block:1px solid var(--line);margin-bottom:clamp(56px,8vw,96px);background:var(--panel)}
+.stats-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.stats-row div{padding-block:26px;display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--line);padding-left:20px}
+.stats-row div:first-child{border-left:0;padding-left:0}
+.stats-row b{font:600 clamp(36px,4.4vw,56px)/1 var(--display);color:var(--lime);font-variant-numeric:tabular-nums}
+.stats-row b .plus{font-size:.62em;vertical-align:.32em;margin-right:2px}
+/* TOOLS starts under the 8, not under the small "+": an invisible "+" of the same size goes in front of it. */
+.stats-row .has-plus span::before{content:"+";font:600 calc(clamp(36px,4.4vw,56px) * .62)/0 var(--display);letter-spacing:0;margin-right:2px;visibility:hidden;display:inline-block;height:0;overflow:hidden}
+.stats-row b.o{color:var(--orange)}
+.stats-row span{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:760px){
+  .stats-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats-row div{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+  .stats-row div:nth-child(-n+2){border-top:0}
+  .stats-row div:last-child{grid-column:1/-1}
+}
+
+
+/* section heads */
+section{scroll-margin-top:80px}
+.sec{padding-block:clamp(56px,8vw,104px)}
+.sec-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:end;margin-bottom:36px}
+.count{font:600 clamp(64px,9vw,120px)/.85 var(--display);color:var(--lime)}
+/* MODULES spans the 14 exactly, from the start of the 1 to the end of the 4: .185em of the number's size (measured ink widths). */
+.count small{display:block;font:700 .185em var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+.sec-head.solo{grid-template-columns:minmax(0,1fr)}
+.sec-head h2{font-size:clamp(30px,4vw,52px)}
+.sec-head p{color:var(--muted);margin:12px 0 0;max-width:40em}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.chip{font:600 13px var(--body);color:var(--muted);background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;cursor:pointer;transition:all .15s}
+.chip:hover{color:var(--fg);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:#121510}
+.chip i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--g,var(--lime));vertical-align:1px}
+.chip[aria-pressed="true"] i{background:#121510}
+
+/* module cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-color .2s,transform .2s}
+.card:hover,.card:focus-within{border-color:color-mix(in srgb,var(--g) 70%,var(--line-2));transform:translateY(-3px)}
+.prev{position:relative;aspect-ratio:16/11;max-width:100%;padding:18px;display:flex;flex-direction:column;background:
+  radial-gradient(120% 90% at 100% 0%,color-mix(in srgb,var(--g) 55%,transparent),transparent 70%),
+  linear-gradient(180deg,color-mix(in srgb,var(--g) 22%,var(--panel-2)),var(--panel-2));border-bottom:1px solid var(--line);overflow:hidden}
+/* Module names stay on one line: the title shrinks with its card when the card is narrow (cqi = card width). */
+.prev{container-type:inline-size}
+.prev .big{font:700 min(clamp(34px,3.4vw,44px),11.5cqi)/.9 var(--display);text-transform:uppercase;margin-top:auto;margin-bottom:16px;letter-spacing:.02em;font-kerning:none}
+.prev .big em{font-style:normal}
+.prev .say{font-size:13.5px;color:rgba(255,255,255,.78);margin-top:8px;max-width:22em}
+.track{position:relative;height:16px;margin-top:14px}
+.track::before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;border-radius:2px;background:rgba(255,255,255,.18)}
+.track .k{position:absolute;top:4px;width:8px;height:8px;background:var(--lime);transform:rotate(45deg)}
+.track .dot{position:absolute;top:0;left:0;width:16px;height:16px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px var(--orange-soft);transition:left 1.1s cubic-bezier(.6,0,.25,1.3)}
+.card:hover .track .dot,.card:focus-within .track .dot{left:calc(100% - 16px)}
+.prev-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease-out;pointer-events:none;background:var(--panel-2)}
+.card.media-on .prev-media{opacity:1}
+/* Home module cards: the hover clip plays behind the title and tagline, with a soft shade so they stay readable.
+   A module with clean:true in the list below shows the clip alone, as before. */
+.card.text-front .big,.card.text-front .say{position:relative;z-index:2}
+.card.text-front .prev::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70%;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .25s ease-out}
+.card.text-front.media-on .prev::after{opacity:1}
+.card.media-on .hint{opacity:0}
+.hint{position:absolute;right:14px;bottom:12px;font:700 10px var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.5);transition:opacity .2s}
+.card:hover .hint{opacity:0}
+.info{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.row{display:flex;align-items:center;gap:10px;font:600 11px var(--mono);letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.row .n{color:var(--fg)}
+.row .cat{color:var(--g-label,var(--lime))}
+.info h3{font-size:24px}
+.info p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tools span{cursor:pointer;transition:border-color .15s,color .15s}
+.tools span:hover{border-color:var(--lime);color:var(--lime)}
+.tool.flash{animation:flash 1.6s ease-out}
+.tools span{font-size:12px;color:var(--fg);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.go{margin-top:auto;padding-top:8px;display:flex;justify-content:flex-start;gap:8px;align-items:center;font:700 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--lime);text-decoration:none}
+.go::after{content:"→";font-size:15px;transition:transform .15s}
+.go:hover::after{transform:translateX(3px)}
+.card[hidden]{display:none}
+
+/* module index (framed 7 x 2) */
+.mindex{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid #333a32;border-radius:14px;overflow:hidden;background:#191c19;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 24px 50px -30px rgba(0,0,0,.9);margin-block:clamp(44px,5vw,72px)}
+.mindex .mi-cell{border-color:#2c322b}
+#modules .sec-head{margin-bottom:0}
+.mi-cell{--g:#6f9101;--c:color-mix(in srgb,var(--g) 60%,#ffffff 28%);position:relative;display:flex;align-items:center;gap:11px;min-width:0;padding:20px 18px;text-decoration:none;color:var(--fg);isolation:isolate;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background .18s}
+.mi-cell:nth-child(7n){border-right:0}
+.mi-cell:nth-last-child(-n+7){border-bottom:0}
+.mi-ico{width:20px;height:20px;flex:none;fill:none;stroke:var(--muted);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s cubic-bezier(.3,1.6,.5,1),stroke .15s}
+.mi-name{font:600 14.5px var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mi-count{margin-left:auto;font:700 11px var(--mono);color:var(--dim);transition:color .15s}
+.mi-cell::before{content:"";position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--g) 22%,transparent);opacity:0;transition:opacity .18s}
+.mi-cell:hover::before,.mi-cell:focus-visible::before{opacity:1}
+.mi-cell:hover,.mi-cell:focus-visible{outline:none}
+.mi-cell:hover .mi-ico,.mi-cell:focus-visible .mi-ico{transform:scale(1.15);stroke:var(--fg)}
+.mi-cell:hover .mi-count,.mi-cell:focus-visible .mi-count{color:var(--fg)}
+.mi-cell::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--c);transition:width .25s ease-out}
+.mi-cell:hover::after,.mi-cell:focus-visible::after{width:100%}
+@media (max-width:1100px){
+  .mindex{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mi-cell:nth-child(7n){border-right:1px solid var(--line)}
+  .mi-cell:nth-child(2n){border-right:0}
+  .mi-cell:nth-last-child(-n+7){border-bottom:1px solid var(--line)}
+  .mi-cell:nth-last-child(-n+2){border-bottom:0}
+}
+.card{cursor:pointer}
+.crumbs{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:-8px 0 22px}
+.crumbs button{font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg);background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:8px 14px;cursor:pointer}
+.crumbs button:hover{border-color:var(--lime);color:var(--lime)}
+.crumbs span{font:600 14px var(--body);color:var(--muted)}
+.grid.swap{animation:swap .22s ease-out}
+@keyframes swap{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tool-card .big{font-size:clamp(26px,2.5vw,34px);overflow-wrap:anywhere}
+.tool-card .prev-ico{width:44px;height:44px;border-radius:10px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center}
+.tool-card .prev-ico .ico{width:30px;height:30px}
+.tool-card .prev-ico b{font:700 11px var(--mono);color:#fff}
+.card.flash{animation:flash 1.6s ease-out}
+
+
+/* principles */
+.princ{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.princ div{background:var(--bg);padding:28px 24px}
+.princ .ic{font:700 12px var(--mono);color:var(--orange);letter-spacing:.1em}
+.princ h3{font-size:22px;margin:14px 0 8px}
+.princ p{margin:0;color:var(--muted);font-size:15px}
+
+/* licence + pricing */
+.split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,64px);align-items:start}
+.facts{display:grid;gap:22px;margin-top:28px}
+.facts div{border-left:3px solid var(--lime);padding-left:16px}
+.facts h3{font-size:19px;margin-bottom:4px}
+.facts p{margin:0;color:var(--muted);font-size:15px}
+.prices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.price{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:10px}
+.price.best{border-color:var(--lime);background:linear-gradient(180deg,var(--lime-soft),var(--panel) 60%)}
+.price .t{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.price.best .t{color:var(--lime)}
+.price .amt{font:600 46px/1 var(--display)}
+.price .amt small{font:500 14px var(--body);color:var(--muted);margin-left:6px}
+.price p{margin:0;color:var(--muted);font-size:14px}
+.price .btn{margin-top:auto;justify-content:center}
+.guarantee{margin-top:14px;font:500 13px var(--mono);color:var(--muted)}
+.guarantee b{color:var(--orange)}
+
+/* maker */
+.maker{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start;border-top:1px solid var(--line);padding-top:clamp(40px,6vw,64px)}
+.maker-logo{width:150px;max-width:100%;height:auto;display:block;margin-top:6px}width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font:700 26px var(--display);color:#121510;background:var(--lime);position:relative}
+.mono-badge::after{content:"";position:absolute;top:-4px;right:-2px;width:22px;height:22px;border-radius:50%;background:var(--orange);border:4px solid var(--bg)}
+.maker blockquote{margin:0;font:500 clamp(22px,2.6vw,32px)/1.25 var(--display);max-width:28em;text-wrap:balance}
+.maker p{color:var(--muted);max-width:42em}
+
+footer{border-top:1px solid var(--line);padding-block:28px;margin-top:40px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;color:var(--dim);font-size:13px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--fg)}
+footer nav{display:flex;gap:18px;flex-wrap:wrap}
+/* home footer: copyright and an empty end slot share the sides, so the contact stays centered */
+footer .wrap > span:first-child,footer .ft-end{flex:1 1 0}
+.contact{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.contact-lbl{font:700 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+footer .contact a{color:var(--fg);font-weight:600;user-select:all}
+
+@media (max-width:900px){
+  .hero .wrap,.split{grid-template-columns:minmax(0,1fr)}
+  .nav-links a:not(.nav-cl){display:none}
+}
+@media (max-width:560px){
+  .prices{grid-template-columns:minmax(0,1fr)}
+  .sec-head{grid-template-columns:minmax(0,1fr)}
+  .tb-grid{grid-template-columns:minmax(0,1fr)}
+  .tip{grid-template-columns:72px minmax(0,1fr);height:150px}.tip p{height:4.5em;-webkit-line-clamp:3}
+  .maker{grid-template-columns:minmax(0,1fr)}
+  .brand small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+.nav .wrap > .crumb:first-child{border-left:0;padding-left:0}
+/* Page-to-page: a quick cross-fade instead of a blank flash (Chromium, same-origin). */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.16s}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#modules">Modules</a>
+      <a href="#pricing">Pricing</a>
+      <a class="nav-cl" href="changelog.html">Changelog</a>
+    </nav>
+    <a class="btn btn-lime btn-sm" href="https://fenixanimator.gumroad.com/l/KeyflowTool" target="_blank" rel="noopener">Start your 30-day trial</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <img class="hero-logo" src="keyflow-logo.png" alt="KeyFlow logo">
+        <h1 style="margin-top:14px">The animator's toolbar <span class="l">for Maya.</span></h1>
+        <p class="lede">I built KeyFlow for the parts of the job that get in the&nbsp;way of animating.</p>
+        <p class="lede lede-2">+81&nbsp;tools in 14&nbsp;modules, in a toolbar you set up your&nbsp;way.</p>
+        <ul class="specs">
+          <li class="ver-pill"><a href="changelog.html" title="See what is new in 1.5.6">v1.5.6</a></li>
+          <li>Maya <b>2024 · 2026 · 2027</b></li>
+          <li class="os"><svg class="os-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="0" y="0" width="7.5" height="7.5"/><rect x="8.5" y="0" width="7.5" height="7.5"/><rect x="0" y="8.5" width="7.5" height="7.5"/><rect x="8.5" y="8.5" width="7.5" height="7.5"/></svg><b>Windows</b></li>
+          <li>Perpetual · <b>transferable</b></li>
+          <li>Works <b>offline</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="KeyFlow in numbers">
+    <div class="wrap stats-row">
+      <div class="has-plus"><b><small class="plus">+</small>81</b><span>Tools</span></div>
+      <div><b>14</b><span>Modules</span></div>
+      <div><b>3</b><span>Maya builds included</span></div>
+      <div><b>2</b><span>Activations per license</span></div>
+      <div><b class="o">$79</b><span>One time · yours forever</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="modules" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="count">14<small>Modules</small></div>
+        <div>
+          <h2>Every module in one place. Open one to see every tool.</h2>
+        </div>
+      </div>
+      <nav class="mindex" id="filters" aria-label="Modules"></nav>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="toolbar" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head solo">
+        <div>
+          <p class="eyebrow">Built around how you already work</p>
+          <h2 style="margin-top:10px">Your toolbar, your hotkeys, your rig left intact.</h2>
+        </div>
+      </div>
+      <div class="princ">
+        <div><span class="ic">BUILD</span><h3>You build the toolbar</h3><p>Drag in the tools your shot needs and leave out the rest. If you like a layout, save it as a preset and load it again whenever you want.</p></div>
+        <div><span class="ic">DOCK</span><h3>Dock it or let it float</h3><p>Put it above the Graph Editor or the Time Slider, aligned left, center or right, or float it anywhere. It reopens where you left it.</p></div>
+        <div><span class="ic">LEARN</span><h3>Every button explains itself</h3><p>Hovering over any tool displays a tooltip with its description, shortcut and a short demonstration clip.</p></div>
+        <div><span class="ic">KEYS</span><h3>Your hotkey set stays yours</h3><p>Works inside your current hotkey set, with conflict checks and automatic backups.</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sec" id="license" style="padding-top:0">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">License</p>
+        <h2 style="margin-top:10px;font-size:clamp(30px,4vw,52px)">Buy it once. Keep it. Pass it on.</h2>
+        <div class="facts">
+          <div><h3>Perpetual</h3><p>Activate once, online. After that KeyFlow needs no license server and no login. It runs on a machine that has never seen a network.</p></div>
+          <div><h3>Seats move</h3><p>A license is not welded to the buyer. Hand it to another animator, send the new machine code, and the file is reissued.</p></div>
+          <div><h3>Free updates, forever</h3><p>Once a day KeyFlow checks for a new version and tells you. Skip any version you like. Nothing about you or your machine is sent, and studios can switch the check off.</p></div>
+          <div><h3>Three Maya builds included</h3><p>Maya 2024, 2026 and 2027 on Windows.<br>One purchase covers all three.</p></div>
+        </div>
+      </div>
+      <div id="pricing">
+        <div class="prices">
+          <div class="price">
+            <span class="t">Trial</span>
+            <div class="amt">$0<small>30 days</small></div>
+            <p>Activate inside Maya. When you buy, the same install becomes your full license. Nothing to reinstall.</p>
+            <a class="btn btn-ghost btn-sm" href="https://fenixanimator.gumroad.com/l/KeyflowTool" target="_blank" rel="noopener">Start trial</a>
+          </div>
+          <div class="price best">
+            <span class="t">Individual</span>
+            <div class="amt">$79<small>one time</small></div>
+            <p>Two activations. Use them on your workstation and laptop, or give the second one to an animator friend.</p>
+            <a class="btn btn-lime btn-sm" href="https://fenixanimator.gumroad.com/l/KeyflowTool" target="_blank" rel="noopener">Buy KeyFlow</a>
+          </div>
+          <div class="price">
+            <span class="t">Studio · 10 machines</span>
+            <div class="amt">$499</div>
+            <p>Seats are transferable. When someone leaves, the seat stays with the team.</p>
+            <a class="btn btn-ghost btn-sm" href="https://fenixanimator.gumroad.com/l/KeyflowTool" target="_blank" rel="noopener">Get Studio 10</a>
+          </div>
+          <div class="price">
+            <span class="t">Studio · 30 machines</span>
+            <div class="amt">$999</div>
+            <p>Send the machine codes and get every license file back in one archive.</p>
+            <a class="btn btn-ghost btn-sm" href="https://fenixanimator.gumroad.com/l/KeyflowTool" target="_blank" rel="noopener">Get Studio 30</a>
+          </div>
+        </div>
+        <p class="guarantee"><b>●</b> 30-day money-back guarantee on every paid tier.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap maker">
+      <img class="maker-logo" src="keyflow-logo.png" alt="KeyFlow">
+      <div>
+        <p class="eyebrow">Made by an animator</p>
+        <blockquote style="margin-top:14px">I use KeyFlow every day on my own shots. Most of its tools started as a problem I kept running into.</blockquote>
+        <p>I'm Darwin Giordano, a senior character animator. When something's missing, I build it.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 KeyFlow</span>
+    <div class="contact">
+      <span class="contact-lbl">Contact</span>
+      <a id="kf-mail" href="mailto:keyflowtool@gmail.com">keyflowtool@gmail.com</a>
+    </div>
+    <span class="ft-end" aria-hidden="true"></span>
+  </div>
+</footer>
+
+<script>
+/* nav: the section on screen gets the orange pill */
+(() => {
+  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const mark = cur => links.forEach((a, i) => a.classList.toggle("on", i === cur));
+  const spy = () => {
+    const y = innerHeight * 0.4;
+    let cur = -1;
+    secs.forEach((el, i) => { if (el && el.getBoundingClientRect().top <= y) cur = i; });
+    if (cur >= 0 && secs[cur].getBoundingClientRect().bottom < y) cur = -1;
+    mark(cur);
+  };
+  // a click lights its pill at once and holds it while the page scrolls there
+  let hold = 0, timer = 0;
+  const release = ms => { clearTimeout(timer); timer = setTimeout(() => { hold = 0; spy(); }, ms); };
+  const pin = i => { hold = 1; mark(i); release(1200); };
+  links.forEach((a, i) => a.addEventListener("click", () => pin(i)));
+  addEventListener("scroll", () => { if (hold) release(200); else spy(); }, { passive: true });
+  addEventListener("scrollend", () => { if (hold) release(0); });
+  addEventListener("resize", () => { if (!hold) spy(); });
+  const fromHash = links.findIndex(a => a.getAttribute("href") === location.hash);
+  if (fromHash >= 0) pin(fromHash); else spy();
+  addEventListener("load", () => { if (fromHash >= 0) pin(fromHash); else if (!hold) spy(); });
+})();
+</script>
+<script>
+(() => {
+  // Every page opens at the top, unless the link points to a section (#...).
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const toTop = () => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+  toTop(); addEventListener("load", toTop); addEventListener("pageshow", toTop);
+  const YT = "https://www.youtube.com/@Keyflowtool";
+
+  // KeyFlow toolbar groups: real tool names, codes and descriptions.
+  const groups = [{"name": "BLEND", "color": "#2a4a2a", "border": "#3a6b3a", "tools": [["TW", "Tweener", "Set a breakdown between your previous and next poses."], ["WS", "Tweener World Space", "Set a breakdown in world space, so a moving parent doesn't drag the control along."], ["SR", "Smooth | Rough", "Soften your curve or roughen it."], ["PP", "Pull | Push", "Amp or deamp your pose against the keys around it."], ["EA", "Ease In | Out", "Ease your keys in or out toward a neighbor."], ["BN", "Blend to Neighbors", "Blend your pose toward the key on its left or right."], ["BD", "Blend to Default", "Blend your pose toward the rig's rest pose."], ["BF", "Blend to Frame", "Blend your pose toward the pose at Frame A or B."], ["BE", "Blend to Ease", "Tighten your spacing into a slow in or slow out."], ["BI", "Blend to Infinity", "Keep your motion going past the last key, or before the first, in the same direction."], ["FK", "Flip Keys", "Invert your keys around their average."], ["NW", "Noise Wave", "Add noise or a wave to your keys."]]}, {"name": "SCALE", "color": "#4a2e0e", "border": "#7a4a1a", "tools": [["SD", "Scale From Default", "Scale your keys up or down from the rig's default value."], ["SA", "Scale From Average", "Scale your keys from their average value."], ["SNL", "Scale From Neighbor Left", "Scale your keys away from or toward the key just before them, which stays fixed."], ["SNR", "Scale From Neighbor Right", "Scale your keys away from or toward the key just after them, which stays fixed."], ["SF", "Scale From Frame", "Scale your keys away from or toward the value at a frame you mark, which stays fixed."], ["CN", "Connect to Neighbors", "Connect your keys straight to their neighbors."]]}, {"name": "KEYS", "color": "#0a2a33", "border": "#1a5a6b", "tools": [["CK", "Copy / Paste Keys", "Copy keys and paste them at the playhead, on other objects or channels."], ["BK", "Bake on N", "Bake your animation with a key every N frames."], ["RA", "Reverse Animation", "Reverse your animation in time."], ["SSK", "Smart Snap Keys", "Snap keys on fractional frames to whole frames, keeping the curve shape."], ["RSC", "Remove Static / Redundant", "Clean up static channels and redundant keys."], ["SBK", "Simplify / Bake Keys", "Simplify or bake your curves."], ["EF", "Smart Euler Filter", "Remove rotation flips while every key keeps its pose."], ["FG", "Fix Gimbal", "Switch to the rotation order that best avoids gimbal lock, with the same pose."], ["NU", "Nudge Keys", "Nudge your keys left or right in time."], ["NUS", "Nudge Scene", "Nudge every key in the scene, keeping its overall timing."], ["MK", "Move Keys", "Move your keys in time."], ["AI", "Add / Remove Inbetween", "Add or remove frames between your keys, pushing the rest to make room."], ["SKT", "Share Key Times", "Give your selected curves the same key times."], ["KC", "Color Key", "Color your keys in the time slider."], ["SGO", "Smart Go (Frame / Key)", "Jump to the previous or next frame or key of just the channels you selected."], ["MAL", "Merge Anim Layers", "Merge your layers into one and keep your key timing, without a key on every frame."]]}, {"name": "TIMING", "color": "#0e2040", "border": "#1a3a6b", "tools": [["TO", "Time Offsetter", "Slide the motion earlier or later while every key stays on its frame."], ["TOS", "Time Offsetter Stagger", "Offset your selection's timing in a cascade."], ["GO", "Global Offset", "Edit a pose once and spread the change to the whole animation."], ["PL", "Perfect Loop", "Close your cycle with no jump or kink at the loop point. Same keys, new values."], ["OT", "On Twos", "Give your animation a stepped look, like 2D or Spider-Verse, while your smooth curves stay safe underneath."], ["FT", "Follow Through", "Real overlap on any chain: each control follows the one before a few frames late, so the motion ripples from the root to the tip."], ["DY", "Dynamics", "Physics-based secondary motion: hair, tails and ears swing, lag and settle after your animation, and twist like the real thing."]]}, {"name": "MIRROR", "color": "#2a0e40", "border": "#4a1a6b", "tools": [["MP", "Mirror Pose", "Mirror your pose to the other side of the rig."], ["MA", "Mirror Animation", "Mirror the full animation to the other side, curves included."]]}, {"name": "RESET", "color": "#401010", "border": "#6b2020", "tools": [["RS", "Reset All", "Reset your controls to their default pose."], ["RSP", "Reset Position", "Reset only the translation of your controls."], ["RSR", "Reset Rotation", "Reset only the rotation of your controls."], ["RSS", "Reset Scale", "Reset only the scale of your controls."]]}, {"name": "SELECT", "color": "#2e2a08", "border": "#6b6414", "tools": [["SC", "Select Rig Controls", "Select every animation control of the rig."], ["SO", "Select Opposite", "Select the controls on the other side."], ["SS", "Select Sets", "Pick from your saved selection sets."], ["TS", "Tumble Selection", "Tumble the camera around your selection."], ["SHA", "Select Hierarchy Animated", "Select every animated control under your selection."], ["SHS", "Select Hierarchy Static", "Select keyed nodes that never move."], ["DS", "Deselect Hierarchy Static", "Keep only what actually moves in your selection."], ["SK", "Select From Keys", "Select the objects that own the keys picked in the Graph Editor."], ["GF", "GE Channel Filter", "Show only the channels you're working on in the Graph Editor."], ["SEL", "Selection Display", "Show your selection as a floating list."]]}, {"name": "COPY", "color": "#3a2c0e", "border": "#7a5a1a", "tools": [["CA", "Copy Animation", "Copy your animation to paste on other objects, characters or sessions."], ["PA", "Paste Animation", "Paste copied animation at the playhead or at its original frames."], ["CP", "Copy Pose", "Store a pose to paste anywhere, even on another character."], ["PSP", "Paste Pose", "Paste a stored pose onto your selection."], ["CKY", "Copy / Paste Keys", "Copy keys and paste them at the playhead, on other objects or channels."]]}, {"name": "XFORM", "color": "#0e3a2c", "border": "#1a7a5a", "tools": [["XFCR", "Copy XForm Relationship", "Store how one control sits relative to another."], ["XFPR", "Paste XForm Relationship", "Put that relationship back on the current frame, on keys or across a range."], ["XFCW", "Copy XForm World Space", "Store where your selection is in world space."], ["XFPW", "Paste XForm World Space", "Put your selection back in that world position, on the current frame, on keys or across a range."], ["XF", "Local / World", "Switch a control between local and world space."], ["WL", "World Lock", "Lock a foot to the world during its contacts."]]}, {"name": "ALIGN", "color": "#3a1c22", "border": "#92565e", "tools": [["AL", "Align Objects", "Align your selection to the last selected object."], ["AO", "Axis Orient", "Orient the manipulator to an axis or to the camera."], ["MM", "Micro Manipulator", "Move, rotate and scale in tiny steps."]]}, {"name": "TEMP", "color": "#283b00", "border": "#6f9101", "tools": [["TP", "Temp Pivot", "Rotate or scale around a temporary pivot."], ["TIK", "Temp IK", "Pin the tip of an FK chain, pose it like IK, then bake back."], ["TC", "Temp Controls", "Animate through temporary controls: World, Parent or Aim."], ["IKFK", "IK / FK Switch", "Switch a limb between IK and FK with no pop."], ["ASW", "Space Switch", "Change what a control follows with no pop."]]}, {"name": "TRAIL", "color": "#2a3646", "border": "#6a90b8", "tools": [["MT", "MotionTrail", "Show an editable motion trail on your selection."]]}, {"name": "CAMERA", "color": "#201a3a", "border": "#4a3a8a", "tools": [["FC", "Follow Cam", "Keep the camera on your selection during playback."], ["PB", "Playblast Mode", "Clean up the viewport for playblasts in one click."], ["GV", "Toggle Geometry", "Show or hide the scene geometry."], ["PZ", "2D Pan/Zoom", "Pan and zoom the view without moving the camera, following a moving object."]]}, {"name": "HOTKEYS", "color": "#2e2008", "border": "#6a4e1a", "tools": [["HK", "Hotkeys", "Bind any KeyFlow tool to a key in your current hotkey set, plus extras that only live on hotkeys."]]}];
+  const SPRITE = {"cols": 10, "rows": 7, "codes": {"CA": 4, "SC": 43, "TP": 13, "TIK": 56, "SBK": 51, "TO": 57, "TOS": 58, "TC": 55, "IKFK": 19, "ASW": 54, "WL": 61, "MT": 23, "SSK": 53, "MAL": 20, "BK": 2, "RA": 42, "EF": 14, "FG": 15, "RSC": 37, "RRK": 36, "AI": 0, "MK": 24, "NU": 25, "NUS": 26, "CK": 5, "SKT": 49, "SGO": 52, "GO": 12, "MP": 21, "MA": 22, "RS": 38, "RSP": 39, "RSR": 40, "RSS": 41, "SO": 46, "SHA": 45, "SHS": 45, "DS": 10, "SK": 44, "SS": 47, "TS": 60, "SEL": 48, "GF": 18, "FC": 16, "PB": 35, "GV": 59, "PZ": 29, "HK": 50, "CP": 8, "PA": 30, "PSP": 32, "CKY": 6, "XF": 7, "XFCR": 7, "XFPR": 31, "XFCW": 9, "XFPW": 33, "AO": 28, "AL": 1, "PL": 34, "OT": 27, "FT": 17, "DY": 11, "KC": 3}};
+  const icoPos = code => { const i = SPRITE.codes[code]; if (i === undefined) return null;
+    return `${(i % SPRITE.cols) / (SPRITE.cols - 1) * 100}% ${Math.floor(i / SPRITE.cols) / (SPRITE.rows - 1) * 100}%`; };
+  // Module index: the 14 KeyFlow groups.
+  const modules = [
+    { f:"keys", g:"#3a6b3a", cat:"Keys & timing", big:"Blend & Tween", say:"Twelve drag sliders for “somewhere between these keys”.",
+      title:"Blend", desc:"Tween between keys in local or world space, blend toward neighbours, the default pose, a frame or an ease, and push past them when a breakdown needs to overshoot.", tools:["Tweener","Tweener World Space","Smooth | Rough","Pull | Push","Ease In | Out","Blend to Neighbors","Blend to Default","Blend to Frame","Blend to Ease","Blend to Infinity","Flip Keys","Noise Wave"] },
+    { f:"keys", g:"#7a4a1a", cat:"Keys & timing", big:"Scale", say:"Amplify a pose or calm it down from the anchor you choose.",
+      title:"Scale", desc:"Scale the selected keys around the rig's default, their average, the key on either side or a chosen frame, then connect them straight back into their neighbours.", tools:["Scale From Default","Scale From Average","Scale From Neighbor Left","Scale From Neighbor Right","Scale From Frame","Connect to Neighbors"] },
+    { f:"keys", g:"#1a5a6b", cat:"Keys & timing", big:"Keys", say:"Bake, snap, filter, nudge and colour keys without opening a menu.",
+      title:"Keys", desc:"Copy and paste keys, bake on N, reverse, snap fractional keys, clean static channels, fix Euler flips and gimbal, nudge and move keys, colour them and merge anim layers while keeping your timing.", tools:["Copy / Paste Keys","Bake on N","Reverse Animation","Smart Snap Keys","Remove Static / Redundant","Simplify / Bake Keys","Smart Euler Filter","Fix Gimbal","Nudge Keys","Nudge Scene","Move Keys","Add / Remove Inbetween","Share Key Times","Color Key","Smart Go (Frame / Key)","Merge Anim Layers"] },
+    { f:"keys", g:"#1a3a6b", cat:"Keys & timing", big:"Timing", say:"Offsets, perfect loops, twos and secondary motion.",
+      title:"Timing", desc:"Offset and stagger timing, spread one change across the whole take, close a cycle with no jump, preview on twos, and add follow-through or dynamics to tails, hair and ears.", tools:["Time Offsetter","Time Offsetter Stagger","Global Offset","Perfect Loop","On Twos","Follow Through","Dynamics"] },
+    { f:"pose", g:"#4a1a6b", cat:"Pose & space", big:"Mirror", say:"Mirror a pose or a whole cycle to the other side.",
+      title:"Mirror", desc:"Mirror the current pose or the full animation to the opposite side of the rig, calibrated from the rig itself instead of name prefixes.", tools:["Mirror Pose","Mirror Animation"] },
+    { f:"pose", g:"#7a5a1a", cat:"Pose & space", big:"Copy & Paste", say:"Move poses and animation between controls and characters.",
+      title:"Copy", desc:"Copy and paste animation, poses and keys, wholesale or only on the channels you pick.", tools:["Copy Animation","Paste Animation","Copy Pose","Paste Pose","Copy / Paste Keys"] },
+    { f:"rig", g:"#1a7a5a", cat:"Rig controls", big:"XForm & World", say:"Kill foot slide after a cycle moves and keep the bounce.",
+      title:"XForm", desc:"Copy and paste transforms by relationship or in world space, switch local and world, and lock a control in world space to remove sliding.", tools:["Copy XForm Relationship","Paste XForm Relationship","Copy XForm World Space","Paste XForm World Space","Local / World","World Lock"] },
+    { f:"pose", g:"#92565e", cat:"Pose & space", big:"Align", say:"Snap one control to another and fix its axes.",
+      title:"Align", desc:"Align objects to each other, orient their axes, and make tiny tweaks with a much finer manipulator.", tools:["Align Objects","Axis Orient","Micro Manipulator"] },
+    { f:"rig", g:"#6f9101", cat:"Rig controls", big:"Temp Controls", say:"Pin a fingertip, animate, bake back. The rig stays clean.",
+      title:"Temp", desc:"Temporary pivots, IK chains and controls to animate through, plus IK/FK and space switching that match the pose so nothing pops.", tools:["Temp Pivot","Temp IK","Temp Controls","IK / FK Switch","Space Switch"] },
+    { f:"pose", g:"#6b2020", cat:"Pose & space", big:"Reset", say:"Back to the rig's defaults, all at once or per channel.",
+      title:"Reset", desc:"Reset everything, or only position, rotation or scale, back to the rig's default values.", tools:["Reset All","Reset Position","Reset Rotation","Reset Scale"] },
+    { f:"flow", g:"#6b6414", cat:"Workflow", big:"Select", say:"Rig controls, opposite side, sets and only what is animated.",
+      title:"Select", desc:"Select rig controls, the opposite side or saved sets, tumble around the selection, pick animated or static hierarchy, select from keys and filter Graph Editor channels.", tools:["Select Rig Controls","Select Opposite","Select Sets","Tumble Selection","Select Hierarchy Animated","Select Hierarchy Static","Deselect Hierarchy Static","Select From Keys","GE Channel Filter","Selection Display"] },
+    { f:"flow", g:"#6a90b8", cat:"Workflow", big:"Motion Trail", say:"Read the arc and spacing of any control.",
+      title:"Trail", desc:"Draw a motion trail on the controls you are working on to read arcs and spacing while you animate.", tools:["MotionTrail"] },
+    { f:"flow", g:"#4a3a8a", cat:"Workflow", big:"Camera", say:"Follow the character without leaving the shot.",
+      title:"Camera", desc:"Follow cam, playblast mode, geometry toggle and 2D pan and zoom: keep the character framed and the viewport clean while you animate.", tools:["Follow Cam","Playblast Mode","Toggle Geometry","2D Pan/Zoom"] },
+    { f:"flow", g:"#6a4e1a", cat:"Workflow", big:"Hotkeys", say:"Your hotkey set, not ours.",
+      title:"Hotkeys", desc:"Bind any KeyFlow tool to a key. Bindings go into the hotkey set you already use.", tools:["Hotkeys"] }
+  ];
+  const order = ["Blend","Scale","Keys","Timing","Mirror","Reset","Select","Copy","XForm","Align","Temp","Trail","Camera","Hotkeys"];
+  modules.sort((a, b) => order.indexOf(a.title) - order.indexOf(b.title));
+  const filters = document.getElementById("filters");
+  // Flat line icons for the module index (24px grid, drawn for this site).
+  const MI = {
+    Blend:  '<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/>',
+    Scale:  '<path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7"/>',
+    Keys:   '<path d="M12 3.5l8.5 8.5-8.5 8.5L3.5 12z"/>',
+    Timing: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    Mirror: '<path d="M12 3v18" stroke-dasharray="2 2.5"/><path d="M9 7l-5 5 5 5zM15 7l5 5-5 5z"/>',
+    Reset:  '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 3.5v4h4"/>',
+    Select: '<rect x="3.5" y="3.5" width="13" height="13" rx="2" stroke-dasharray="3 2.5"/><path d="M13 13l7.5 2.8-3.2 1.1-1.1 3.2z"/>',
+    Copy:   '<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
+    XForm:  '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c3 3 3 14 0 17M12 3.5c-3 3-3 14 0 17"/>',
+    Align:  '<path d="M4.5 3.5v17"/><rect x="8" y="6" width="11.5" height="4" rx="1"/><rect x="8" y="14" width="7" height="4" rx="1"/>',
+    Temp:   '<circle cx="12" cy="12" r="3"/><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/>',
+    Trail:  '<path d="M3.5 19c3.5-9 9.5-12.5 14-12.8" stroke-dasharray="1.5 3"/><circle cx="19.5" cy="6" r="2"/>',
+    Camera: '<rect x="3.5" y="7" width="12" height="10" rx="2"/><path d="M15.5 10.5l5-2.5v8l-5-2.5z"/>',
+    Hotkeys:'<rect x="3.5" y="6" width="17" height="12" rx="2"/><path d="M7.5 10h.01M11 10h2M16.5 10h.01M7.5 14h.01M16.5 14h.01M10 14.5h4"/>'
+  };
+  modules.forEach(m => {
+    const n = m.tools.length;
+    const a = document.createElement("a");
+    a.className = "mi-cell"; a.href = `module-${m.title.toLowerCase()}.html`;
+    a.setAttribute("aria-label", `${m.title}, ${n} ${n === 1 ? "tool" : "tools"}`);
+    a.innerHTML = `<svg class="mi-ico" viewBox="0 0 24 24" aria-hidden="true">${MI[m.title] || ""}</svg><span class="mi-name">${m.title}</span>`;
+    filters.appendChild(a);
+  });
+  const grid = document.getElementById("grid");
+  const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hover clip on a card's top area. If the file is missing, the card keeps its normal look.
+  function attachClip(el, src) {
+    const prev = el.querySelector(".prev");
+    let vid = null;
+    el.addEventListener("mouseenter", () => {
+      if (el.dataset.nomedia || reduced()) return;
+      if (!vid) {
+        vid = document.createElement("video");
+        vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = "none";
+        vid.setAttribute("aria-hidden", "true");
+        vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on"); });
+        vid.src = src;
+        prev.appendChild(vid);
+      }
+      vid.currentTime = 0;
+      vid.play().then(() => { if (el.matches(":hover")) el.classList.add("media-on"); }).catch(() => {});
+    });
+    el.addEventListener("mouseleave", () => {
+      el.classList.remove("media-on");
+      if (vid) setTimeout(() => { if (!el.classList.contains("media-on")) vid.pause(); }, 260);
+    });
+  }
+  const track = '<div class="track"><i class="k" style="left:0"></i><i class="k" style="left:50%"></i><i class="k" style="right:0"></i><span class="dot"></span></div>';
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
+  const swap = () => { grid.classList.remove("swap"); void grid.offsetWidth; grid.classList.add("swap"); };
+
+  function showModules() {
+    grid.innerHTML = "";
+    modules.forEach((m, i) => {
+      const el = document.createElement("article");
+      el.className = m.clean ? "card" : "card text-front"; el.dataset.f = m.title; el.tabIndex = 0;
+      el.style.setProperty("--g", m.g);
+      el.setAttribute("aria-label", `${m.title}: open the module page`);
+      el.innerHTML = `
+        <div class="prev" aria-hidden="true">
+          <div class="big">${m.big}</div>
+          <span class="hint">HOVER</span>
+        </div>
+        <div class="info">
+          <div class="row"><span class="cat">${m.tools.length} ${m.tools.length === 1 ? "tool" : "tools"}</span></div>
+          <h3>${m.title}</h3>
+          <p>${m.desc}</p>
+          <div class="tools">${m.tools.map(x => `<span>${x}</span>`).join("")}</div>
+        </div>`;
+      attachClip(el, `media/${m.title.toLowerCase()}.mp4`);
+      el.addEventListener("click", e => {
+        if (e.target.closest("a")) return;
+        const chip = e.target.closest(".tools span");
+        showModule(i, chip ? chip.textContent : null);
+      });
+      el.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target === el) { e.preventDefault(); showModule(i); } });
+      grid.appendChild(el);
+    });
+    swap();
+  }
+
+  const pageOf = m => `module-${m.title.toLowerCase()}.html`;
+  function showModule(i, focusTool) {
+    const m = modules[i];
+    let hash = "";
+    if (focusTool) {
+      const g = groups.find(x => x.name.toLowerCase() === m.title.toLowerCase());
+      const tool = g && g.tools.find(x => x[1] === focusTool);
+      if (tool) { location.href = `tool-${tool[0].toLowerCase()}.html`; return; }
+    }
+    location.href = pageOf(m) + hash;
+  }
+
+  showModules();
+
+})();
+</script>

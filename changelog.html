@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KeyFlow Changelog</title>
+<meta name="description" content="Every KeyFlow release: what is new, what improved and what was fixed.">
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* Layout: sticky version index on the left, release entries on the right; one column on phones. */
+:root{
+  --bg:#101210; --panel:#171a17; --panel-2:#1e221e; --line:#2a2f29; --line-2:#383e37;
+  --fg:#f2f4ee; --muted:#9ca295; --dim:#6d7368;
+  --lime:#a3cb3c; --lime-soft:rgba(163,203,60,.12); --orange:#fe791c; --orange-soft:rgba(254,121,28,.13);
+  --blue:#7fa6d6; --blue-soft:rgba(127,166,214,.13);
+  --display:"Fredoka","Varela Round","Nunito",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+  --r:14px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;text-wrap:balance}
+
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(16,18,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:16px;height:64px}
+.nav img{height:24px;width:auto;display:block}
+.nav .crumb{font:700 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-left:1px solid var(--line-2);padding-left:14px}
+.back{margin-left:auto;text-decoration:none;font-weight:600;font-size:14px;color:var(--muted);padding:8px 14px;border:1px solid var(--line-2);border-radius:999px}
+.back:hover{color:var(--fg);border-color:var(--muted)}
+.nav .wrap{gap:20px;max-width:1240px}
+.nav-links{display:flex;gap:4px;margin-left:auto}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:500;font-size:14px;padding:8px 16px;border-radius:999px}
+.nav-links a:hover{color:var(--fg);background:var(--panel-2)}
+.nav-links a.on{background:var(--orange);color:#121510}
+.nav-links a.on:hover{background:#ff8f3d;color:#121510}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font:600 15px var(--body);padding:12px 20px;border-radius:999px;border:1px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-lime{background:var(--lime);color:#121510}
+.btn-lime:hover{background:#b4d94e}
+.btn-sm{padding:8px 16px;font-size:14px}
+@media (max-width:900px){.nav-links a:not(.nav-cl){display:none}}
+
+.head{padding-block:clamp(40px,7vw,80px) clamp(28px,4vw,40px)}
+.eyebrow{font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.head h1{font-size:clamp(44px,7vw,84px);margin-top:14px}
+.head h1 span{color:var(--lime)}
+.head p{color:var(--muted);max-width:36em;margin:18px 0 0;font-size:18px}
+.head-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line-2);color:var(--fg);text-decoration:none}
+.pill:hover{border-color:var(--muted)}
+.pill.cur{background:var(--lime);border-color:var(--lime);color:#121510}
+
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.d-new{background:var(--lime)} .d-imp{background:var(--blue)} .d-fix{background:var(--orange)}
+
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(24px,5vw,64px);padding-block:36px 80px;border-top:1px solid var(--line)}
+.index{position:sticky;top:96px;align-self:start;max-height:calc(100vh - 116px);overflow:auto}
+.index h2{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 10px}
+.index ol{list-style:none;margin:0 0 22px;padding:0}
+.index a{display:flex;justify-content:space-between;gap:10px;text-decoration:none;padding:6px 10px;margin:1px 0;border-radius:8px;font:600 14px var(--body);color:var(--muted);transition:background .15s,color .15s}
+.index a small{font:500 11px var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+.index a:hover{color:var(--fg);background:rgba(255,255,255,.04)}
+/* The release in view: a soft lime rectangle with rounded corners. */
+.index a.on{color:var(--fg);background:rgba(163,203,60,.14);box-shadow:inset 0 0 0 1px rgba(163,203,60,.22)}
+
+.rel{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;padding-block:34px;border-bottom:1px solid var(--line);scroll-margin-top:96px}
+.rel:first-child{padding-top:0}
+.meta{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.ver{font:600 30px/1 var(--display);text-decoration:none}
+.ver:hover{color:var(--lime)}
+/* The latest release always shows its number in lime, in the list and in the index. */
+.rel.is-latest .ver,.index a.is-latest{color:var(--lime)}
+.date{font:500 12.5px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.body h2{font-size:clamp(22px,2.6vw,28px);margin-bottom:16px}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.items li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:14px;align-items:baseline}
+.tag{justify-self:start;font:700 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:6px;padding:3px 8px}
+.t-new{color:var(--lime);background:var(--lime-soft)}
+.t-imp{color:var(--blue);background:var(--blue-soft)}
+.t-fix{color:var(--orange);background:var(--orange-soft)}
+.items p{margin:0;color:#d6dacf;font-size:15.5px;line-height:1.55}
+.items b{color:var(--fg);font-weight:600}
+.items li[data-k="n"] b,.items li[data-k="-"] b{color:var(--lime)}
+.items li[data-k="i"] b{color:var(--blue)}
+.items li[data-k="f"] b{color:var(--orange)}
+.items li[data-k="-"]{grid-template-columns:minmax(0,1fr)}
+.rel .body{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+
+footer{border-top:1px solid var(--line);padding-block:26px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--fg)}
+footer .wrap{align-items:center}
+.contact{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.contact-lbl{font:700 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+footer .contact a{color:var(--fg);font-weight:600;user-select:all}
+
+@media (max-width:860px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .index{display:none}
+  .rel{grid-template-columns:minmax(0,1fr);gap:14px}
+  .meta{flex-direction:row;align-items:center;flex-wrap:wrap;gap:12px}
+}
+@media (max-width:520px){
+  .items li{grid-template-columns:minmax(0,1fr);gap:6px}
+  .nav .crumb{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.nav .wrap > .crumb:first-child{border-left:0;padding-left:0}
+/* Page-to-page: a quick cross-fade instead of a blank flash (Chromium, same-origin). */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.16s}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <nav class="nav-links" aria-label="Sections">
+      <a href="index.html#modules">Modules</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a class="nav-cl on" href="changelog.html" aria-current="page">Changelog</a>
+    </nav>
+    <a class="btn btn-lime btn-sm" href="https://fenixanimator.gumroad.com/l/KeyflowTool" target="_blank" rel="noopener">Start your 30-day trial</a>
+  </div>
+</header>
+
+<main>
+  <section class="head">
+    <div class="wrap">
+      <p class="eyebrow">Release notes</p>
+      <h1>What's new in <span>KeyFlow</span></h1>
+      <p>Updates are free, and each one installs on top of the version you have.</p>
+      <div class="head-row">
+        <a class="pill cur" id="latest-pill" href="#v1.5.6">Latest: 1.5.6</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="layout">
+      <nav class="index" aria-label="Versions" id="index"></nav>
+      <div id="releases"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 KeyFlow</span>
+    <div class="contact">
+      <span class="contact-lbl">Contact</span>
+      <a id="kf-mail" href="mailto:keyflowtool@gmail.com">keyflowtool@gmail.com</a>
+    </div>
+    <a href="index.html">keyflow · home</a>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // Every page opens at the top, unless the link points to a section (#...).
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const toTop = () => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+  toTop(); addEventListener("load", toTop); addEventListener("pageshow", toTop);
+  // n = new, i = improved, f = fixed
+  const R = [
+    { v:"1.5.6", d:"2026-10-16", t:"Clearer shared seats", c:[
+      ["i","The License window shows clearly which computer holds each seat."]]},
+    { v:"1.5.5", d:"2026-10-15", t:"Simpler licensing", big:true, c:[
+      ["n","<b>A simpler License window.</b> Start a free trial, activate your purchase, or share your second seat in a few clicks."],
+      ["i","Dynamics is faster on rigs with constraint chains."]]},
+    { v:"1.5.4", d:"2026-10-14", t:"Faster Follow Through and Dynamics", big:true, c:[
+      ["n","<b>Micro Manipulator.</b> The usual manipulator with a much finer touch, for tiny tweaks on faces and fingers."],
+      ["i","Follow Through and Dynamics are much quicker on dense production rigs."],
+      ["i","Follow Through list: click a chain to select it, press P to compare before and after, and ✕ to remove it."],
+      ["i","Selection Sets are faster and sturdier."],
+      ["f","Assorted fixes."]]},
+    { v:"1.5.3", d:"2026-10-10", t:"On Twos with animation layers", big:true, c:[
+      ["n","<b>On Twos works with animation layers.</b> Your base and every layer go on twos together, without creating or merging any layer."],
+      ["n","<b>Bake to New Layer.</b> Right-click BAKE to keep the stepped result on its own layer. Your animation stays untouched."],
+      ["i","Color Key in the Graph Editor turns on and off faster."],
+      ["i","Dragging a key no longer slows Maya down while Color Key is on."],
+      ["i","Switching attributes in the Graph Editor updates the colors right away."]]},
+    { v:"1.5.2", d:"2026-10-10", t:"On Twos and Color Key", big:true, c:[
+      ["n","<b>On Twos.</b> See your animation on twos without losing your curves. It picks the rhythm from how things move on screen, in its own window."],
+      ["n","<b>Color Key.</b> Paint keys in the time slider with six colors for keys, breakdowns, contacts and more. Show or hide each color, and see them in the Graph Editor."],
+      ["n","<b>Aim Locator</b> in Temp Pivot, with one-click Aim To Last."],
+      ["n","Temp Pivot bakes on 2s, 3s or 4s from a right-click on Bake."],
+      ["i","Temp Pivot remembers the last baked pivot, resizes live and can reset its rotation to world."],
+      ["i","IK/FK Switch works on more rigs, including quadruped hind legs and mirrored rigs."],
+      ["i","Selection Sets: bind groups to characters, keep two characters in one namespace apart, and export every group at once."],
+      ["f","Editing tangents on a Motion Trail no longer leaves spikes."],
+      ["f","Baking Temp Pivot or Aim no longer adds an extra turn."],
+      ["f","Opening another file with Graph Editor colors on no longer crashes Maya."]]},
+    { v:"1.5", d:"2026-10-06", t:"Dynamics", big:true, c:[
+      ["n","<b>Dynamics.</b> Secondary motion for hair, tails, ears and straps. Each chain swings, lags and settles after your animation and collides with the body. Each chain gets its own layer, so your keys are never touched. Works with several characters and with loops."],
+      ["i","Perfect Loop › Normalize Foot Plants pins planted feet in place, now also in walks that travel."],
+      ["i","Results are reported in your scene units, centimeters or feet."],
+      ["i","World Path and World Lock follow the tip of the foot when it rolls."],
+      ["i","Focus returns to the panel you were working in."]]},
+    { v:"1.2.17", d:"2026-10-03", t:"Dockable toolbar", c:[
+      ["n","<b>Dock the toolbar</b> above the Graph Editor or the Time Slider (+ › Dock). It reopens where you left it."],
+      ["n","Dock › Below Shelf, a third place for the toolbar."],
+      ["i","KeyFlow checks once a day for a new version."],
+      ["f","Scale From Default only changes curves that have selected keys."]]},
+    { v:"1.2.14", d:"2026-10-01", t:"Follow Through", c:[
+      ["n","<b>Follow Through.</b> A chain trails behind its parent, segment by segment, for natural overlap."]]},
+    { v:"1.2.10", d:"2026-09-27", t:"Paths and Perfect Loop", big:true, c:[
+      ["n","<b>Path tools in World Lock.</b> Draw a route, turn it, smooth it and walk over terrain."],
+      ["n","<b>Cycle Along Path.</b> An in-place walk or run cycle follows any curve, even a circle."],
+      ["n","<b>Perfect Loop.</b> Closes a cycle with no pop and removes small jitter."]]},
+    { v:"1.2", d:"2026-09-12", t:"Mirror rebuilt", big:true, c:[
+      ["i","<b>Mirror</b> measures the rig instead of guessing from control names."],
+      ["i","KeyFlow leaves your hotkey set alone and asks before replacing a shortcut you already use."],
+      ["n","<b>Uninstall</b> KeyFlow from the KeyFlow menu."]]},
+    { v:"1.1", d:"2026-09-07", t:"Selection Sets", c:[
+      ["i","Create a set with right-click, duplicate sets, and update a set to the current selection."],
+      ["n","<b>Select Hierarchy Static</b> finds keys that never actually move."],
+      ["i","Double-click a group name to rename it, or anywhere else on it to set its color."],
+      ["i","Deselect Hierarchy Static walks the whole hierarchy from the root in one click."]]},
+    { v:"1.0", d:"2026-09-02", t:"First release", big:true, c:[
+      ["-","<b>70+ tools</b> for sliders, keys and timing, posing and mirror, selection, transforms and spaces, temporary rigs, cameras and motion trails."],
+      ["-","A floating toolbar you build yourself, with drag-to-reorder, animated previews on hover and a full hotkey system."],
+      ["-","Maya 2024 and 2026, a 30-day trial and offline licensing."]]}
+  ];
+  // Inside each release: New, then Improved, then Fixed.
+  const ORDER = { "-":0, n:1, i:2, f:3 };
+  const TYPES = { n:["New","t-new","d-new"], i:["Improved","t-imp","d-imp"], f:["Fixed","t-fix","d-fix"], "-":["","t-none",""] };
+  const fmt = iso => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" });
+  const id = v => "v" + v;
+
+  // The header pill always points at the newest release (first in R).
+  const pill = document.getElementById("latest-pill");
+  if (pill && R[0]) { pill.textContent = "Latest: " + R[0].v; pill.href = "#" + id(R[0].v); }
+
+  // Releases.
+  const list = document.getElementById("releases");
+  R.forEach((r, i) => {
+    const el = document.createElement("article");
+    el.className = "rel" + (r.big ? " big" : "") + (i === 0 ? " is-latest" : ""); el.id = id(r.v);
+    el.innerHTML = `
+      <div class="meta">
+        <a class="ver" href="#${id(r.v)}">${r.v}</a>
+        <time class="date" datetime="${r.d}">${fmt(r.d)}</time>
+      </div>
+      <div class="body">
+        <h2>${r.t}</h2>
+        <ul class="items">${r.c.slice().sort((a, b) => ORDER[a[0]] - ORDER[b[0]]).map(([k, txt]) => `<li data-k="${k}">${TYPES[k][0] ? `<span class="tag ${TYPES[k][1]}">${TYPES[k][0]}</span>` : ""}<p>${txt}</p></li>`).join("")}</ul>
+      </div>`;
+    list.appendChild(el);
+  });
+
+  // Version index, grouped by release line.
+  const index = document.getElementById("index");
+  const lines = {};
+  R.forEach(r => { const k = r.v.split(".").slice(0, 2).join("."); (lines[k] = lines[k] || []).push(r); });
+  Object.entries(lines).forEach(([line, rs]) => {
+    const h = document.createElement("h2"); h.textContent = "KeyFlow " + line;
+    const ol = document.createElement("ol");
+    rs.forEach(r => { ol.insertAdjacentHTML("beforeend", `<li><a href="#${id(r.v)}" data-v="${r.v}"${r === R[0] ? ' class="is-latest"' : ""}>${r.v}<small>${fmt(r.d).replace(/, \d{4}$/, "")}</small></a></li>`); });
+    index.append(h, ol);
+  });
+
+  // Highlight the version in view: the last release whose top has reached the line under the nav
+  // (releases jump to 96px, see scroll-margin-top), so short releases never steal the highlight.
+  const links = [...index.querySelectorAll("a")];
+  const rels = [...list.querySelectorAll(".rel")];
+  let raf = 0, hold = 0;
+  const mark = id => links.forEach(a => a.classList.toggle("on", "v" + a.dataset.v === id));
+  const pick = () => {
+    raf = 0;
+    if (Date.now() < hold) return;               // a version was just picked from the index
+    let cur = rels[0];
+    for (const r of rels) { if (r.getBoundingClientRect().top <= 110) cur = r; else break; }
+    // At the very bottom the last releases can't reach the top, so the last one wins.
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) cur = rels[rels.length - 1];
+    if (cur) mark(cur.id);
+  };
+  addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(pick); }, { passive: true });
+  addEventListener("hashchange", () => {
+    if (document.getElementById(location.hash.slice(1))) { mark(location.hash.slice(1)); hold = Date.now() + 300; }
+  });
+  pick();
+})();
+</script>
+</body>
+</html>
