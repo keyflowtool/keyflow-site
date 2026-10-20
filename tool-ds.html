@@ -387,7 +387,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Keep only what actually moves in your selection.</p>
+<p>Keep only what actually moves under your selection.</p>
+<ul>
+<li><b>Down the hierarchy:</b> it goes through your selection and everything below it.</li>
+<li><b>Moves for real:</b> nodes without keys, or with keys that never change, are dropped.</li>
+</ul>
+<p><b>Good for:</b> opening the Graph Editor with only the curves that matter.</p>
       </div>
     </div>
   </section>
