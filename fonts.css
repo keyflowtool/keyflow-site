@@ -124,5 +124,5 @@ footer .wrap:has(.ft-end) > span:first-child{flex:1 1 0}
 .pager .hm-home{justify-content:center;min-height:64px}
 .pager:has(.hm-home) .hm.hm-home{min-width:0;width:96px;align-self:center}
 .pager .hm-house{display:grid;place-items:center}
-.pager .hm-house svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pager .hm-house svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:640px){.pager:has(.hm-home) .hm{align-self:stretch}}
