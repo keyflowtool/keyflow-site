@@ -78,3 +78,23 @@
 /* Every page always shows the scrollbar track, so short and long pages line up and nothing slides sideways
    when you move between them. */
 html{overflow-y:scroll}
+
+/* Phone menu (mobile-nav.js): under 900 px the top links collapse into a ☰ button with a drop-down panel. */
+.mnav-btn,.mnav-panel{display:none}
+@media (max-width:900px){
+  .has-mnav .nav-links{display:none!important}
+  .has-mnav .nav .wrap>.btn{margin-left:auto}
+  .mnav-btn{display:grid;place-items:center;flex:none;width:40px;height:40px;margin-left:-6px;padding:0;border:1px solid var(--line-2,#383e37);border-radius:999px;background:transparent;color:var(--fg,#f2f4ee);cursor:pointer}
+  .mnav-btn:hover{border-color:var(--muted,#9ca295)}
+  .mnav-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+  .mnav-btn path{transition:transform .2s,opacity .2s;transform-box:view-box;transform-origin:12px 12px}
+  .mnav-open .mnav-btn .l1{transform:translateY(5px) rotate(45deg)}
+  .mnav-open .mnav-btn .l2{opacity:0}
+  .mnav-open .mnav-btn .l3{transform:translateY(-5px) rotate(-45deg)}
+  .mnav-panel:not([hidden]){display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;padding:8px clamp(16px,4vw,40px) 16px;background:#101210;border-bottom:1px solid var(--line,#2a2f29);box-shadow:0 18px 30px rgba(0,0,0,.45)}
+  .mnav-panel a{display:flex;align-items:center;justify-content:space-between;padding:14px 4px;border-bottom:1px solid var(--line,#2a2f29);color:var(--fg,#f2f4ee);text-decoration:none;font:600 17px var(--body,"Figtree",system-ui,sans-serif)}
+  .mnav-panel a:last-child{border-bottom:0}
+  .mnav-panel a.on{color:var(--orange,#fe791c)}
+  .mnav-panel a:hover{color:var(--lime,#a3cb3c)}
+  .mnav-ext{color:var(--muted,#9ca295);font-size:15px}
+}
