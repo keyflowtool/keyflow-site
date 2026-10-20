@@ -396,8 +396,16 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Paste copied animation at the playhead or at its original frames.</p>
-<p><b>Tip:</b> right-click to Replace, Insert or Mirror.</p>
+<p>Paste the copied animation onto your selection.</p>
+<ul>
+<li><b>Replace:</b> overwrites the range it lands on. Keys outside it stay as they are.</li>
+<li><b>Insert:</b> pushes the later keys forward to make room. Nothing is lost.</li>
+<li><b>Mirror:</b> pastes onto the opposite side, using the character's Snapshot.</li>
+<li><b>Where it lands:</b> at the playhead, or at the original frames.</li>
+<li><b>Matching:</b> by control name, even in another namespace. If names don't match, in selection order.</li>
+<li><b>One undo:</b> a single Ctrl+Z takes it all back.</li>
+</ul>
+<p><b>Good for:</b> stacking takes, sliding a clip into a new spot, and copying one side's animation to the other.</p>
       </div>
     </div>
   </section>

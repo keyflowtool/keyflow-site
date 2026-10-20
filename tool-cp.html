@@ -351,6 +351,17 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
 /* Page-to-page: a quick cross-fade instead of a blank flash (Chromium, same-origin). */
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.16s}
+/* How to use it: one card per shortcut, side by side. A drawn mouse marks the button in lime;
+   slider drags get a slider, keyboard keys a key cap. */
+.keys-tiles{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch}
+.kt{flex:0 1 auto;max-width:100%;display:flex;gap:14px;align-items:center;padding:14px 20px 14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.kt-txt b{display:block;font:700 12px var(--mono);letter-spacing:.06em;color:var(--lime);text-transform:uppercase}
+.kt-txt span{display:block;color:#d6dacf;font-size:15px;line-height:1.35;margin-top:2px}
+.kt-mouse{flex:none;width:30px;height:42px}
+.kt-mouse .o{fill:none;stroke:#6d7368;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.kt-mouse .b{fill:#2a2f29}
+.kt-mouse .b.on{fill:var(--lime)}
+.kt-key{flex:none;min-width:42px;height:42px;display:grid;place-items:center;padding:0 8px;border-radius:9px;background:var(--panel-2);border:1px solid var(--line-2);border-bottom-width:3px;font:700 11px var(--mono);color:var(--lime);letter-spacing:.04em;text-align:center}
 </style>
 </head>
 <body>
@@ -385,12 +396,27 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Store a pose to paste anywhere, even on another character.</p>
-<p><b>Tip:</b> highlight channels to copy only those.</p>
+<p>Store the pose on your selection, on the current frame, to paste it anywhere.</p>
+<ul>
+<li><b>Only some channels:</b> highlight channels in the Channel Box to copy only those.</li>
+<li><b>Any scene:</b> the pose is kept on your computer, so you can paste it in another scene or Maya session.</li>
+<li><b>Any character:</b> it pastes by control name, even in another namespace.</li>
+</ul>
+<p><b>Good for:</b> saving a key pose, matching a pose across shots, and sharing a hand shape between characters.</p>
       </div>
     </div>
   </section>
 
+  <section class="tsec">
+    <div class="wrap">
+      <h2>How to use it</h2>
+      <div class="keys-tiles">
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Copy pose</span></div></div>
+          <div class="kt"><span class="kt-key">CTRL</span><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Ctrl + left click</b><span>Paste pose</span></div></div>
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Choose Copy or Paste</span></div></div>
+      </div>
+    </div>
+  </section>
   <section class="tsec" id="gallery-sec" hidden>
     <div class="wrap">
       <h2>In action</h2>
