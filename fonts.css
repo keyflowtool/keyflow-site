@@ -118,9 +118,10 @@ footer .ft-end{flex:1 1 0}
 @media (max-width:640px){footer .ft-end{display:none}}
 footer .wrap:has(.ft-end) > span:first-child{flex:1 1 0}
 
-/* Tool pages: under "Back to <Module>", a second card of the same style, "Back to" + a house, goes home. */
+/* Tool pages: under "Back to <Module>", a second card of the same style, just a house icon, goes home. */
 .pager:has(.hm-home){flex-direction:column;align-items:center}
 .pager:has(.hm-home) .hm{flex:none;order:0;min-width:220px}
-.pager .hm-house{display:grid;place-items:center;height:23px}
-.pager .hm-house svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.pager .hm-home{justify-content:center;min-height:64px}
+.pager .hm-house{display:grid;place-items:center}
+.pager .hm-house svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:640px){.pager:has(.hm-home) .hm{align-self:stretch}}
