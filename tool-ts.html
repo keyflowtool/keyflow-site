@@ -310,6 +310,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .thero h1{font:700 min(clamp(40px,5.4vw,72px),9.5cqi)/.92 var(--display);text-transform:uppercase;margin:16px 0 0;overflow-wrap:anywhere;text-wrap:balance;letter-spacing:.02em;font-kerning:none}
 .thero h1 em{font-style:normal}
 .thero .lede{margin:20px 0 0;color:var(--fg);max-width:32em}
+/* Text starts at the same height on every tool page (centering made it move with the lede's length). */
+@media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
