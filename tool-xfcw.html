@@ -397,6 +397,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>What it does</h2>
       <div class="prose">
 <p>Store where your selection is in world space.</p>
+<ul>
+<li><b>Any number of controls:</b> each one keeps its own world position.</li>
+<li><b>Paste from here:</b> Ctrl + click pastes it from the same button.</li>
+<li><b>Any scene:</b> the copy is kept on your computer, and it finds the rig in another namespace.</li>
+</ul>
+<p><b>Good for:</b> holding a foot or a hand in place while the rest of the body changes.</p>
       </div>
     </div>
   </section>
@@ -405,6 +411,8 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>How to use it</h2>
       <div class="keys-tiles">
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Copy world space</span></div></div>
+          <div class="kt"><span class="kt-key">CTRL</span><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Ctrl + left click</b><span>Paste world space</span></div></div>
           <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Paste mode: Current Frame, On Keys, Bake Range</span></div></div>
       </div>
     </div>
