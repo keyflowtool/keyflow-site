@@ -126,3 +126,11 @@ footer .wrap:has(.ft-end) > span:first-child{flex:1 1 0}
 .pager .hm-house{display:grid;place-items:center}
 .pager .hm-house svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:640px){.pager:has(.hm-home) .hm{align-self:stretch}}
+
+/* Tool page hero: one dot per clip when a tool has several (<code>-2.mp4 / -3.mp4), inside the frame at the bottom. */
+.tclip-dots{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:2;display:flex;gap:8px;padding:6px 9px;border-radius:999px;background:rgba(10,12,10,.55);backdrop-filter:blur(4px)}
+.tclip-dots[hidden]{display:none}
+.tclip-dots button{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer;transition:background .2s,transform .2s}
+.tclip-dots button:hover{background:rgba(255,255,255,.8)}
+.tclip-dots button[aria-current="true"]{background:var(--lime,#a3cb3c);transform:scale(1.15)}
+.tclip-dots button:focus-visible{outline:2px solid var(--lime,#a3cb3c);outline-offset:2px}

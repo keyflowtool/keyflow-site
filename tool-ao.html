@@ -392,6 +392,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       </div>
       <div class="tclip" id="tclip">
         <video id="tclip-video" data-src="media/tools/ao.mp4" muted loop playsinline preload="metadata" aria-label="Axis Orient in action"></video>
+        <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
   </section>
@@ -428,8 +429,6 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <img data-src="media/tools/ao-1.jpg" alt="Axis Orient, image 1" loading="lazy" hidden>
         <img data-src="media/tools/ao-2.jpg" alt="Axis Orient, image 2" loading="lazy" hidden>
         <img data-src="media/tools/ao-3.jpg" alt="Axis Orient, image 3" loading="lazy" hidden>
-        <video data-src="media/tools/ao-2.mp4" muted loop playsinline preload="metadata" hidden aria-label="Axis Orient, clip 2"></video>
-        <video data-src="media/tools/ao-3.mp4" muted loop playsinline preload="metadata" hidden aria-label="Axis Orient, clip 3"></video>
       </div>
     </div>
   </section>
@@ -469,12 +468,38 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
   toTop(); addEventListener("load", toTop); addEventListener("pageshow", toTop);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // Main clip: media/tools/<code>.mp4. Without it the header stays one column.
+  // Extra clips <code>-2.mp4 / -3.mp4 (same ?v=) play after it in the same frame, one after another,
+  // with a dot per clip at the bottom; a click on a dot jumps to that clip. One clip = plain loop, no dots.
   const v = document.getElementById("tclip-video");
+  const noClip = () => { document.getElementById("tclip").remove(); document.querySelector(".thero").classList.remove("has-clip"); };
   if (v && !reduced) {
-    v.addEventListener("loadeddata", () => { v.play().catch(() => {}); });
-    v.addEventListener("error", () => { document.getElementById("tclip").remove(); document.querySelector(".thero").classList.remove("has-clip"); });
-    v.src = v.dataset.src;
-  } else if (v) { document.getElementById("tclip").remove(); document.querySelector(".thero").classList.remove("has-clip"); }
+    const first = v.dataset.src, [path, q] = first.split("?");
+    const list = [first];
+    let cur = 0, started = false;
+    const dots = document.getElementById("tclip-dots");
+    const show = i => {
+      cur = i; v.src = list[i]; v.play().catch(() => {});
+      dots.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", j === i ? "true" : "false"));
+    };
+    v.addEventListener("loadeddata", () => { started = true; v.play().catch(() => {}); });
+    v.addEventListener("error", () => { if (!started) noClip(); else if (list.length > 1) show((cur + 1) % list.length); });
+    v.addEventListener("ended", () => { if (list.length > 1) show((cur + 1) % list.length); });
+    v.src = first;
+    const extra = [2, 3].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
+    Promise.all(extra.map(u => fetch(u, { method: "HEAD" }).then(r => r.ok ? u : null).catch(() => null))).then(found => {
+      found.forEach(u => { if (u) list.push(u); });
+      if (list.length < 2) return;
+      v.loop = false;
+      list.forEach((u, i) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.setAttribute("aria-label", "Video " + (i + 1) + " of " + list.length);
+        b.setAttribute("aria-current", i === cur ? "true" : "false");
+        b.addEventListener("click", () => { if (i !== cur) show(i); });
+        dots.appendChild(b);
+      });
+      dots.hidden = false;
+    });
+  } else if (v) noClip();
   // Gallery: extra photos and clips, each shown only if its file exists.
   const gal = document.getElementById("gallery"), sec = document.getElementById("gallery-sec");
   let shown = 0;
