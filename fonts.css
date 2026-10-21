@@ -134,3 +134,7 @@ footer .wrap:has(.ft-end) > span:first-child{flex:1 1 0}
 .tclip-dots button:hover{background:rgba(255,255,255,.8)}
 .tclip-dots button[aria-current="true"]{background:var(--lime,#a3cb3c);transform:scale(1.15)}
 .tclip-dots button:focus-visible{outline:2px solid var(--lime,#a3cb3c);outline-offset:2px}
+
+/* Tool hero clip at its real size: on wide screens the frame is exactly 606 × 416 inside (+1 px border), so the
+   606 × 416 clips are drawn 1:1 (the 1.1fr column alone gave 605.2 × 415.4 = a slight resample). Narrower screens scale it as before. */
+@media (min-width:1240px){html .thero.has-clip .tclip{width:608px;height:418px;aspect-ratio:auto;max-width:none;justify-self:end}}
