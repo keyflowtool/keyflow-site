@@ -460,7 +460,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = "none";
         vid.setAttribute("aria-hidden", "true");
         vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on"); });
-        vid.src = `media/tools/${el.id}.mp4`;
+        vid.src = `media/tools/${el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page
         prev.appendChild(vid);
       }
       vid.currentTime = 0;

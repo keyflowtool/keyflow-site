@@ -393,7 +393,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         <a class="mi-cell" href="tool-nw.html"><span class="mi-name">Noise Wave</span></a>
       </nav>
       <div class="grid">
-        <article class="card tool-card" id="tw" style="--g:#3a6b3a">
+        <article class="card tool-card" id="tw" data-v="20261021" style="--g:#3a6b3a">
           <div class="prev" aria-hidden="true">
             <div class="big">Tweener</div>
           </div>
@@ -403,7 +403,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Set a breakdown between your previous and next poses.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ws" style="--g:#3a6b3a">
+        <article class="card tool-card" id="ws" data-v="20261021" style="--g:#3a6b3a">
           <div class="prev" aria-hidden="true">
             <div class="big">Tweener World&nbsp;Space</div>
           </div>
@@ -413,7 +413,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Set a breakdown in world space, so a moving parent doesn't drag the control along.</p>
           </div>
         </article>
-        <article class="card tool-card" id="sr" style="--g:#3a6b3a">
+        <article class="card tool-card" id="sr" data-v="20261021b" style="--g:#3a6b3a">
           <div class="prev" aria-hidden="true">
             <div class="big">Smooth&nbsp;| Rough</div>
           </div>
@@ -548,7 +548,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = "none";
         vid.setAttribute("aria-hidden", "true");
         vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on"); });
-        vid.src = `media/tools/${el.id}.mp4`;
+        vid.src = `media/tools/${el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page
         prev.appendChild(vid);
       }
       vid.currentTime = 0;
