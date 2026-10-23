@@ -181,6 +181,13 @@ section{scroll-margin-top:80px}
 .card:hover .track .dot,.card:focus-within .track .dot{left:calc(100% - 16px)}
 .prev-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease-out;pointer-events:none;background:var(--panel-2)}
 .card.media-on .prev-media{opacity:1}
+/* TEST 2026-10-23 (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
+   fades out and the clip plays. Title + shade above the video. */
+.card.has-frame .prev-media{opacity:1;z-index:0}
+.card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
+.card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
+.card.has-frame:hover .prev .big,.card.has-frame:hover .prev::after{opacity:0}
 .card.media-on .hint{opacity:0}
 .hint{position:absolute;right:14px;bottom:12px;font:700 10px var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.5);transition:opacity .2s}
 .card:hover .hint{opacity:0}
@@ -541,22 +548,33 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   // Hover clip on each tool card: media/tools/<code>.mp4. Missing file = card keeps its normal look.
   document.querySelectorAll(".tool-card").forEach(el => {
     const prev = el.querySelector(".prev"); let vid = null;
+    const crear = (preload) => {
+      vid = document.createElement("video");
+      vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = preload;
+      vid.setAttribute("aria-hidden", "true");
+      vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
+      vid.src = `media/tools/${el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page
+      prev.prepend(vid);
+    };
+    // TEST 2026-10-23: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
+    if (el.dataset.v && !reduced()) {
+      crear("metadata");
+      vid.addEventListener("loadeddata", () => el.classList.add("has-frame"), { once: true });
+      vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
+    }
     el.addEventListener("mouseenter", () => {
       if (el.dataset.nomedia || reduced()) return;
-      if (!vid) {
-        vid = document.createElement("video");
-        vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = "none";
-        vid.setAttribute("aria-hidden", "true");
-        vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on"); });
-        vid.src = `media/tools/${el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page
-        prev.appendChild(vid);
-      }
+      if (!vid) crear("none");
       vid.currentTime = 0;
       vid.play().then(() => { if (el.matches(":hover")) el.classList.add("media-on"); }).catch(() => {});
     });
     el.addEventListener("mouseleave", () => {
       el.classList.remove("media-on");
-      if (vid) setTimeout(() => { if (!el.classList.contains("media-on")) vid.pause(); }, 260);
+      if (vid) setTimeout(() => {
+        if (el.classList.contains("media-on")) return;
+        vid.pause();
+        if (el.classList.contains("has-frame")) vid.currentTime = 0.001;   // back to the first frame
+      }, 260);
     });
   });  // A tool card opens that tool's own page (the demo link keeps going to YouTube).
   document.querySelectorAll(".tool-card").forEach(el => {
