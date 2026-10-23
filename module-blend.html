@@ -181,7 +181,7 @@ section{scroll-margin-top:80px}
 .card:hover .track .dot,.card:focus-within .track .dot{left:calc(100% - 16px)}
 .prev-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease-out;pointer-events:none;background:var(--panel-2)}
 .card.media-on .prev-media{opacity:1}
-/* TEST 2026-10-23 (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
+/* 2026-10-23 RULE (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
    fades out and the clip plays. Title + shade above the video. */
 .card.has-frame .prev-media{opacity:1;z-index:0}
 .card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -556,7 +556,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       vid.src = `media/tools/${el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page
       prev.prepend(vid);
     };
-    // TEST 2026-10-23: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
+    // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {
       crear("metadata");
       vid.addEventListener("loadeddata", () => el.classList.add("has-frame"), { once: true });
