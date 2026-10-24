@@ -42,6 +42,9 @@
     if (innerScroller(e.target, dy)) return;
     e.preventDefault();
     if (target === null) { pos = root.scrollTop; target = pos; last = performance.now(); }
+    // Direction change: drop what was still left to travel the other way, so the page turns at once
+    // (2026-10-26: reversing after a few quick notches kept gliding the old way first and felt unresponsive).
+    else if ((target - pos) * dy < 0) target = pos;
     target = Math.max(0, Math.min(maxY(), target + dy));
     if (!raf) raf = requestAnimationFrame(step);
   }, { passive: false });
