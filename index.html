@@ -190,6 +190,9 @@ section{scroll-margin-top:80px}
 .card.text-front .big,.card.text-front .say{position:relative;z-index:2}
 .card.text-front .prev::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70%;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .25s ease-out}
 .card.text-front.media-on .prev::after{opacity:1}
+/* Home card with a real clip (m.clip): first frame at rest, shade on, title always visible. */
+.card.has-frame .prev-media{opacity:1}
+.card.text-front.has-frame .prev::after{opacity:1}
 .card.media-on .hint{opacity:0}
 .hint{position:absolute;right:14px;bottom:12px;font:700 10px var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.5);transition:opacity .2s}
 .card:hover .hint{opacity:0}
@@ -506,7 +509,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   // Module index: the 14 KeyFlow groups.
   const modules = [
     { f:"keys", g:"#3a6b3a", cat:"Keys & timing", big:"Blend & Tween", say:"Twelve drag sliders for “somewhere between these keys”.",
-      title:"Blend", desc:"Tween between keys in local or world space, blend toward neighbours, the default pose, a frame or an ease, and push past them when a breakdown needs to overshoot.", tools:["Tweener","Tweener World Space","Smooth | Rough","Pull | Push","Ease In | Out","Blend to Neighbors","Blend to Default","Blend to Frame","Blend to Ease","Blend to Infinity","Flip Keys","Noise Wave"] },
+      title:"Blend", clip:"media/tools/ea.mp4?v=20261022", desc:"Tween between keys in local or world space, blend toward neighbours, the default pose, a frame or an ease, and push past them when a breakdown needs to overshoot.", tools:["Tweener","Tweener World Space","Smooth | Rough","Pull | Push","Ease In | Out","Blend to Neighbors","Blend to Default","Blend to Frame","Blend to Ease","Blend to Infinity","Flip Keys","Noise Wave"] },
     { f:"keys", g:"#7a4a1a", cat:"Keys & timing", big:"Scale", say:"Amplify a pose or calm it down from the anchor you choose.",
       title:"Scale", desc:"Scale the selected keys around the rig's default, their average, the key on either side or a chosen frame, then connect them straight back into their neighbours.", tools:["Scale From Default","Scale From Average","Scale From Neighbor Left","Scale From Neighbor Right","Scale From Frame","Connect to Neighbors"] },
     { f:"keys", g:"#1a5a6b", cat:"Keys & timing", big:"Keys", say:"Bake, snap, filter, nudge and colour keys without opening a menu.",
@@ -566,25 +569,37 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Hover clip on a card's top area. If the file is missing, the card keeps its normal look.
-  function attachClip(el, src) {
+  function attachClip(el, src, frame) {
     const prev = el.querySelector(".prev");
     let vid = null;
+    const crear = (preload) => {
+      vid = document.createElement("video");
+      vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = preload;
+      vid.setAttribute("aria-hidden", "true");
+      vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
+      vid.src = src;
+      prev.appendChild(vid);
+    };
+    // A card whose clip is a real tool clip (m.clip) shows its FIRST FRAME at rest behind the title (title stays,
+    // also on hover); on hover the clip plays from the start; on leave it goes back to the first frame.
+    if (frame && !reduced()) {
+      crear("metadata");
+      vid.addEventListener("loadeddata", () => el.classList.add("has-frame"), { once: true });
+      vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
+    }
     el.addEventListener("mouseenter", () => {
       if (el.dataset.nomedia || reduced()) return;
-      if (!vid) {
-        vid = document.createElement("video");
-        vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = "none";
-        vid.setAttribute("aria-hidden", "true");
-        vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on"); });
-        vid.src = src;
-        prev.appendChild(vid);
-      }
+      if (!vid) crear("none");
       vid.currentTime = 0;
       vid.play().then(() => { if (el.matches(":hover")) el.classList.add("media-on"); }).catch(() => {});
     });
     el.addEventListener("mouseleave", () => {
       el.classList.remove("media-on");
-      if (vid) setTimeout(() => { if (!el.classList.contains("media-on")) vid.pause(); }, 260);
+      if (vid) setTimeout(() => {
+        if (el.classList.contains("media-on")) return;
+        vid.pause();
+        if (el.classList.contains("has-frame")) vid.currentTime = 0.001;   // back to the first frame
+      }, 260);
     });
   }
   const track = '<div class="track"><i class="k" style="left:0"></i><i class="k" style="left:50%"></i><i class="k" style="right:0"></i><span class="dot"></span></div>';
@@ -608,7 +623,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
           <p>${m.desc}</p>
           <div class="tools">${m.tools.map(x => `<span>${x}</span>`).join("")}</div>
         </div>`;
-      attachClip(el, `media/${m.title.toLowerCase()}.mp4`);
+      attachClip(el, m.clip || `media/${m.title.toLowerCase()}.mp4`, !!m.clip);  // m.clip = a tool clip used as the cover (test)
       el.addEventListener("click", e => {
         if (e.target.closest("a")) return;
         const chip = e.target.closest(".tools span");
