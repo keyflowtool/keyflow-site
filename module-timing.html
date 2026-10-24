@@ -537,7 +537,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       vid.className = "prev-media"; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = preload;
       vid.setAttribute("aria-hidden", "true");
       vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
-      vid.src = `media/tools/${el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page
+      vid.src = `media/tools/${el.dataset.clip || el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page; data-clip = which of its clips the card shows (default the main one)
       prev.prepend(vid);
     };
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
