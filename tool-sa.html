@@ -391,7 +391,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <p class="lede">Scale your keys from their average value.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/sa.mp4" muted loop playsinline preload="metadata" aria-label="Scale From Average in action"></video>
+        <video id="tclip-video" data-src="media/tools/sa.mp4?v=20261025" muted loop playsinline preload="metadata" aria-label="Scale From Average in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -401,15 +401,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Scale your keys up or down from the middle of their range.</p>
-<ul>
-<li><b>Drag right:</b> amplify the motion, up to three times.</li>
-<li><b>Drag left:</b> flatten it; halfway the curve goes flat at the middle, and at the end it is inverted.</li>
-<li><b>The middle:</b> halfway between the highest and lowest key, so peaks and dips grow or shrink evenly.</li>
-<li><b>Selected keys:</b> the middle comes from the keys you selected.</li>
-<li><b>No keys selected:</b> it works on the current frame, using the middle of the whole curve, and adds the key if there is none.</li>
-<li><b>Safe channels:</b> switches and on/off channels are left alone.</li>
-</ul>
+<p>Scale your keys up or down from the middle of their range. Drag right to amplify the motion, or left to flatten it, all the way to an inverted curve.</p>
 <p><b>Good for:</b> making a bounce bigger or smaller without moving its center.</p>
       </div>
     </div>
@@ -482,26 +474,60 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
   // Main clip: media/tools/<code>.mp4. Without it the header stays one column.
   // Extra clips <code>-2.mp4 / -3.mp4 (same ?v=) play after it in the same frame, one after another,
   // with a dot per clip at the bottom; a click on a dot jumps to that clip. One clip = plain loop, no dots.
+  // Two stacked players (2026-10-25): the next clip loads in the hidden one and the switch happens only once it
+  // is playing, so there is never a grey gap between clips.
   const v = document.getElementById("tclip-video");
   const noClip = () => { document.getElementById("tclip").remove(); document.querySelector(".thero").classList.remove("has-clip"); };
   if (v && !reduced) {
     const first = v.dataset.src, [path, q] = first.split("?");
     const list = [first];
-    let cur = 0, started = false;
+    let cur = 0, front = v, started = false;
+    const vids = [v];
     const dots = document.getElementById("tclip-dots");
+    const mark = i => dots.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", j === i ? "true" : "false"));
+    const back = () => vids.find(x => x !== front);
+    const load = (el, i) => { if (el.dataset.i !== String(i)) { el.dataset.i = String(i); el.src = list[i]; } };
     const show = i => {
-      cur = i; v.src = list[i]; v.play().catch(() => {});
-      dots.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", j === i ? "true" : "false"));
+      const b = back();
+      if (!b) return;
+      cur = i; mark(i);
+      load(b, i);
+      const old = front;
+      let done = false;
+      const swap = () => {
+        if (done) return; done = true;
+        b.style.visibility = "visible"; b.style.zIndex = "1";
+        old.style.zIndex = "0"; old.style.visibility = "hidden"; old.pause();
+        front = b;
+        load(old, (i + 1) % list.length);              // preload the next clip in the player just hidden
+      };
+      const go = () => {
+        try { b.currentTime = 0; } catch (e) {}
+        b.addEventListener("playing", swap, { once: true });
+        b.play().catch(swap);
+      };
+      if (b.readyState >= 2) go(); else b.addEventListener("loadeddata", go, { once: true });
     };
-    v.addEventListener("loadeddata", () => { started = true; v.play().catch(() => {}); });
-    v.addEventListener("error", () => { if (!started) noClip(); else if (list.length > 1) show((cur + 1) % list.length); });
-    v.addEventListener("ended", () => { if (list.length > 1) show((cur + 1) % list.length); });
+    const onEnd = el => () => { if (el === front && list.length > 1) show((cur + 1) % list.length); };
+    v.addEventListener("loadeddata", () => { started = true; v.play().catch(() => {}); }, { once: true });
+    v.addEventListener("error", () => { if (!started) noClip(); });
+    v.addEventListener("ended", onEnd(v));
+    v.dataset.i = "0";
+    v.style.zIndex = "1";
     v.src = first;
     const extra = [2, 3].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
     Promise.all(extra.map(u => fetch(u, { method: "HEAD" }).then(r => r.ok ? u : null).catch(() => null))).then(found => {
       found.forEach(u => { if (u) list.push(u); });
       if (list.length < 2) return;
       v.loop = false;
+      const v2 = document.createElement("video");
+      v2.muted = true; v2.playsInline = true; v2.preload = "auto";
+      v2.setAttribute("aria-hidden", "true");
+      v2.style.visibility = "hidden"; v2.style.zIndex = "0";
+      v2.addEventListener("ended", onEnd(v2));
+      v.after(v2);
+      vids.push(v2);
+      load(v2, 1);                                      // clip 2 is ready before clip 1 ends
       list.forEach((u, i) => {
         const b = document.createElement("button");
         b.type = "button"; b.setAttribute("aria-label", "Video " + (i + 1) + " of " + list.length);

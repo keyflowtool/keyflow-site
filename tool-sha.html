@@ -462,26 +462,60 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
   // Main clip: media/tools/<code>.mp4. Without it the header stays one column.
   // Extra clips <code>-2.mp4 / -3.mp4 (same ?v=) play after it in the same frame, one after another,
   // with a dot per clip at the bottom; a click on a dot jumps to that clip. One clip = plain loop, no dots.
+  // Two stacked players (2026-10-25): the next clip loads in the hidden one and the switch happens only once it
+  // is playing, so there is never a grey gap between clips.
   const v = document.getElementById("tclip-video");
   const noClip = () => { document.getElementById("tclip").remove(); document.querySelector(".thero").classList.remove("has-clip"); };
   if (v && !reduced) {
     const first = v.dataset.src, [path, q] = first.split("?");
     const list = [first];
-    let cur = 0, started = false;
+    let cur = 0, front = v, started = false;
+    const vids = [v];
     const dots = document.getElementById("tclip-dots");
+    const mark = i => dots.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", j === i ? "true" : "false"));
+    const back = () => vids.find(x => x !== front);
+    const load = (el, i) => { if (el.dataset.i !== String(i)) { el.dataset.i = String(i); el.src = list[i]; } };
     const show = i => {
-      cur = i; v.src = list[i]; v.play().catch(() => {});
-      dots.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", j === i ? "true" : "false"));
+      const b = back();
+      if (!b) return;
+      cur = i; mark(i);
+      load(b, i);
+      const old = front;
+      let done = false;
+      const swap = () => {
+        if (done) return; done = true;
+        b.style.visibility = "visible"; b.style.zIndex = "1";
+        old.style.zIndex = "0"; old.style.visibility = "hidden"; old.pause();
+        front = b;
+        load(old, (i + 1) % list.length);              // preload the next clip in the player just hidden
+      };
+      const go = () => {
+        try { b.currentTime = 0; } catch (e) {}
+        b.addEventListener("playing", swap, { once: true });
+        b.play().catch(swap);
+      };
+      if (b.readyState >= 2) go(); else b.addEventListener("loadeddata", go, { once: true });
     };
-    v.addEventListener("loadeddata", () => { started = true; v.play().catch(() => {}); });
-    v.addEventListener("error", () => { if (!started) noClip(); else if (list.length > 1) show((cur + 1) % list.length); });
-    v.addEventListener("ended", () => { if (list.length > 1) show((cur + 1) % list.length); });
+    const onEnd = el => () => { if (el === front && list.length > 1) show((cur + 1) % list.length); };
+    v.addEventListener("loadeddata", () => { started = true; v.play().catch(() => {}); }, { once: true });
+    v.addEventListener("error", () => { if (!started) noClip(); });
+    v.addEventListener("ended", onEnd(v));
+    v.dataset.i = "0";
+    v.style.zIndex = "1";
     v.src = first;
     const extra = [2, 3].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
     Promise.all(extra.map(u => fetch(u, { method: "HEAD" }).then(r => r.ok ? u : null).catch(() => null))).then(found => {
       found.forEach(u => { if (u) list.push(u); });
       if (list.length < 2) return;
       v.loop = false;
+      const v2 = document.createElement("video");
+      v2.muted = true; v2.playsInline = true; v2.preload = "auto";
+      v2.setAttribute("aria-hidden", "true");
+      v2.style.visibility = "hidden"; v2.style.zIndex = "0";
+      v2.addEventListener("ended", onEnd(v2));
+      v.after(v2);
+      vids.push(v2);
+      load(v2, 1);                                      // clip 2 is ready before clip 1 ends
       list.forEach((u, i) => {
         const b = document.createElement("button");
         b.type = "button"; b.setAttribute("aria-label", "Video " + (i + 1) + " of " + list.length);
