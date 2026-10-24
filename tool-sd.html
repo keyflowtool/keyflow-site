@@ -315,6 +315,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -390,9 +393,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>Scale&nbsp;From Default</h1>
         <p class="lede">Scale your keys up or down from the rig's default value.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/sd.mp4" muted loop playsinline preload="metadata" aria-label="Scale From Default in action"></video>
+        <video id="tclip-video" data-src="media/tools/sd.mp4?v=20261024" muted loop playsinline preload="metadata" aria-label="Scale From Default in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Goblin animation by <a href="https://www.linkedin.com/in/julieth-garz%C3%B3n" target="_blank" rel="noopener">Julieth Garzón</a> · Doberman animation by <a href="https://jonathansymmonds.com/downloads_section/" target="_blank" rel="noopener">Jonathan Symmonds</a></p>
       </div>
     </div>
   </section>
@@ -401,15 +407,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Scale your keys up or down from the rig's default value.</p>
-<ul>
-<li><b>Drag right:</b> amplify the motion, up to three times.</li>
-<li><b>Drag left:</b> calm it down; halfway it reaches the rest pose, and at the end the curve is inverted around the default.</li>
-<li><b>The rig's own defaults:</b> the rest values come from each control, so custom rigs work too.</li>
-<li><b>At rest stays at rest:</b> keys already at the default don't move.</li>
-<li><b>No keys selected:</b> it works on the current frame and adds the key if there is none.</li>
-<li><b>Safe channels:</b> switches and on/off channels are left alone.</li>
-</ul>
+<p>Scale your keys up or down from the rig's default value. Drag right to amplify the motion, or left to calm it down, all the way to an inverted curve.</p>
 <p><b>Good for:</b> adding or releasing tension in a pose.</p>
       </div>
     </div>
