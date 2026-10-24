@@ -187,7 +187,14 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   // Every page opens at the top, unless the link points to a section (#...).
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const toTop = () => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
-  toTop(); addEventListener("load", toTop); addEventListener("pageshow", toTop);
+  toTop();
+  // Only if the visitor has not started scrolling yet: the load event waits for the videos, and jumping back to
+  // the top then felt like the wheel got stuck (2026-10-24).
+  let kfMoved = false;
+  ["wheel", "keydown", "touchstart", "mousedown"].forEach(t => addEventListener(t, () => { kfMoved = true; }, { passive: true, once: true }));
+  const toTopIfIdle = () => { if (!kfMoved && scrollY < 2 * innerHeight) toTop(); };
+  addEventListener("load", toTopIfIdle);
+  addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
     { v:"1.6.0", d:"2026-10-21", t:"Small bug fixes", big:true, c:[

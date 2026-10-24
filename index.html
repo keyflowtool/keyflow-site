@@ -191,8 +191,8 @@ section{scroll-margin-top:80px}
 .card.text-front .prev::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70%;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .25s ease-out}
 .card.text-front.media-on .prev::after{opacity:1}
 /* Home card with a real clip (m.clip): first frame at rest, shade on, title always visible. */
-.card.has-frame .prev-media{opacity:1}
-.card.text-front.has-frame .prev::after{opacity:1}
+.card.has-frame .prev-media{opacity:1;transition:opacity .7s ease-out}
+.card.text-front.has-frame .prev::after{opacity:1;transition:opacity .7s ease-out}
 .card.media-on .hint{opacity:0}
 .hint{position:absolute;right:14px;bottom:12px;font:700 10px var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.5);transition:opacity .2s}
 .card:hover .hint{opacity:0}
@@ -498,7 +498,14 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   // Every page opens at the top, unless the link points to a section (#...).
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const toTop = () => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
-  toTop(); addEventListener("load", toTop); addEventListener("pageshow", toTop);
+  toTop();
+  // Only if the visitor has not started scrolling yet: the load event waits for the videos, and jumping back to
+  // the top then felt like the wheel got stuck (2026-10-24).
+  let kfMoved = false;
+  ["wheel", "keydown", "touchstart", "mousedown"].forEach(t => addEventListener(t, () => { kfMoved = true; }, { passive: true, once: true }));
+  const toTopIfIdle = () => { if (!kfMoved && scrollY < 2 * innerHeight) toTop(); };
+  addEventListener("load", toTopIfIdle);
+  addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   const YT = "https://www.youtube.com/@Keyflowtool";
 
   // KeyFlow toolbar groups: real tool names, codes and descriptions.
@@ -569,6 +576,35 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Hover clip on a card's top area. If the file is missing, the card keeps its normal look.
+  // First frames fade in row by row (as on the module pages): a row waits for its clips (max 1.5 s after it is on
+  // screen), starts ≥ 350 ms after the row above, and its cards fade in together.
+  const rows = new Map(); let lastRow = 0;
+  const tryRows = () => {
+    for (const [, r] of [...rows.entries()].sort((a, b) => a[0] - b[0])) {
+      if (r.done || !r.seen) continue;
+      const all = r.cards.every(c => r.ready.has(c) || c.dataset.nomedia || !c.isConnected);
+      if (!all && performance.now() - r.seenAt < 1500) { setTimeout(tryRows, 60); return; }
+      r.done = true;
+      const t = Math.max(performance.now(), lastRow + 350); lastRow = t; r.at = t;
+      setTimeout(() => r.ready.forEach(c => c.classList.add("has-frame")), Math.max(0, t - performance.now()));
+    }
+  };
+  const revealFrame = el => {
+    const key = el.offsetTop;
+    let r = rows.get(key);
+    if (!r || !r.cards.includes(el)) {
+      r = { cards: [...document.querySelectorAll(".grid .card[data-frame]")].filter(c => c.offsetTop === key),
+            ready: new Set(), seen: false, done: false };
+      rows.set(key, r);
+      const io = new IntersectionObserver(es => {
+        if (es.some(e => e.isIntersecting)) { io.disconnect(); r.seen = true; r.seenAt = performance.now(); tryRows(); }
+      }, { threshold: 0.15 });
+      r.cards.forEach(c => io.observe(c));
+    }
+    r.ready.add(el);
+    if (r.done) setTimeout(() => el.classList.add("has-frame"), Math.max(0, r.at - performance.now()));
+    else tryRows();
+  };
   function attachClip(el, src, frame) {
     const prev = el.querySelector(".prev");
     let vid = null;
@@ -583,8 +619,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
     // A card whose clip is a real tool clip (m.clip) shows its FIRST FRAME at rest behind the title (title stays,
     // also on hover); on hover the clip plays from the start; on leave it goes back to the first frame.
     if (frame && !reduced()) {
+      el.dataset.frame = "1";
       crear("metadata");
-      vid.addEventListener("loadeddata", () => el.classList.add("has-frame"), { once: true });
+      vid.addEventListener("loadeddata", () => revealFrame(el), { once: true });
       vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
     }
     el.addEventListener("mouseenter", () => {

@@ -183,7 +183,7 @@ section{scroll-margin-top:80px}
 .card.media-on .prev-media{opacity:1}
 /* 2026-10-23 RULE (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
    fades out and the clip plays. Title + shade above the video. */
-.card.has-frame .prev-media{opacity:1;z-index:0}
+.card.has-frame .prev-media{opacity:1;z-index:0;transition:opacity .7s ease-out}
 .card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
 .card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
@@ -587,8 +587,47 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   // Every page opens at the top, unless the link points to a section (#...).
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const toTop = () => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" }); };
-  toTop(); addEventListener("load", toTop); addEventListener("pageshow", toTop);
+  toTop();
+  // Only if the visitor has not started scrolling yet: the load event waits for the videos, and jumping back to
+  // the top then felt like the wheel got stuck (2026-10-24).
+  let kfMoved = false;
+  ["wheel", "keydown", "touchstart", "mousedown"].forEach(t => addEventListener(t, () => { kfMoved = true; }, { passive: true, once: true }));
+  const toTopIfIdle = () => { if (!kfMoved && scrollY < 2 * innerHeight) toTop(); };
+  addEventListener("load", toTopIfIdle);
+  addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // First frames fade in row by row (3, then the next 3…). A row waits until its clips are loaded (max 1.5 s
+  // after it comes on screen), starts at least 350 ms after the row above, and its cards fade in together.
+  const rows = new Map(); let lastRow = 0;
+  const pending = () => [...rows.entries()].sort((a, b) => a[0] - b[0]);
+  const tryRows = () => {
+    for (const [, r] of pending()) {
+      if (r.done) continue;
+      if (!r.seen) continue;                                    // not on screen yet: it does not block the rows below
+      const all = r.cards.every(c => r.ready.has(c) || c.dataset.nomedia);
+      if (!all && performance.now() - r.seenAt < 1500) { setTimeout(tryRows, 60); return; }
+      r.done = true;
+      const t = Math.max(performance.now(), lastRow + 350); lastRow = t;
+      setTimeout(() => r.ready.forEach(c => c.classList.add("has-frame")), Math.max(0, t - performance.now()));
+      r.at = t;
+    }
+  };
+  const revealFrame = el => {
+    const key = el.offsetTop;
+    let r = rows.get(key);
+    if (!r) {
+      r = { cards: [...document.querySelectorAll(".tool-card[data-v]")].filter(c => c.offsetTop === key),
+            ready: new Set(), seen: false, done: false };
+      rows.set(key, r);
+      const io = new IntersectionObserver(es => {
+        if (es.some(e => e.isIntersecting)) { io.disconnect(); r.seen = true; r.seenAt = performance.now(); tryRows(); }
+      }, { threshold: 0.15 });
+      r.cards.forEach(c => io.observe(c));
+    }
+    r.ready.add(el);
+    if (r.done) setTimeout(() => el.classList.add("has-frame"), Math.max(0, r.at - performance.now()));  // late clip
+    else tryRows();
+  };
   // Hover clip on each tool card: media/tools/<code>.mp4. Missing file = card keeps its normal look.
   document.querySelectorAll(".tool-card").forEach(el => {
     const prev = el.querySelector(".prev"); let vid = null;
@@ -603,7 +642,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {
       crear("metadata");
-      vid.addEventListener("loadeddata", () => el.classList.add("has-frame"), { once: true });
+      vid.addEventListener("loadeddata", () => revealFrame(el), { once: true });
       vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
     }
     el.addEventListener("mouseenter", () => {

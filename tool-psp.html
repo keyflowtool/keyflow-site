@@ -467,7 +467,14 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
 (() => {
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const toTop = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  toTop(); addEventListener("load", toTop); addEventListener("pageshow", toTop);
+  toTop();
+  // Only if the visitor has not started scrolling yet: the load event waits for the videos, and jumping back to
+  // the top then felt like the wheel got stuck (2026-10-24).
+  let kfMoved = false;
+  ["wheel", "keydown", "touchstart", "mousedown"].forEach(t => addEventListener(t, () => { kfMoved = true; }, { passive: true, once: true }));
+  const toTopIfIdle = () => { if (!kfMoved && scrollY < 2 * innerHeight) toTop(); };
+  addEventListener("load", toTopIfIdle);
+  addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // Main clip: media/tools/<code>.mp4. Without it the header stays one column.
   // Extra clips <code>-2.mp4 / -3.mp4 (same ?v=) play after it in the same frame, one after another,
