@@ -475,7 +475,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // Main clip: media/tools/<code>.mp4. Without it the header stays one column.
-  // Extra clips <code>-2.mp4 / -3.mp4 (same ?v=) play after it in the same frame, one after another,
+  // Extra clips <code>-2.mp4 / -3.mp4 / -4.mp4 (same ?v=) play after it in the same frame, one after another,
   // with a dot per clip at the bottom; a click on a dot jumps to that clip. One clip = plain loop, no dots.
   // Two stacked players (2026-10-25): the next clip loads in the hidden one and the switch happens only once it
   // is playing, so there is never a grey gap between clips.
@@ -518,7 +518,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     v.dataset.i = "0";
     v.style.zIndex = "1";
     v.src = first;
-    const extra = [2, 3].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
+    const extra = [2, 3, 4].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
     Promise.all(extra.map(u => fetch(u, { method: "HEAD" }).then(r => r.ok ? u : null).catch(() => null))).then(found => {
       found.forEach(u => { if (u) list.push(u); });
       if (list.length < 2) return;

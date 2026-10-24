@@ -391,7 +391,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <p class="lede">Connect your keys straight to their neighbors.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/cn.mp4" muted loop playsinline preload="metadata" aria-label="Connect to Neighbors in action"></video>
+        <video id="tclip-video" data-src="media/tools/cn.mp4?v=20261026" muted loop playsinline preload="metadata" aria-label="Connect to Neighbors in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -401,14 +401,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Slide a block of keys up or down until it meets the key next to it, keeping its shape.</p>
-<ul>
-<li><b>Drag left:</b> the first selected key meets the key before it.</li>
-<li><b>Drag right:</b> the last selected key meets the key after it.</li>
-<li><b>Same shape:</b> every selected key moves by the same amount, so the motion inside the block stays as it was.</li>
-<li><b>Gradual:</b> stop anywhere; at the end of the slider the block connects exactly.</li>
-<li><b>No keys selected:</b> it works on the current frame and adds the key if there is none.</li>
-</ul>
+<p>Slide a block of keys up or down until it meets the key next to it, keeping its shape. Drag left to connect it to the key before, or right to the key after.</p>
 <p><b>Good for:</b> a pasted cycle or a moved section that jumps against the pose next to it.</p>
       </div>
     </div>
@@ -479,7 +472,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // Main clip: media/tools/<code>.mp4. Without it the header stays one column.
-  // Extra clips <code>-2.mp4 / -3.mp4 (same ?v=) play after it in the same frame, one after another,
+  // Extra clips <code>-2.mp4 / -3.mp4 / -4.mp4 (same ?v=) play after it in the same frame, one after another,
   // with a dot per clip at the bottom; a click on a dot jumps to that clip. One clip = plain loop, no dots.
   // Two stacked players (2026-10-25): the next clip loads in the hidden one and the switch happens only once it
   // is playing, so there is never a grey gap between clips.
@@ -522,7 +515,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     v.dataset.i = "0";
     v.style.zIndex = "1";
     v.src = first;
-    const extra = [2, 3].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
+    const extra = [2, 3, 4].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
     Promise.all(extra.map(u => fetch(u, { method: "HEAD" }).then(r => r.ok ? u : null).catch(() => null))).then(found => {
       found.forEach(u => { if (u) list.push(u); });
       if (list.length < 2) return;
