@@ -401,14 +401,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Paste the stored pose onto your selection, keyed on the current frame.</p>
-<ul>
-<li><b>Where it goes:</b> to the selected controls, by name. With nothing selected, back onto the controls it came from.</li>
-<li><b>Only some channels:</b> highlight channels to paste only those, even if the whole pose was copied.</li>
-<li><b>Clean rotations:</b> when all three rotation axes are pasted, an Euler filter keeps them from flipping.</li>
-<li><b>Animation layers:</b> keyed on the selected layer. If it's locked, KeyFlow tells you instead of failing silently.</li>
-<li><b>One undo:</b> a single Ctrl+Z takes it all back.</li>
-</ul>
+<p>Paste the stored pose onto your selection, keyed on the current frame. Highlight channels to paste only those; with nothing selected, it goes back to its own controls.</p>
 <p><b>Good for:</b> restoring a key pose, holding a pose across a cut, and applying just the rotation of a hand.</p>
       </div>
     </div>

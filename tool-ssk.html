@@ -390,14 +390,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Move keys that sit between frames onto whole frames, without changing how the motion looks.</p>
-<ul>
-<li><b>Same curve:</b> a key is added on the nearest whole frame, taken from the curve itself, and the in-between key is removed. Maya's own snap moves the key with its value and bends the curve.</li>
-<li><b>Only what needs it:</b> keys already on whole frames aren't touched.</li>
-<li><b>No overwrites:</b> a key already sitting on the whole frame is kept as it is.</li>
-<li><b>Scope:</b> the keys selected in the Graph Editor, or every key on the selected objects.</li>
-<li><b>One undo:</b> a single Ctrl+Z brings everything back, and KeyFlow tells you how many keys it moved.</li>
-</ul>
+<p>Move keys that sit between frames onto whole frames, without changing how the motion looks. Only the keys that need it are touched.</p>
 <p><b>Good for:</b> cleaning up after scaling the timing of a shot.</p>
       </div>
     </div>
