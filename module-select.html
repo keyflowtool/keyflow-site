@@ -533,7 +533,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   // First frames fade in IN ORDER, row by row from the top (3, then the next 3...). Every row with clips is known
   // from the start, so a row never fades in before the rows above it (2026-10-27, user: "no puede ser primero los
   // ultimos despues los primeros"; before, a row only existed once its first clip loaded, so a fast row below went
-  // first). A row waits for its clips (max 3 s once on screen) and starts at least 350 ms after the row above.
+  // first). A row waits for its clips (max 3 s once on screen) and starts at least 150 ms after the row above (350 until 2026-10-27, user: too much).
   const rows = []; let lastRow = 0;
   const tryRows = () => {
     for (const r of rows) {
@@ -543,7 +543,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       const all = r.cards.every(c => r.ready.has(c) || c.dataset.nomedia);
       if (!all && performance.now() - r.seenAt < 3000) { setTimeout(tryRows, 60); return; }
       r.done = true;
-      const t = Math.max(performance.now(), lastRow + 350); lastRow = t;
+      const t = Math.max(performance.now(), lastRow + 150); lastRow = t;
       setTimeout(() => r.ready.forEach(c => c.classList.add("has-frame")), Math.max(0, t - performance.now()));
       r.at = t;
     }
