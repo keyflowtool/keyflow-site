@@ -380,7 +380,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <p class="lede">Remove rotation flips while every key keeps its pose.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/ef.mp4" muted loop playsinline preload="metadata" aria-label="Smart Euler Filter in action"></video>
+        <video id="tclip-video" data-src="media/tools/ef.mp4?v=20261027" muted loop playsinline preload="metadata" aria-label="Smart Euler Filter in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -390,8 +390,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Fix rotation flips so the curves run smooth, while every key keeps its pose. Each key takes the equivalent rotation nearest to the one before it, in the control's own rotation order.</p>
-<p>It works on the rotation keys you select in the Graph Editor, or on every rotation key of the selected objects. A turn of more than half a circle between two keys gets straightened, so skip those sections.</p>
+<p>Fix rotation flips so the curves run smooth, while every key keeps its pose. Works on the selected rotation keys, or on every rotation key of the selected objects.</p>
 <p><b>Good for:</b> cleaning rotation curves after a bake, a constraint or pasted animation.</p>
       </div>
     </div>
