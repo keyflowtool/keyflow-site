@@ -140,3 +140,11 @@ footer .wrap:has(.ft-end) > span:first-child{flex:1 1 0}
 /* Tool hero clip at its real size: on wide screens the frame is exactly 606 × 416 inside (+1 px border), so the
    606 × 416 clips are drawn 1:1 (the 1.1fr column alone gave 605.2 × 415.4 = a slight resample). Narrower screens scale it as before. */
 @media (min-width:1240px){html .thero.has-clip .tclip{width:608px;height:418px;aspect-ratio:auto;max-width:none;justify-self:end}}
+
+/* Footer: Instagram and YouTube on the right of every page (with Home on changelog / FAQ / 404). */
+footer .ft-social{display:flex;justify-content:flex-end;align-items:center;gap:16px}
+footer .ft-social a{display:grid;place-items:center;color:var(--muted,#9ca295)}
+footer .ft-social a:hover{color:var(--fg,#f2f4ee)}
+footer .ft-social svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+footer .ft-social svg .dot{fill:currentColor;stroke:none}
+@media (max-width:640px){footer .ft-end.ft-social{display:flex;justify-content:center}}
