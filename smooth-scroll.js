@@ -1,6 +1,9 @@
 /* Smooth mouse-wheel scrolling: each wheel notch glides to its target with a short ease-out instead of
    jumping. Only discrete mouse wheels are handled; trackpads, touch, keyboard, scrollbar and inner
-   scroll areas stay native. Off when the system asks for reduced motion. */
+   scroll areas stay native. Off when the system asks for reduced motion.
+   Takes over only once the page has loaded and the browser is idle (2026-10-29: about 1 visit in 5 the page felt
+   frozen on entry; a wheel listener that can cancel scrolling makes the browser wait for the page, and the page is
+   busy while it loads). Until then the wheel scrolls natively. */
 (() => {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const root = document.scrollingElement || document.documentElement;
@@ -33,7 +36,7 @@
     raf = requestAnimationFrame(step);
   }
 
-  addEventListener("wheel", e => {
+  function onWheel(e) {
     if (e.ctrlKey || e.shiftKey || e.defaultPrevented || e.deltaX) return;
     let dy = e.deltaY;
     if (e.deltaMode === 1) dy *= 40;
@@ -41,13 +44,24 @@
     else if (Math.abs(dy) < 50 || dy % 1) return;   // small or fractional steps = trackpad: native
     if (innerScroller(e.target, dy)) return;
     e.preventDefault();
+    // Safety: frames stalled while a glide is running (busy page) → jump straight to where it was heading.
+    if (raf && performance.now() - last > 150) { const to = target; stop(); window.scrollTo({ top: to, behavior: "instant" }); }
     if (target === null) { pos = root.scrollTop; target = pos; last = performance.now(); }
     // Direction change: drop what was still left to travel the other way, so the page turns at once
     // (2026-10-26: reversing after a few quick notches kept gliding the old way first and felt unresponsive).
     else if ((target - pos) * dy < 0) target = pos;
     target = Math.max(0, Math.min(maxY(), target + dy));
     if (!raf) raf = requestAnimationFrame(step);
-  }, { passive: false });
+  }
+
+  let on = false;
+  const enable = () => { if (on) return; on = true; addEventListener("wheel", onWheel, { passive: false }); };
+  const whenIdle = () => (window.requestIdleCallback ? requestIdleCallback(enable, { timeout: 1000 }) : setTimeout(enable, 200));
+  if (document.readyState === "complete") whenIdle();
+  else {
+    addEventListener("load", whenIdle, { once: true });
+    setTimeout(whenIdle, 3000);    // load waits for the videos: don't wait for them forever
+  }
 
   // Clicks (menu links), keys and touch take over immediately.
   ["mousedown", "keydown", "touchstart"].forEach(t => addEventListener(t, stop, { passive: true }));
