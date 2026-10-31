@@ -391,7 +391,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <p class="lede">Edit a pose once and spread the change to the whole animation.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/go.mp4" muted loop playsinline preload="metadata" aria-label="Global Offset in action"></video>
+        <video id="tclip-video" data-src="media/tools/go.mp4?v=20261031" muted loop playsinline preload="metadata" aria-label="Global Offset in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -401,9 +401,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Edit a pose once and spread the change to the whole animation: adjust a control and every key on that channel shifts by the same amount, keeping the curve's shape. It works on an existing key or a pose on a new frame, and everything comes back with one Ctrl+Z.</p>
-<p>Switch to <b>Global Scale</b> with a right-click to change the motion's amplitude instead, around the key closest to the playhead.</p>
-<p><b>Good for:</b> re-registering a pose across a whole shot, or making a walk's steps wider or narrower, without an extra layer.</p>
+<p>Turn it on, adjust a control and every key on that channel follows, with no extra layer to merge.</p>
+<p><b>Global Offset:</b> shifts all the keys by the same amount, keeping the curve's shape. Start from an existing key or a pose on a new frame.<br>
+<b>Global Scale:</b> changes the motion's amplitude. The key closest to the playhead stays fixed: drag another key in the Graph Editor and the rest adapt.<br>
+<b>Undo:</b> everything you did while it was on comes back with one Ctrl+Z.<br>
+<b>Hotkeys:</b> ideal on a shortcut. Turn it on and off from a key in <a href="tool-hk.html">Hotkeys</a>.</p>
+<p><b>Good for:</b> when the feet sink into the floor across a whole shot, fix one frame and all the others follow. Or make a walk's steps wider or narrower.</p>
       </div>
     </div>
   </section>
@@ -412,7 +415,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>How to use it</h2>
       <div class="keys-tiles">
-          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Apply (active mode)</span></div></div>
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Turn on or off (active mode)</span></div></div>
           <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Mode: Offset or Scale</span></div></div>
       </div>
     </div>
