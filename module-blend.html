@@ -184,6 +184,9 @@ section{scroll-margin-top:80px}
 /* 2026-10-23 RULE (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
    fades out and the clip plays. Title + shade above the video. */
 .card.has-frame .prev-media{opacity:1;z-index:0;transition:opacity .35s ease-out}
+/* 2026-11-01 (user: posters at once, no fade): the poster is written in the card, so the browser fetches it with
+   the page; the card starts with .has-frame. The hover clip goes on top of it (JS puts it after the poster). */
+.prev-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
 .card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
 .card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
@@ -400,8 +403,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         <a class="mi-cell" href="tool-nw.html"><span class="mi-name">Noise Wave</span></a>
       </nav>
       <div class="grid">
-        <article class="card tool-card" id="tw" data-v="20261021" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="tw" data-v="20261021" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/tw.jpg?v=20261021" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Tweener</div>
           </div>
           <div class="info">
@@ -410,8 +413,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Set a breakdown between your previous and next poses.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ws" data-v="20261021" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ws" data-v="20261021" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ws.jpg?v=20261021" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Tweener World&nbsp;Space</div>
           </div>
           <div class="info">
@@ -420,8 +423,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Set a breakdown in world space, so a moving parent doesn't drag the control along.</p>
           </div>
         </article>
-        <article class="card tool-card" id="sr" data-v="20261021b" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="sr" data-v="20261021b" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/sr.jpg?v=20261021b" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Smooth&nbsp;| Rough</div>
           </div>
           <div class="info">
@@ -430,8 +433,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Soften your curve or roughen it.</p>
           </div>
         </article>
-        <article class="card tool-card" id="pp" data-v="20261022" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="pp" data-v="20261022" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/pp.jpg?v=20261022" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Pull&nbsp;| Push</div>
           </div>
           <div class="info">
@@ -440,8 +443,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Amp or deamp your pose against the keys around it.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ea" data-v="20261022" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ea" data-v="20261022" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ea.jpg?v=20261022" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Ease In&nbsp;|&nbsp;Out</div>
           </div>
           <div class="info">
@@ -450,8 +453,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Ease your keys in or out toward a neighbor.</p>
           </div>
         </article>
-        <article class="card tool-card" id="bn" data-v="20261023" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="bn" data-v="20261023" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/bn.jpg?v=20261023" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Blend to&nbsp;Neighbors</div>
           </div>
           <div class="info">
@@ -460,8 +463,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Blend your pose toward the key on its left or right.</p>
           </div>
         </article>
-        <article class="card tool-card" id="bd" data-v="20261023b" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="bd" data-v="20261023b" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/bd.jpg?v=20261023b" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Blend to&nbsp;Default</div>
           </div>
           <div class="info">
@@ -470,8 +473,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Blend your pose toward the rig's rest pose.</p>
           </div>
         </article>
-        <article class="card tool-card" id="bf" data-v="20261023" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="bf" data-v="20261023" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/bf.jpg?v=20261023" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Blend to&nbsp;Frame</div>
           </div>
           <div class="info">
@@ -480,8 +483,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Blend your pose toward the pose at Frame A or B.</p>
           </div>
         </article>
-        <article class="card tool-card" id="be" data-v="20261023" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="be" data-v="20261023" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/be.jpg?v=20261023" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Blend to&nbsp;Ease</div>
           </div>
           <div class="info">
@@ -490,8 +493,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Tighten your spacing into a slow in or slow out.</p>
           </div>
         </article>
-        <article class="card tool-card" id="bi" data-v="20261023" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="bi" data-v="20261023" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/bi.jpg?v=20261023" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Blend to&nbsp;Infinity</div>
           </div>
           <div class="info">
@@ -500,8 +503,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Keep your motion going past the last key, or before the first, in the same direction.</p>
           </div>
         </article>
-        <article class="card tool-card" id="fk" data-v="20261023" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="fk" data-v="20261023" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/fk.jpg?v=20261023" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Flip Keys</div>
           </div>
           <div class="info">
@@ -510,8 +513,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Invert your keys around their average.</p>
           </div>
         </article>
-        <article class="card tool-card" id="nw" data-v="20261023" style="--g:#3a6b3a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="nw" data-v="20261023" style="--g:#3a6b3a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/nw.jpg?v=20261023" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Noise Wave</div>
           </div>
           <div class="info">
@@ -600,7 +603,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       vid.setAttribute("aria-hidden", "true");
       vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
       vid.src = `media/tools/${el.dataset.clip || el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page; data-clip = which of its clips the card shows (default the main one)
-      prev.prepend(vid);
+      const pp = prev.querySelector(".prev-poster");   // 2026-11-01: the poster written in the card; the clip goes on top
+      if (pp) { vid.poster = pp.getAttribute("src"); pp.after(vid); } else prev.prepend(vid);
     };
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {

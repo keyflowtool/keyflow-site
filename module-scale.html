@@ -184,6 +184,9 @@ section{scroll-margin-top:80px}
 /* 2026-10-23 RULE (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
    fades out and the clip plays. Title + shade above the video. */
 .card.has-frame .prev-media{opacity:1;z-index:0;transition:opacity .35s ease-out}
+/* 2026-11-01 (user: posters at once, no fade): the poster is written in the card, so the browser fetches it with
+   the page; the card starts with .has-frame. The hover clip goes on top of it (JS puts it after the poster). */
+.prev-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
 .card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
 .card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
@@ -394,8 +397,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         <a class="mi-cell" href="tool-cn.html"><span class="mi-name">Connect to Neighbors</span></a>
       </nav>
       <div class="grid">
-        <article class="card tool-card" id="sd" data-v="20261024" style="--g:#7a4a1a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="sd" data-v="20261024" style="--g:#7a4a1a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/sd.jpg?v=20261024" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Scale&nbsp;From Default</div>
           </div>
           <div class="info">
@@ -404,8 +407,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Scale your keys up or down from the rig's default value.</p>
           </div>
         </article>
-        <article class="card tool-card" id="sa" data-v="20261025" style="--g:#7a4a1a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="sa" data-v="20261025" style="--g:#7a4a1a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/sa.jpg?v=20261025" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Scale&nbsp;From Average</div>
           </div>
           <div class="info">
@@ -414,8 +417,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Scale your keys from their average value.</p>
           </div>
         </article>
-        <article class="card tool-card" id="snl" data-v="20261026" style="--g:#7a4a1a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="snl" data-v="20261026" style="--g:#7a4a1a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/snl.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Scale&nbsp;From Neighbor&nbsp;Left</div>
           </div>
           <div class="info">
@@ -424,8 +427,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Scale your keys away from or toward the key just before them, which stays fixed.</p>
           </div>
         </article>
-        <article class="card tool-card" id="snr" data-v="20261026" style="--g:#7a4a1a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="snr" data-v="20261026" style="--g:#7a4a1a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/snr.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Scale&nbsp;From Neighbor&nbsp;Right</div>
           </div>
           <div class="info">
@@ -434,8 +437,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Scale your keys away from or toward the key just after them, which stays fixed.</p>
           </div>
         </article>
-        <article class="card tool-card" id="sf" data-v="20261026" data-clip="sf-2" style="--g:#7a4a1a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="sf" data-v="20261026" data-clip="sf-2" style="--g:#7a4a1a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/sf-2.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Scale&nbsp;From Frame</div>
           </div>
           <div class="info">
@@ -444,8 +447,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Scale your keys away from or toward the value at a frame you mark, which stays fixed.</p>
           </div>
         </article>
-        <article class="card tool-card" id="cn" data-v="20261026" style="--g:#7a4a1a">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="cn" data-v="20261026" style="--g:#7a4a1a">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/cn.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Connect to&nbsp;Neighbors</div>
           </div>
           <div class="info">
@@ -534,7 +537,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       vid.setAttribute("aria-hidden", "true");
       vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
       vid.src = `media/tools/${el.dataset.clip || el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page; data-clip = which of its clips the card shows (default the main one)
-      prev.prepend(vid);
+      const pp = prev.querySelector(".prev-poster");   // 2026-11-01: the poster written in the card; the clip goes on top
+      if (pp) { vid.poster = pp.getAttribute("src"); pp.after(vid); } else prev.prepend(vid);
     };
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {

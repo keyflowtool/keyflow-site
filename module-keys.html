@@ -184,6 +184,9 @@ section{scroll-margin-top:80px}
 /* 2026-10-23 RULE (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
    fades out and the clip plays. Title + shade above the video. */
 .card.has-frame .prev-media{opacity:1;z-index:0;transition:opacity .35s ease-out}
+/* 2026-11-01 (user: posters at once, no fade): the poster is written in the card, so the browser fetches it with
+   the page; the card starts with .has-frame. The hover clip goes on top of it (JS puts it after the poster). */
+.prev-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
 .card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
 .card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
@@ -404,8 +407,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         <a class="mi-cell" href="tool-mal.html"><span class="mi-name">Merge Anim Layers</span></a>
       </nav>
       <div class="grid">
-        <article class="card tool-card" id="ck" data-v="20261026" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ck" data-v="20261026" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ck.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Copy&nbsp;/&nbsp;Paste Keys</div>
           </div>
           <div class="info">
@@ -414,8 +417,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Copy keys and paste them at the playhead, on other objects or channels.</p>
           </div>
         </article>
-        <article class="card tool-card" id="bk" data-v="20261027" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="bk" data-v="20261027" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/bk.jpg?v=20261027" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Bake on N</div>
           </div>
           <div class="info">
@@ -424,8 +427,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Bake your animation with a key every N frames.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ra" data-v="20261026" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ra" data-v="20261026" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ra.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Reverse Animation</div>
           </div>
           <div class="info">
@@ -434,8 +437,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Reverse your animation in time.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ssk" data-v="20261026" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ssk" data-v="20261026" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ssk.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Smart Snap Keys</div>
           </div>
           <div class="info">
@@ -444,8 +447,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Snap keys on fractional frames to whole frames, keeping the curve shape.</p>
           </div>
         </article>
-        <article class="card tool-card" id="rsc" data-v="20261026" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="rsc" data-v="20261026" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/rsc.jpg?v=20261026" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Remove Static&nbsp;/ Redundant</div>
           </div>
           <div class="info">
@@ -454,8 +457,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Clean up static channels and redundant keys.</p>
           </div>
         </article>
-        <article class="card tool-card" id="sbk" data-v="20261027" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="sbk" data-v="20261027" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/sbk.jpg?v=20261027" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Simplify&nbsp;/ Bake&nbsp;Keys</div>
           </div>
           <div class="info">
@@ -464,8 +467,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Simplify or bake your curves.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ef" data-v="20261027" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ef" data-v="20261027" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ef.jpg?v=20261027" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Smart Euler&nbsp;Filter</div>
           </div>
           <div class="info">
@@ -474,8 +477,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Remove rotation flips while every key keeps its pose.</p>
           </div>
         </article>
-        <article class="card tool-card" id="fg" data-v="20261027" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="fg" data-v="20261027" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/fg.jpg?v=20261027" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Fix Gimbal</div>
           </div>
           <div class="info">
@@ -484,8 +487,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Switch to the rotation order that best avoids gimbal lock, with the same pose.</p>
           </div>
         </article>
-        <article class="card tool-card" id="nu" data-v="20261027" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="nu" data-v="20261027" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/nu.jpg?v=20261027" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Nudge Keys</div>
           </div>
           <div class="info">
@@ -494,8 +497,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Nudge your keys left or right in time.</p>
           </div>
         </article>
-        <article class="card tool-card" id="nus" data-v="20261027" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="nus" data-v="20261027" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/nus.jpg?v=20261027" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Nudge Scene</div>
           </div>
           <div class="info">
@@ -504,8 +507,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Nudge every key in the scene, keeping its overall timing.</p>
           </div>
         </article>
-        <article class="card tool-card" id="mk" data-v="20261028" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="mk" data-v="20261028" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/mk.jpg?v=20261028" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Move Keys</div>
           </div>
           <div class="info">
@@ -514,8 +517,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Move your keys in time.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ai" data-v="20261028" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ai" data-v="20261028" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ai.jpg?v=20261028" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Add&nbsp;/&nbsp;Remove Inbetween</div>
           </div>
           <div class="info">
@@ -524,8 +527,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Add or remove frames between your keys, pushing the rest to make room.</p>
           </div>
         </article>
-        <article class="card tool-card" id="skt" data-v="20261028" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="skt" data-v="20261028" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/skt.jpg?v=20261028" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Share Key&nbsp;Times</div>
           </div>
           <div class="info">
@@ -534,8 +537,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Give your selected curves the same key times.</p>
           </div>
         </article>
-        <article class="card tool-card" id="kc" data-v="20261028" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="kc" data-v="20261028" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/kc.jpg?v=20261028" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Color Key</div>
           </div>
           <div class="info">
@@ -544,8 +547,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Color your keys in the time slider and the Graph Editor.</p>
           </div>
         </article>
-        <article class="card tool-card" id="sgo" data-v="20261029" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="sgo" data-v="20261029" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/sgo.jpg?v=20261029" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Smart&nbsp;Go (Frame&nbsp;/&nbsp;Key)</div>
           </div>
           <div class="info">
@@ -554,8 +557,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Step one frame at a time or jump key to key, and select the keys where you land.</p>
           </div>
         </article>
-        <article class="card tool-card" id="mal" data-v="20261030" style="--g:#1a5a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="mal" data-v="20261030" style="--g:#1a5a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/mal.jpg?v=20261030" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Merge Anim&nbsp;Layers</div>
           </div>
           <div class="info">
@@ -644,7 +647,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       vid.setAttribute("aria-hidden", "true");
       vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
       vid.src = `media/tools/${el.dataset.clip || el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page; data-clip = which of its clips the card shows (default the main one)
-      prev.prepend(vid);
+      const pp = prev.querySelector(".prev-poster");   // 2026-11-01: the poster written in the card; the clip goes on top
+      if (pp) { vid.poster = pp.getAttribute("src"); pp.after(vid); } else prev.prepend(vid);
     };
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {

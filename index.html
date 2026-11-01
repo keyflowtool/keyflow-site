@@ -191,8 +191,8 @@ section{scroll-margin-top:80px}
 .card.text-front .prev::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70%;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .25s ease-out}
 .card.text-front.media-on .prev::after{opacity:1}
 /* Home card with a real clip (m.clip): first frame at rest, shade on, title always visible. */
-.card.has-frame .prev-media{opacity:1;transition:opacity .35s ease-out}
-.card.text-front.has-frame .prev::after{opacity:1;transition:opacity .35s ease-out}
+.card.has-frame .prev-media{opacity:1;transition:none}   /* 2026-11-01 (user): poster at once, no fade */
+.card.text-front.has-frame .prev::after{opacity:1;transition:none}
 .card.media-on .hint{opacity:0}
 .hint{position:absolute;right:14px;bottom:12px;font:700 10px var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.5);transition:opacity .2s}
 .card:hover .hint{opacity:0}
@@ -642,7 +642,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       const ps = vid.getAttribute("src").replace(/media\/tools\/([^\/?]+)\.mp4/, "media/tools/posters/$1.jpg");
       if (ps.includes("/posters/")) {
         const im = new Image();
-        im.onload = () => { vid.poster = ps; revealFrame(el); };
+        im.onload = () => { vid.poster = ps; el.classList.add("has-frame"); };   // 2026-11-01 (user): at once, no row wait
         im.onerror = sinPoster;
         im.src = ps;
       } else sinPoster();

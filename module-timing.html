@@ -184,6 +184,9 @@ section{scroll-margin-top:80px}
 /* 2026-10-23 RULE (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
    fades out and the clip plays. Title + shade above the video. */
 .card.has-frame .prev-media{opacity:1;z-index:0;transition:opacity .35s ease-out}
+/* 2026-11-01 (user: posters at once, no fade): the poster is written in the card, so the browser fetches it with
+   the page; the card starts with .has-frame. The hover clip goes on top of it (JS puts it after the poster). */
+.prev-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
 .card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
 .card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
@@ -395,8 +398,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         <a class="mi-cell" href="tool-stm.html"><span class="mi-name">Space Timming</span></a>
       </nav>
       <div class="grid">
-        <article class="card tool-card" id="to" data-v="20261031" style="--g:#1a3a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="to" data-v="20261031" style="--g:#1a3a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/to.jpg?v=20261031" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Time Offsetter</div>
           </div>
           <div class="info">
@@ -405,8 +408,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Slide the motion earlier or later while every key stays on its frame.</p>
           </div>
         </article>
-        <article class="card tool-card" id="tos" data-v="20261031" style="--g:#1a3a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="tos" data-v="20261031" style="--g:#1a3a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/tos.jpg?v=20261031" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Time&nbsp;Offsetter Stagger</div>
           </div>
           <div class="info">
@@ -415,8 +418,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Offset your selection's timing in a cascade.</p>
           </div>
         </article>
-        <article class="card tool-card" id="go" data-v="20261031b" style="--g:#1a3a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="go" data-v="20261031b" style="--g:#1a3a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/go.jpg?v=20261031b" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Global Offset</div>
           </div>
           <div class="info">
@@ -425,8 +428,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Edit a pose once and spread the change to the whole animation.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ot" data-v="20261031" style="--g:#1a3a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ot" data-v="20261031" style="--g:#1a3a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ot.jpg?v=20261031" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">On Twos</div>
           </div>
           <div class="info">
@@ -435,8 +438,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
             <p>Give your animation a stepped look, like 2D or Spider-Verse, while your smooth curves stay safe underneath.</p>
           </div>
         </article>
-        <article class="card tool-card" id="ft" data-v="20261101c" style="--g:#1a3a6b">
-          <div class="prev" aria-hidden="true">
+        <article class="card tool-card has-frame" id="ft" data-v="20261101c" style="--g:#1a3a6b">
+          <div class="prev" aria-hidden="true"><img class="prev-poster" src="media/tools/posters/ft.jpg?v=20261101c" alt="" decoding="async" onerror="this.closest('.card').classList.remove('has-frame');this.remove()">
             <div class="big">Follow Through</div>
           </div>
           <div class="info">
@@ -545,7 +548,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       vid.setAttribute("aria-hidden", "true");
       vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
       vid.src = `media/tools/${el.dataset.clip || el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page; data-clip = which of its clips the card shows (default the main one)
-      prev.prepend(vid);
+      const pp = prev.querySelector(".prev-poster");   // 2026-11-01: the poster written in the card; the clip goes on top
+      if (pp) { vid.poster = pp.getAttribute("src"); pp.after(vid); } else prev.prepend(vid);
     };
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {
