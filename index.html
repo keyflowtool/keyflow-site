@@ -191,8 +191,8 @@ section{scroll-margin-top:80px}
 .card.text-front .prev::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70%;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .25s ease-out}
 .card.text-front.media-on .prev::after{opacity:1}
 /* Home card with a real clip (m.clip): first frame at rest, shade on, title always visible. */
-.card.has-frame .prev-media{opacity:1;transition:opacity .7s ease-out}
-.card.text-front.has-frame .prev::after{opacity:1;transition:opacity .7s ease-out}
+.card.has-frame .prev-media{opacity:1;transition:opacity .35s ease-out}
+.card.text-front.has-frame .prev::after{opacity:1;transition:opacity .35s ease-out}
 .card.media-on .hint{opacity:0}
 .hint{position:absolute;right:14px;bottom:12px;font:700 10px var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.5);transition:opacity .2s}
 .card:hover .hint{opacity:0}
@@ -606,7 +606,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       const all = r.cards.every(c => r.ready.has(c) || c.dataset.nomedia || !c.isConnected);
       if (!all && performance.now() - r.seenAt < 3000) { setTimeout(tryRows, 60); return; }
       r.done = true;
-      const t = Math.max(performance.now(), lastRow + 150); lastRow = t; r.at = t;
+      const t = Math.max(performance.now(), lastRow + 80); lastRow = t; r.at = t;
       setTimeout(() => r.ready.forEach(c => c.classList.add("has-frame")), Math.max(0, t - performance.now()));
     }
   };
@@ -634,8 +634,18 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
     if (frame && !reduced()) {
       el.dataset.frame = "1";
       crear("metadata");
-      vid.addEventListener("loadeddata", () => revealFrame(el), { once: true });
-      vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
+      // 2026-10-31 (user: "could be faster"): the poster is the same first frame, ready at once. No poster: wait for the clip.
+      const sinPoster = () => {
+        if (vid.readyState >= 2) revealFrame(el); else vid.addEventListener("loadeddata", () => revealFrame(el), { once: true });
+        if (vid.readyState >= 1) vid.currentTime = 0.001; else vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
+      };
+      const ps = vid.getAttribute("src").replace(/media\/tools\/([^\/?]+)\.mp4/, "media/tools/posters/$1.jpg");
+      if (ps.includes("/posters/")) {
+        const im = new Image();
+        im.onload = () => { vid.poster = ps; revealFrame(el); };
+        im.onerror = sinPoster;
+        im.src = ps;
+      } else sinPoster();
     }
     el.addEventListener("mouseenter", () => {
       if (el.dataset.nomedia || reduced()) return;

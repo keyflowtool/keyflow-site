@@ -183,7 +183,7 @@ section{scroll-margin-top:80px}
 .card.media-on .prev-media{opacity:1}
 /* 2026-10-23 RULE (cards with a real clip, data-v): the clip's FIRST FRAME sits behind the title; on hover the title
    fades out and the clip plays. Title + shade above the video. */
-.card.has-frame .prev-media{opacity:1;z-index:0;transition:opacity .7s ease-out}
+.card.has-frame .prev-media{opacity:1;z-index:0;transition:opacity .35s ease-out}
 .card.has-frame .prev::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
 .card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
@@ -444,7 +444,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       const all = r.cards.every(c => r.ready.has(c) || c.dataset.nomedia);
       if (!all && performance.now() - r.seenAt < 3000) { setTimeout(tryRows, 60); return; }
       r.done = true;
-      const t = Math.max(performance.now(), lastRow + 150); lastRow = t;
+      const t = Math.max(performance.now(), lastRow + 80); lastRow = t;
       setTimeout(() => r.ready.forEach(c => c.classList.add("has-frame")), Math.max(0, t - performance.now()));
       r.at = t;
     }
@@ -484,8 +484,18 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {
       crear("metadata");
-      vid.addEventListener("loadeddata", () => revealFrame(el), { once: true });
-      vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
+      // 2026-10-31 (user: "could be faster"): the poster is the same first frame, ready at once. No poster: wait for the clip.
+      const sinPoster = () => {
+        if (vid.readyState >= 2) revealFrame(el); else vid.addEventListener("loadeddata", () => revealFrame(el), { once: true });
+        if (vid.readyState >= 1) vid.currentTime = 0.001; else vid.addEventListener("loadedmetadata", () => { vid.currentTime = 0.001; }, { once: true });
+      };
+      const ps = vid.getAttribute("src").replace(/media\/tools\/([^\/?]+)\.mp4/, "media/tools/posters/$1.jpg");
+      if (ps.includes("/posters/")) {
+        const im = new Image();
+        im.onload = () => { vid.poster = ps; revealFrame(el); };
+        im.onerror = sinPoster;
+        im.src = ps;
+      } else sinPoster();
     }
     el.addEventListener("mouseenter", () => {
       if (el.dataset.nomedia || reduced()) return;
