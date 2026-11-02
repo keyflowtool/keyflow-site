@@ -391,7 +391,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <p class="lede">Mirror your pose to the other side of the rig.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/mp.mp4" muted loop playsinline preload="metadata" aria-label="Mirror Pose in action"></video>
+        <video id="tclip-video" data-src="media/tools/mp.mp4?v=20261102" poster="media/tools/posters/mp.jpg?v=20261102" muted loop playsinline preload="metadata" aria-label="Mirror Pose in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -401,8 +401,15 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Mirror the pose on your selection to the other side of the rig, or flip left and right. Take a Snapshot once per character in its default pose and it works in every shot.</p>
-<p><b>Good for:</b> symmetric poses, flipping a gesture to the other hand, and blocking both sides of a walk.</p>
+<p>Mirrors the pose of your selection to the other side of the rig. Take a Snapshot once per character in its default pose and it works in every shot.</p>
+<p><b>Mirror:</b> like L ↔ R, plus the center controls (spine, head, hips).<br>
+<b>L ↔ R:</b> copies the selected side onto the other one.<br>
+<b>Flip:</b> swaps left and right.<br>
+<b>Auto:</b> reads the left and right names from the selected control.<br>
+<b>Snapshot:</b> learns how both sides relate; right-click to Fix one channel, Export or Import.<br>
+<b>Plane:</b> YZ, XZ or XY, or Custom to pick which channels flip.<br>
+<b>Channels:</b> Rotate, Translate, Scale and custom attributes.</p>
+<p><b>Good for:</b> posing one arm and getting the other for free, or moving a wave from the left hand to the right.</p>
       </div>
     </div>
   </section>
@@ -412,7 +419,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>How to use it</h2>
       <div class="keys-tiles">
           <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Mirror (active mode)</span></div></div>
-          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Mode: L ↔ R, Flip, Mirror</span></div></div>
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Mode: Mirror, L ↔ R, Flip</span></div></div>
       </div>
     </div>
   </section>
