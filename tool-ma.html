@@ -315,6 +315,10 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* Small credit under the tool clip (who made the rig / animation shown). Same as tool-pp.html. */
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -379,9 +383,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>Mirror Animation</h1>
         <p class="lede">Mirror the full animation to the other side, curves included.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/ma.mp4" muted loop playsinline preload="metadata" aria-label="Mirror Animation in action"></video>
+        <video id="tclip-video" data-src="media/tools/ma.mp4?v=20261103" poster="media/tools/posters/ma.jpg?v=20261103" muted loop playsinline preload="metadata" aria-label="Mirror Animation in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Animation by <a href="https://www.linkedin.com/in/ayush-hariharan/" target="_blank" rel="noopener">Ayush Hariharan</a> · Rig by <a href="https://friggingawesome.gumroad.com/l/kayla-rig" target="_blank" rel="noopener">Frigging Awesome</a></p>
       </div>
     </div>
   </section>
@@ -390,8 +397,9 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Mirror the full animation to the other side, curves included.</p>
-<p><b>Tip:</b> take one Snapshot per character, in its rest pose. KeyFlow learns how each control mirrors to the other side, so the result is exact on any rig. It's saved and works in every scene.</p>
+<p>Mirrors the whole animation to the other side of the rig, full curves included. L ↔ R copies the selected side onto the other, Flip swaps both sides and Mirror flips the whole rig, center controls included. The mirrored side starts on its original frames or at the playhead, can come a few frames later, and loops for cycles.</p>
+<p><b>Tip:</b> take one Snapshot per character, in its rest pose. It's saved and works in every scene.</p>
+<p><b>Good for:</b> walk and run cycles, or moving a wave or a reach to the other hand.</p>
       </div>
     </div>
   </section>
