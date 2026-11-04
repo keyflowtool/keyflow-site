@@ -188,6 +188,9 @@ section{scroll-margin-top:80px}
   background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.62) 100%);transition:opacity .35s ease-out}
 .card.has-frame .prev .big{position:relative;z-index:2;transition:opacity .35s ease-out}
 .card.has-frame:hover .prev .big,.card.has-frame:hover .prev::after{opacity:0}
+/* 2026-11-01 (user: posters at once, no fade): the poster is written in the card, so the browser fetches it with
+   the page; the card starts with .has-frame. The hover clip goes on top of it (JS puts it after the poster). */
+.prev-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
 .card.media-on .hint{opacity:0}
 .hint{position:absolute;right:14px;bottom:12px;font:700 10px var(--mono);letter-spacing:.12em;color:rgba(255,255,255,.5);transition:opacity .2s}
 .card:hover .hint{opacity:0}
@@ -501,7 +504,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       vid.setAttribute("aria-hidden", "true");
       vid.addEventListener("error", () => { el.dataset.nomedia = "1"; el.classList.remove("media-on", "has-frame"); });
       vid.src = `media/tools/${el.dataset.clip || el.id}.mp4` + (el.dataset.v ? `?v=${el.dataset.v}` : "");  // data-v = same version as the tool page; data-clip = which of its clips the card shows (default the main one)
-      prev.prepend(vid);
+      const pp = prev.querySelector(".prev-poster");   // 2026-11-01: the poster written in the card; the clip goes on top
+      if (pp) { vid.poster = pp.getAttribute("src"); pp.after(vid); } else prev.prepend(vid);
     };
     // 2026-10-23 RULE: a card with a real clip (data-v) shows its FIRST FRAME at rest, under the title.
     if (el.dataset.v && !reduced()) {
