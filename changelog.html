@@ -158,7 +158,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       <h1>What's new in <span>KeyFlow</span></h1>
       <p>Updates are free, and each one installs on top of the version you have.</p>
       <div class="head-row">
-        <a class="pill cur" id="latest-pill" href="#v1.6.5">Latest: 1.6.5</a>
+        <a class="pill cur" id="latest-pill" href="#v1.6.6">Latest: 1.6.6</a>
       </div>
     </div>
   </section>
@@ -197,6 +197,10 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
+    { v:"1.6.6", d:"2026-11-03", t:"Faster, exact Mirror", big:true, c:[
+      ["i","<b>Mirror Animation and Snapshot.</b> Up to 17× and 5 to 12× faster; Undo after Flip is almost instant."],
+      ["i","<b>Nudge Keys and Move Keys</b> work inside the timeline range, and the range stays highlighted."],
+      ["f","<b>Mirror</b> on rigs built with negative scale, and <b>Copy / Paste Keys</b> on controls with IK/FK blends."]]},
     { v:"1.6.5", d:"2026-11-02", t:"Tangents", big:true, c:[
       ["n","<b>Tangents section.</b> Blend to Tangent, Flow, Best Guess, Bounce and Cycle Match, plus Auto, Spline, Clamped, Linear, Flat and Plateau as sliders."],
       ["n","<b>Spacing Blend.</b> Eases the keys between two poses into an S, keeping them on their frames."],
