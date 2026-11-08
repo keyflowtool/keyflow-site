@@ -158,7 +158,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       <h1>What's new in <span>KeyFlow</span></h1>
       <p>Updates are free, and each one installs on top of the version you have.</p>
       <div class="head-row">
-        <a class="pill cur" id="latest-pill" href="#v1.6.6">Latest: 1.6.6</a>
+        <a class="pill cur" id="latest-pill" href="#v1.6.7">Latest: 1.6.7</a>
       </div>
     </div>
   </section>
@@ -197,6 +197,11 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
+    { v:"1.6.7", d:"2026-11-08", t:"Pivot Grab / Release, Grips and Onion Skin", big:true, c:[
+      ["n","<b>Pivot Grab / Release.</b> A temp pivot that follows an object and lets it go, as many times as you need. Move it from one object to another without moving the rig; Bake turns it into regular keys on your controls."],
+      ["n","<b>Grips.</b> A colored shape on each control: grab it and the control moves, with keys and undo as usual. Pick the shape, color and size, or edit the shape itself."],
+      ["n","<b>Onion Skin.</b> See the geometry and the grips before and after the current frame, with their outline, colors and opacity."],
+      ["i","<b>Select Opposite, Reset and Copy / Paste Animation</b> are faster, <b>Visibility Sets</b> is improved, and on-screen messages are easier to read."]]},
     { v:"1.6.6", d:"2026-11-03", t:"Faster, exact Mirror", big:true, c:[
       ["i","<b>Mirror Animation and Snapshot.</b> Up to 17× and 5 to 12× faster; Undo after Flip is almost instant."],
       ["i","<b>Nudge Keys and Move Keys</b> work inside the timeline range, and the range stays highlighted."],
