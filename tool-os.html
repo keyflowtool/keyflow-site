@@ -315,6 +315,10 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* Small credit under the tool clip (who made the rig / animation shown). Same as tool-ma.html. */
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -379,9 +383,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>Onion Skin</h1>
         <p class="lede">See the geometry and the grips before and after this frame.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/os.mp4" muted loop playsinline preload="metadata" aria-label="Onion Skin in action"></video>
+        <video id="tclip-video" data-src="media/tools/os.mp4?v=20261109" poster="media/tools/posters/os.jpg?v=20261109" muted loop playsinline preload="metadata" aria-label="Onion Skin in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Animation by <a href="https://www.linkedin.com/in/ayush-hariharan/" target="_blank" rel="noopener">Ayush Hariharan</a> · Rig by <a href="https://friggingawesome.gumroad.com/l/kayla-rig" target="_blank" rel="noopener">Frigging Awesome</a></p>
       </div>
     </div>
   </section>
@@ -391,7 +398,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>What it does</h2>
       <div class="prose">
 <p>Shows your character's geometry and grips before and after this frame, as see-through copies with their outline. Add what you want to see and the copies follow you along the timeline.</p>
-<p><b>Add selected:</b> meshes or grips (or their controls) join the list; each row has its own onion on / off.<br>
+<p><b>Add selected:</b> meshes or grips join the list, not rig controls; each row has its own onion on / off.<br>
 <b>Frames / Fixed Frames / Keys:</b> every few frames from this one, every few frames fixed in place, or the previous and next keys.<br>
 <b>Solid / Shaded:</b> flat see-through color like 2D onion skin, or with light and shade.<br>
 <b>Edges:</b> the outline of each copy in its color; at 0 % opacity, only the outlines.<br>
