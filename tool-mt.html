@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MotionTrail – KeyFlow for Maya</title>
-<meta name="description" content="MotionTrail, a KeyFlow tool for Maya: Show a motion trail on your selection.">
+<meta name="description" content="MotionTrail, a KeyFlow tool for Maya: See the path your selection travels, and polish arcs and spacing.">
 <link rel="stylesheet" href="fonts.css?v=eafbdcff">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="MotionTrail – KeyFlow for Maya">
-<meta property="og:description" content="MotionTrail, a KeyFlow tool for Maya: Show a motion trail on your selection.">
+<meta property="og:description" content="MotionTrail, a KeyFlow tool for Maya: See the path your selection travels, and polish arcs and spacing.">
 <meta property="og:url" content="https://keyflowtool.com/tool-mt.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -377,10 +377,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Trail</span></div>
         <h1>MotionTrail</h1>
-        <p class="lede">Show a motion trail on your selection.</p>
+        <p class="lede">See the path your selection travels, and polish arcs and spacing.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/mt.mp4" muted loop playsinline preload="metadata" aria-label="MotionTrail in action"></video>
+        <video id="tclip-video" data-src="media/tools/mt.mp4?v=20261109" poster="media/tools/posters/mt.jpg?v=20261109" muted loop playsinline preload="metadata" aria-label="MotionTrail in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -390,8 +390,14 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Show a motion trail on your selection and choose how it reads: keys, frames, dots or a clean line, past and future in their own colors, in world, object or camera space.</p>
-<p><b>Good for:</b> reading arcs and spacing.</p>
+<p>Draw the path your selection travels over time, so you can read and polish arcs and spacing.</p>
+<p><b>Style:</b> keys, frames, both, dots or a clean line.<br>
+<b>Direction:</b> past, future or both, each in its own color; falloff fades the far ends so the current frame reads clearest.<br>
+<b>Frame Range:</b> 6 to 96 frames around the current time.<br>
+<b>Space:</b> World for the real path; Object to see it relative to something that moves (a hand on a moving train, with the train's travel removed); Camera to see it as the audience does, even when the camera moves.<br>
+<b>2D Flat:</b> flatten the path onto the screen to read its shape and spacing without depth.<br>
+<b>Orient:</b> small X / Y / Z ticks along the trail to read rotation too.</p>
+<p><b>Good for:</b> polishing arcs, checking spacing, and judging motion from the camera's point of view.</p>
       </div>
     </div>
   </section>
