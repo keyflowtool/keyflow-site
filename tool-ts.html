@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tumble Selection – KeyFlow for Maya</title>
-<meta name="description" content="Tumble Selection, a KeyFlow tool for Maya: Tumble the camera around your selection.">
+<meta name="description" content="Tumble Selection, a KeyFlow tool for Maya: Orbit the camera around whatever you select, with no jump.">
 <link rel="stylesheet" href="fonts.css?v=eafbdcff">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="Tumble Selection – KeyFlow for Maya">
-<meta property="og:description" content="Tumble Selection, a KeyFlow tool for Maya: Tumble the camera around your selection.">
+<meta property="og:description" content="Tumble Selection, a KeyFlow tool for Maya: Orbit the camera around whatever you select, with no jump.">
 <meta property="og:url" content="https://keyflowtool.com/tool-ts.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -377,10 +377,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Select</span></div>
         <h1>Tumble Selection</h1>
-        <p class="lede">Tumble the camera around your selection.</p>
+        <p class="lede">Orbit the camera around whatever you select, with no jump.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/ts.mp4" muted loop playsinline preload="metadata" aria-label="Tumble Selection in action"></video>
+        <video id="tclip-video" data-src="media/tools/ts.mp4?v=20261110" poster="media/tools/posters/ts.jpg?v=20261110" muted loop playsinline preload="metadata" aria-label="Tumble Selection in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -390,8 +390,9 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Tumble the camera around the center of your selection, without moving the camera. One click turns it on or off.</p>
-<p><b>Good for:</b> checking a pose from every angle without framing it first.</p>
+<p>Orbit the camera around the center of your selection. The camera never jumps: only the pivot moves.</p>
+<p>The pivot follows you: it updates when you change the selection, move a control or change frame. One click turns it on or off, and turning it off brings back Maya's own tumble. Orthographic views are left alone.</p>
+<p><b>Good for:</b> checking a pose from every angle without framing it first, and orbiting around a hand or a foot while you work on it.</p>
       </div>
     </div>
   </section>
