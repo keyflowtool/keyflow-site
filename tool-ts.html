@@ -315,6 +315,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -379,9 +382,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>Tumble Selection</h1>
         <p class="lede">Orbit the camera around whatever you select, with no jump.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
         <video id="tclip-video" data-src="media/tools/ts.mp4?v=20261110" poster="media/tools/posters/ts.jpg?v=20261110" muted loop playsinline preload="metadata" aria-label="Tumble Selection in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Animation by <a href="https://www.linkedin.com/in/juan-carlos-chaves-bossa-a1b558376/" target="_blank" rel="noopener">Juan Carlos Bossa</a> · Rig by <a href="https://ramonarango.gumroad.com/" target="_blank" rel="noopener">Ramon Arango</a></p>
       </div>
     </div>
   </section>
@@ -391,7 +397,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>What it does</h2>
       <div class="prose">
 <p>Orbit the camera around the center of your selection. The camera never jumps: only the pivot moves.</p>
-<p>The pivot follows you: it updates when you change the selection, move a control or change frame. One click turns it on or off, and turning it off brings back Maya's own tumble. Orthographic views are left alone.</p>
+<p>The pivot follows you: it updates when you change the selection, move a control or change frame. One click turns it on or off, and turning it off brings back Maya's own tumble.</p>
 <p><b>Good for:</b> checking a pose from every angle without framing it first, and orbiting around a hand or a foot while you work on it.</p>
       </div>
     </div>
