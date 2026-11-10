@@ -327,6 +327,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
+/* Variants inside an option (e.g. World / Object / Camera) in lime, one per indented line. */
+.prose .opt{display:block;padding-left:1.2em}
+.prose .opt b{color:var(--lime)}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -409,9 +412,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>What it does</h2>
       <div class="prose">
 <p>Select the controls on the other side of the rig. It works with any naming.</p>
-<p><b>Replace:</b> swap your selection for the other side. Center controls stay selected.<br>
-<b>Both:</b> keep your selection and add the other side.<br>
-<b>Side L / Side R:</b> move the whole selection to one side; center controls stay.</p>
+<p><b>Modes</b> (right-click the button):
+<span class="opt"><b>Replace:</b> swap your selection for the other side. Center controls stay selected.</span>
+<span class="opt"><b>Both:</b> keep your selection and add the other side.</span>
+<span class="opt"><b>Side L / Side R:</b> move the whole selection to one side; center controls stay.</span></p>
 <p><b>Good for:</b> working both arms at once, and jumping to the other side without hunting for it.</p>
       </div>
     </div>
