@@ -323,6 +323,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
+/* Variants inside an option (e.g. World / Object / Camera) in lime, one per indented line. */
+.prose .opt{display:block;padding-left:1.2em}
+.prose .opt b{color:var(--lime)}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -394,7 +397,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
 <p><b>Style:</b> keys, frames, both, dots or a clean line.<br>
 <b>Direction:</b> past, future or both, each in its own color, fading at the ends.<br>
 <b>Frame Range:</b> 6 to 96 frames around the current time.<br>
-<b>Space:</b> World for the real path; Object to see it relative to something that moves (a hand on a moving train, with the train's travel removed); Camera to see it as the audience does, even when the camera moves.<br>
+<b>Space:</b>
+<span class="opt"><b>World:</b> the real path.</span>
+<span class="opt"><b>Object:</b> relative to something that moves, like a hand on a moving train.</span>
+<span class="opt"><b>Camera:</b> as the audience sees it, even with a moving camera.</span>
 <b>2D Flat:</b> flatten the path onto the screen to read its shape and spacing without depth.<br>
 <b>Orient:</b> small X / Y / Z ticks along the trail to read rotation too.</p>
 <p><b>Good for:</b> polishing arcs, checking spacing, and judging motion from the camera's point of view.</p>
