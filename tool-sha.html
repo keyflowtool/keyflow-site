@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Select Hierarchy Animated – KeyFlow for Maya</title>
-<meta name="description" content="Select Hierarchy Animated, a KeyFlow tool for Maya: Select every animated control under your selection.">
+<meta name="description" content="Select Hierarchy Animated, a KeyFlow tool for Maya: Select everything animated in your character, from any control.">
 <link rel="stylesheet" href="fonts.css?v=eafbdcff">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="Select Hierarchy Animated – KeyFlow for Maya">
-<meta property="og:description" content="Select Hierarchy Animated, a KeyFlow tool for Maya: Select every animated control under your selection.">
+<meta property="og:description" content="Select Hierarchy Animated, a KeyFlow tool for Maya: Select everything animated in your character, from any control.">
 <meta property="og:url" content="https://keyflowtool.com/tool-sha.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -323,6 +323,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
+/* Variants inside an option (e.g. World / Object / Camera) in lime, one per indented line. */
+.prose .opt{display:block;padding-left:1.2em}
+.prose .opt b{color:var(--lime)}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -377,10 +380,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Select</span></div>
         <h1>Select Hierarchy Animated</h1>
-        <p class="lede">Select every animated control under your selection.</p>
+        <p class="lede">Select everything animated in your character, from any control.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/sha.mp4" muted loop playsinline preload="metadata" aria-label="Select Hierarchy Animated in action"></video>
+        <video id="tclip-video" data-src="media/tools/sha.mp4?v=20261110" poster="media/tools/posters/sha.jpg?v=20261110" muted loop playsinline preload="metadata" aria-label="Select Hierarchy Animated in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -390,8 +393,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Select every node with keys under your selection: controls, joints, locators or groups.</p>
-<p><b>Good for:</b> finding what is causing a pop, and seeing what was animated in a whole hierarchy.</p>
+<p>Pick any control and it selects everything with keys in that character, through its anim layers too. Driven keys don't count; held poses with keys do.</p>
+<p><b>Modes</b> (right-click the button):
+<span class="opt"><b>All Animated:</b> every node with keys: controls, joints, locators or groups.</span>
+<span class="opt"><b>Controls Only:</b> just the rig controls; meshes and groups with keys stay out.</span>
+<span class="opt"><b>Isolate:</b> works with either mode and shows only the result in your viewport. Click again to see everything; click with nothing selected to leave it.</span></p>
+<p><b>Good for:</b> finding what is causing a pop, and seeing at a glance what was animated in a whole character.</p>
       </div>
     </div>
   </section>
