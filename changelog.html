@@ -158,7 +158,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       <h1>What's new in <span>KeyFlow</span></h1>
       <p>Updates are free, and each one installs on top of the version you have.</p>
       <div class="head-row">
-        <a class="pill cur" id="latest-pill" href="#v1.6.7">Latest: 1.6.7</a>
+        <a class="pill cur" id="latest-pill" href="#v1.6.8">Latest: 1.6.8</a>
       </div>
     </div>
   </section>
@@ -197,6 +197,12 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
+    { v:"1.6.8", d:"2026-11-11", t:"Line of Action, faster Onion Skin, exact MotionTrail", big:true, c:[
+      ["n","<b>Line of Action.</b> A live line through the controls you pick, in order, to read the flow of the pose."],
+      ["i","<b>Select Hierarchy Animated</b> about 100× faster, from anything selected; right-click for Controls Only or Isolate."],
+      ["i","<b>Onion Skin</b> redraws only the frames that changed, and reopens instantly."],
+      ["f","<b>MotionTrail</b> follows the exact path on rigs with constraints and layers, and keeps Maya light."],
+      ["i","<b>Grips</b> has a cleaner window, and every help window shares one style."]]},
     { v:"1.6.7", d:"2026-11-08", t:"Pivot Grab / Release, Grips and Onion Skin", big:true, c:[
       ["n","<b>Pivot Grab / Release.</b> A temp pivot that follows an object and lets it go, as many times as you need. Move it from one object to another without moving the rig; Bake turns it into regular keys on your controls."],
       ["n","<b>Grips.</b> A colored shape on each control: grab it and the control moves, with keys and undo as usual. Pick the shape, color and size, or edit the shape itself."],
