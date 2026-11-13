@@ -18,7 +18,7 @@
 <meta property="og:title" content="Changelog – KeyFlow for Maya">
 <meta property="og:description" content="Every KeyFlow release: what is new, what improved and what was fixed.">
 <meta property="og:url" content="https://keyflowtool.com/changelog.html">
-<meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261113">
+<meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261113b">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="KeyFlow, the animator's toolkit for Maya">
@@ -158,7 +158,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       <h1>What's new in <span>KeyFlow</span></h1>
       <p>Updates are free, and each one installs on top of the version you have.</p>
       <div class="head-row">
-        <a class="pill cur" id="latest-pill" href="#v1.6.8.2">Latest: 1.6.8.2</a>
+        <a class="pill cur" id="latest-pill" href="#v1.6.9">Latest: 1.6.9</a>
       </div>
     </div>
   </section>
@@ -197,6 +197,10 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
+    { v:"1.6.9", d:"2026-11-13", t:"Arc Editor", big:true, c:[
+      ["n","<b>Arc Editor.</b> Edit the path of your animation right in the viewport: drag the key points and their handles, and the keys are written when you release the mouse. Several controls at once, FK arms (the shoulder and elbow rotate to reach the point) and animation layers."],
+      ["i","Cleaner windows for <b>MotionTrail</b>, <b>Onion Skin</b> and <b>Line of Action</b>."],
+      ["f","A hotkey assigned from KeyFlow no longer triggers Maya's own action for that key too."]]},
     { v:"1.6.8.2", d:"2026-11-11", t:"Small fixes", c:[
       ["f","Small fixes and stability improvements."]]},
     { v:"1.6.8", d:"2026-11-11", t:"Line of Action, faster Onion Skin, exact MotionTrail", big:true, c:[
