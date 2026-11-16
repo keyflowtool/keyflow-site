@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Copy Animation – KeyFlow for Maya</title>
-<meta name="description" content="Copy Animation, a KeyFlow tool for Maya: Copy your animation to paste on other objects, characters or sessions.">
+<title>Copy / Paste Animation – KeyFlow for Maya</title>
+<meta name="description" content="Copy / Paste Animation, a KeyFlow tool for Maya: Copy your animation and paste it on other objects, characters or sessions.">
 <link rel="stylesheet" href="fonts.css?v=eafbdcff">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -15,10 +15,10 @@
 <link rel="canonical" href="https://keyflowtool.com/tool-ca.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
-<meta property="og:title" content="Copy Animation – KeyFlow for Maya">
-<meta property="og:description" content="Copy Animation, a KeyFlow tool for Maya: Copy your animation to paste on other objects, characters or sessions.">
+<meta property="og:title" content="Copy / Paste Animation – KeyFlow for Maya">
+<meta property="og:description" content="Copy / Paste Animation, a KeyFlow tool for Maya: Copy your animation and paste it on other objects, characters or sessions.">
 <meta property="og:url" content="https://keyflowtool.com/tool-ca.html">
-<meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261116">
+<meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261116b">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="KeyFlow, the animator's toolkit for Maya">
@@ -375,7 +375,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
 <body>
 <header class="nav">
   <div class="wrap">
-    <span class="crumb"><a href="index.html#modules">Modules</a> / <a href="module-copy.html">Copy</a> / <b>Copy Animation</b></span>
+    <span class="crumb"><a href="index.html#modules">Modules</a> / <a href="module-copy.html">Copy</a> / <b>Copy / Paste Animation</b></span>
     <nav class="nav-links" aria-label="Sections">
       <a class="on" href="index.html#modules">Modules</a>
       <a href="index.html#pricing">Pricing</a>
@@ -392,12 +392,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <div>
         <div class="row"><span class="cat">Copy</span></div>
-        <h1>Copy Animation</h1>
-        <p class="lede">Copy your animation to paste on other objects, characters or sessions.</p>
+        <h1>Copy / Paste Animation</h1>
+        <p class="lede">Copy your animation and paste it on other objects, characters or sessions.</p>
       </div>
       <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/ca.mp4?v=20261115" poster="media/tools/posters/ca.jpg?v=20261115" muted loop playsinline preload="metadata" aria-label="Copy Animation in action"></video>
+        <video id="tclip-video" data-src="media/tools/ca.mp4?v=20261115" poster="media/tools/posters/ca.jpg?v=20261115" muted loop playsinline preload="metadata" aria-label="Copy / Paste Animation in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
       <p class="tclip-credit">Hulk animation: <a href="https://www.youtube.com/@stefan_iverson" target="_blank" rel="noopener">Stefan Iverson</a> · Rig: <a href="https://amazinganimation.gumroad.com/l/hulk" target="_blank" rel="noopener">AmazingAnimation</a></p>
@@ -409,8 +409,8 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Copy the animation on your selection, or just the selected keys, with tangents and infinity, and paste it on other controls, another character or another scene. Pasting starts at the current frame. Options (right-click the button):<span class="opt"><b>Paste Replace:</b> overwrites that range and leaves the rest.</span><span class="opt"><b>Paste Insert:</b> pushes later keys forward to make room.</span><span class="opt"><b>Paste Mirror Animation:</b> pastes on the opposite side.</span><span class="opt"><b>Export / Import Animation:</b> saves to a file to reuse later, layers included. Import keeps the original frames, Insert starts at the current frame, and Merge adds the keys without deleting existing ones.</span></p>
-<p><b>Good for:</b> reusing a cycle, moving a take to another character, or carrying a clip between scenes.</p>
+<p>Copy the animation on your selection, or just the selected keys, with tangents and infinity, and paste it on other controls, another character or another scene. Pasting starts at the current frame, or at its original frames (set in Settings). Options (right-click the button):<span class="opt"><b>Paste Replace:</b> overwrites that range and leaves the rest.</span><span class="opt"><b>Paste Insert:</b> pushes later keys forward to make room.</span><span class="opt"><b>Paste Mirror Animation:</b> pastes on the opposite side, using that character's Mirror Animation setup.</span><span class="opt"><b>Export / Import Animation:</b> saves to a file to reuse later, layers included. Import keeps the original frames, Insert starts at the current frame, and Merge adds the keys without deleting existing ones.</span></p>
+<p><b>Good for:</b> reusing a cycle, moving a take to another character, carrying a clip between scenes, and copying one side's animation to the other.</p>
       </div>
     </div>
   </section>
@@ -429,9 +429,9 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>In action</h2>
       <div class="gallery" id="gallery">
-        <img data-src="media/tools/ca-1.jpg" alt="Copy Animation, image 1" loading="lazy" hidden>
-        <img data-src="media/tools/ca-2.jpg" alt="Copy Animation, image 2" loading="lazy" hidden>
-        <img data-src="media/tools/ca-3.jpg" alt="Copy Animation, image 3" loading="lazy" hidden>
+        <img data-src="media/tools/ca-1.jpg" alt="Copy / Paste Animation, image 1" loading="lazy" hidden>
+        <img data-src="media/tools/ca-2.jpg" alt="Copy / Paste Animation, image 2" loading="lazy" hidden>
+        <img data-src="media/tools/ca-3.jpg" alt="Copy / Paste Animation, image 3" loading="lazy" hidden>
       </div>
     </div>
   </section>
@@ -441,8 +441,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>More in Copy Module</h2>
       <div>
         <nav class="sib" aria-label="Copy tools">
-        <a href="tool-ca.html" class="is-cur" aria-current="page">Copy Animation</a>
-        <a href="tool-pa.html">Paste Animation</a>
+        <a href="tool-ca.html" class="is-cur" aria-current="page">Copy / Paste Animation</a>
         <a href="tool-cp.html">Copy / Paste Pose</a>
         <a href="tool-cky.html">Copy / Paste Keys</a>
         </nav>
@@ -522,7 +521,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     v.dataset.i = "0";
     v.style.zIndex = "1";
     v.src = first;
-    const extra = [2, 3, 4].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
+    const extra = [2, 3, 4, 5].map(n => path.replace(/\.mp4$/, "-" + n + ".mp4") + (q ? "?" + q : ""));
     Promise.all(extra.map(u => fetch(u, { method: "HEAD" }).then(r => r.ok ? u : null).catch(() => null))).then(found => {
       found.forEach(u => { if (u) list.push(u); });
       if (list.length < 2) return;
