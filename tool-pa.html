@@ -315,6 +315,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -323,6 +326,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
+.prose .opt{display:block;padding-left:1.2em}
+.prose .opt b{color:var(--lime)}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -390,9 +395,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>Paste Animation</h1>
         <p class="lede">Paste copied animation at the playhead or at its original frames.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/pa.mp4" muted loop playsinline preload="metadata" aria-label="Paste Animation in action"></video>
+        <video id="tclip-video" data-src="media/tools/pa.mp4?v=20261115" poster="media/tools/posters/pa.jpg?v=20261115" muted loop playsinline preload="metadata" aria-label="Paste Animation in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Hulk animation: <a href="https://www.youtube.com/@stefan_iverson" target="_blank" rel="noopener">Stefan Iverson</a> · Rig: <a href="https://amazinganimation.gumroad.com/l/hulk" target="_blank" rel="noopener">AmazingAnimation</a></p>
       </div>
     </div>
   </section>
@@ -401,7 +409,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Paste the copied animation onto your selection, at the playhead or at the original frames. Replace the range, insert it and push later keys, or mirror it to the other side.</p>
+<p>Paste the copied animation onto your selection, at the current frame or at its original frames (set in Settings). Options (right-click the button):<span class="opt"><b>Paste Replace:</b> overwrites that range and leaves the rest.</span><span class="opt"><b>Paste Insert:</b> pushes later keys forward to make room.</span><span class="opt"><b>Paste Mirror Animation:</b> pastes on the opposite side, using that character's Mirror Animation setup.</span></p>
 <p><b>Good for:</b> stacking takes, sliding a clip into a new spot, and copying one side's animation to the other.</p>
       </div>
     </div>
