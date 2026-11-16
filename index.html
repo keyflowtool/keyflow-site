@@ -207,6 +207,12 @@ section{scroll-margin-top:80px}
 .tools span:hover{border-color:var(--lime);color:var(--lime)}
 .tool.flash{animation:flash 1.6s ease-out}
 .tools span{font-size:12px;color:var(--fg);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+/* hover on a module card: a soft light band sweeps across all its tool chips at once, hinting they are clickable */
+.tools span{position:relative;overflow:hidden}
+.tools span::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.10) 50%,transparent 70%);transform:translateX(-120%);pointer-events:none}
+.card:hover .tools span::after{animation:chipSweep 2.6s ease-in-out infinite}
+@keyframes chipSweep{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+@media (prefers-reduced-motion:reduce){.card:hover .tools span::after{animation:none}}
 .go{margin-top:auto;padding-top:8px;display:flex;justify-content:flex-start;gap:8px;align-items:center;font:700 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--lime);text-decoration:none}
 .go::after{content:"→";font-size:15px;transition:transform .15s}
 .go:hover::after{transform:translateX(3px)}
