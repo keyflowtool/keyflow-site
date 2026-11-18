@@ -18,7 +18,7 @@
 <meta property="og:title" content="Changelog – KeyFlow for Maya">
 <meta property="og:description" content="Every KeyFlow release: what is new, what improved and what was fixed.">
 <meta property="og:url" content="https://keyflowtool.com/changelog.html">
-<meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261116b">
+<meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261119">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="KeyFlow, the animator's toolkit for Maya">
@@ -158,7 +158,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       <h1>What's new in <span>KeyFlow</span></h1>
       <p>Updates are free, and each one installs on top of the version you have.</p>
       <div class="head-row">
-        <a class="pill cur" id="latest-pill" href="#v1.6.9.1">Latest: 1.6.9.1</a>
+        <a class="pill cur" id="latest-pill" href="#v1.7.0">Latest: 1.7.0</a>
       </div>
     </div>
   </section>
@@ -197,6 +197,10 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
+    { v:"1.7.0", d:"2026-11-19", t:"MayaSketch", big:true, c:[
+      ["n","<b>MayaSketch.</b> Draw review notes right on the viewport, frame by frame: brush, highlighter, shapes, text, eraser and laser pointer, with tablet pressure for size and opacity and onion ghosts of your drawings."],
+      ["n","<b>Record your review as a video with audio.</b> Talk through your notes while you draw and play, and save it as an MP4."],
+      ["f","Maya could crash when closing with <b>Onion Skin</b> turned on."]]},
     { v:"1.6.9.1", d:"2026-11-14", t:"Arc Editor", big:true, c:[
       ["n","<b>Arc Editor.</b> Edit the path of your animation right in the viewport: drag the key points and their handles, and the keys are written when you release the mouse. Several controls at once, FK arms (the shoulder and elbow rotate to reach the point) and animation layers."],
       ["i","Cleaner windows for <b>MotionTrail</b>, <b>Onion Skin</b> and <b>Line of Action</b>."],
