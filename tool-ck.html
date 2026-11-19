@@ -389,10 +389,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Keys</span></div>
         <h1>Copy&nbsp;/&nbsp;Paste Keys</h1>
-        <p class="lede">Copy keys and paste them at the playhead, on other objects or channels.</p>
+        <p class="lede">Copy keys and paste them at the playhead, on selected keys, or on other objects and channels.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/ck.mp4?v=20261026" poster="media/tools/posters/ck.jpg?v=20261026" muted loop playsinline preload="metadata" aria-label="Copy / Paste Keys in action"></video>
+        <video id="tclip-video" data-src="media/tools/ck.mp4?v=20261119" poster="media/tools/posters/ck.jpg?v=20261119" muted loop playsinline preload="metadata" aria-label="Copy / Paste Keys in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -402,7 +402,9 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Copy keys and paste them somewhere else, with their spacing and tangents. Copy the selected keys, a time slider range or a whole curve, then paste at the playhead, on other keys, or on another channel or object.</p>
+<p>Copy the selected keys and paste them at the playhead, on other keys, or on another channel or object, keeping their spacing and tangents. A pasted range replaces the keys inside it, and one Ctrl+Z undoes it.</p>
+<p><b>On selected keys:</b> a copied pose goes on each selected key; a copied range goes once per curve, starting at its last selected key.</p>
+<p><b>Right-click Paste:</b> <i>Paste &rarr; Each Selected Key</i> or <i>Paste &rarr; Last Selected Key</i> to paste the other way, just once.</p>
 <p><b>Hotkeys:</b> ideal on a shortcut. Copy and Paste can each have their own key in <a href="tool-hk.html">Hotkeys</a>.</p>
 <p><b>Good for:</b> repeating an accent, moving a beat to another part of the shot, or passing a motion from one channel to another.</p>
       </div>
@@ -413,9 +415,9 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>How to use it</h2>
       <div class="keys-tiles">
-          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Copy keys</span></div></div>
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Run the chosen action (Copy or Paste)</span></div></div>
           <div class="kt"><span class="kt-key">CTRL</span><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Ctrl + left click</b><span>Paste keys</span></div></div>
-          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Choose Copy or Paste</span></div></div>
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Choose Copy or Paste, or another way to paste</span></div></div>
       </div>
     </div>
   </section>
