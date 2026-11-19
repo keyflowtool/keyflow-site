@@ -324,6 +324,13 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
+/* The toolbar: his screenshot of the bar (1:1) with one line per button, each line centred on its icon (pitch 36.06 px). */
+.tbar{display:flex;gap:22px;align-items:flex-start}
+.tbar img{flex:none;display:block;width:44px;height:692px}
+.tbar ul{list-style:none;margin:0;padding:0;position:relative;height:692px;flex:1;min-width:0}
+.tbar li{position:absolute;left:0;right:0;top:calc(21px + var(--i) * 36.06px);transform:translateY(-50%);font-size:15.5px;line-height:1.2;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbar li b{color:var(--orange);font-weight:700;margin-right:.45em}
+@media (max-width:640px){.tbar{gap:14px}.tbar li{font-size:13.5px}}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
 .keys-list span{color:#d6dacf;font-size:15px}
@@ -391,7 +398,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <p class="lede">Draw review notes right on the viewport, frame by frame, and record them as a video with your voice.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/msk.mp4?v=20261119" muted loop playsinline preload="metadata" aria-label="MayaSketch in action"></video>
+        <video id="tclip-video" data-src="media/tools/msk.mp4?v=20261119" poster="media/tools/posters/msk.jpg?v=20261119" muted loop playsinline preload="metadata" aria-label="MayaSketch in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -402,16 +409,37 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>What it does</h2>
       <div class="prose">
 <p>Draw on top of the viewport like on a sheet of glass: every frame keeps its own drawing, and the notes are saved with the scene.</p>
-<p><b>Brush / Highlighter:</b> draw freehand; tablet pressure sets the size and the opacity.<br>
-<b>Shapes:</b> line, arrow, rectangle or ellipse.<br>
-<b>Text:</b> type a note, then move, scale or rotate it.<br>
-<b>Select / Eraser:</b> move, scale or rotate a drawing, or erase only what you touch.<br>
-<b>Laser pointer:</b> point while you talk; it fades away and leaves no marks.<br>
-<b>Onion skin:</b> ghosts of the drawings on the frames before and after.<br>
-<b>Board:</b> a flat colour behind the drawing, to sketch over a clean page.<br>
-<b>Screenshot:</b> saves the view with the notes and copies it.<br>
-<b>Record video:</b> records the viewport with your voice and saves an .mp4.</p>
 <p><b>Good for:</b> dailies and shot reviews: draw the fix over the pose, talk it through and send the video to the animator.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tsec">
+    <div class="wrap">
+      <h2>The toolbar</h2>
+      <div class="tbar">
+        <img src="media/tools/msk-toolbar.png?v=20261119" width="44" height="692" alt="MayaSketch toolbar">
+        <ul>
+          <li style="--i:0"><b>Show / hide</b> every drawing</li>
+          <li style="--i:1"><b>Maya</b> stop drawing, select as usual</li>
+          <li style="--i:2"><b>Select</b> move, scale or rotate a drawing</li>
+          <li style="--i:3"><b>Brush / Highlighter</b> draw freehand</li>
+          <li style="--i:4"><b>Eraser</b> erases only what it touches</li>
+          <li style="--i:5"><b>Shapes</b> line, arrow, rectangle, ellipse</li>
+          <li style="--i:6"><b>Text</b> type a note</li>
+          <li style="--i:7"><b>Laser pointer</b> fades, leaves no marks</li>
+          <li style="--i:8"><b>Size / Opacity</b> each tool keeps its own</li>
+          <li style="--i:9"><b>Undo</b> same as Ctrl+Z</li>
+          <li style="--i:10"><b>Clear</b> this frame, or all frames</li>
+          <li style="--i:11"><b>Board</b> flat colour behind the drawing</li>
+          <li style="--i:12"><b>Onion skin</b> drawings on nearby frames</li>
+          <li style="--i:13"><b>Screenshot</b> saves and copies the view</li>
+          <li style="--i:14"><b>Colour</b> opens the palette</li>
+          <li style="--i:15"><b>Record video</b> viewport and your voice, .mp4</li>
+          <li style="--i:16"><b>Settings</b> screenshots folder and more</li>
+          <li style="--i:17"><b>Help</b> every button and shortcut</li>
+          <li style="--i:18"><b>Close</b> closes MayaSketch</li>
+        </ul>
       </div>
     </div>
   </section>
