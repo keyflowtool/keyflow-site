@@ -393,7 +393,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <p class="lede">Store where your selection is in world space, and put it back on the current frame, on keys or across a range.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/xfcw.mp4" muted loop playsinline preload="metadata" aria-label="Copy / Paste XForm World Space in action"></video>
+        <video id="tclip-video" data-src="media/tools/xfcw.mp4?v=20261120" poster="media/tools/posters/xfcw.jpg?v=20261120" muted loop playsinline preload="metadata" aria-label="Copy / Paste XForm World Space in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -403,11 +403,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Store where your selection is in world space, each control on its own. Ctrl + click puts it back there.</p>
+<p>Store where your selection is in world space, each control on its own. Ctrl + click puts it back there, or on the objects you select instead.</p>
 <p><b>Paste modes</b> (right-click the button):
 <span class="opt"><b>Current Frame:</b> only on the frame you are on.</span>
 <span class="opt"><b>On Keys:</b> on the keys each control already has, from this frame on.</span>
 <span class="opt"><b>Bake Range:</b> a key on every frame, from this frame on, or across the range marked in the time slider.</span></p>
+<p><b>Copy World Space Range</b> (right-click): one pose per frame of the range, pasted back on the same frames, e.g. to bake combined anim layers into one.</p>
 <p><b>Good for:</b> planting a hand on a table or a foot on the ground while the body moves.</p>
       </div>
     </div>
@@ -419,7 +420,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div class="keys-tiles">
           <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Copy world space</span></div></div>
           <div class="kt"><span class="kt-key">CTRL</span><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Ctrl + left click</b><span>Paste world space</span></div></div>
-          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Paste mode: Current Frame, On Keys, Bake Range</span></div></div>
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Paste mode, or Copy World Space Range</span></div></div>
       </div>
     </div>
   </section>
