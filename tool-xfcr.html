@@ -325,6 +325,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose b{color:var(--orange);font-weight:700}
 .prose .opt{display:block;padding-left:1.2em}
 .prose .opt b{color:var(--lime)}
+.prose .opt:has(.opt-ico){padding-left:calc(1.2em + 29px);text-indent:-29px}
+.prose .opt-ico{width:22px;height:22px;vertical-align:-5px;margin-right:7px}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -405,9 +407,9 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div class="prose">
 <p>Store how one or more controls sit relative to a reference: select the reference first. Ctrl + click puts it back wherever the reference is now.</p>
 <p><b>Paste modes</b> (right-click the button):
-<span class="opt"><b>Current Frame:</b> only on the frame you are on.</span>
-<span class="opt"><b>On Keys:</b> on the keys the reference and the controls already have, from this frame on.</span>
-<span class="opt"><b>Bake Range:</b> a key on every frame, from this frame on, or across the range marked in the time slider.</span></p>
+<span class="opt"><img class="opt-ico" src="media/icons/paste-current-frame.png" width="22" height="22" alt=""><b>Current Frame:</b> only on the frame you are on.</span>
+<span class="opt"><img class="opt-ico" src="media/icons/paste-on-keys.png" width="22" height="22" alt=""><b>On Keys:</b> on the keys the reference and the controls already have, from this frame on.</span>
+<span class="opt"><img class="opt-ico" src="media/icons/paste-bake-range.png" width="22" height="22" alt=""><b>Bake Range:</b> a key on every frame, from this frame on, or across the range marked in the time slider.</span></p>
 <p><b>Good for:</b> a hand holding a prop, a grab or a takedown, and a foot riding a moving platform.</p>
       </div>
     </div>
