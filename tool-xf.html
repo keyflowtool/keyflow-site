@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Local / World – KeyFlow for Maya</title>
-<meta name="description" content="Local / World, a KeyFlow tool for Maya: Switch a control between local and world space.">
+<meta name="description" content="Local / World, a KeyFlow tool for Maya: Copy / Paste XForm Relationship and World Space, unified in one button.">
 <link rel="stylesheet" href="fonts.css?v=eafbdcff">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="Local / World – KeyFlow for Maya">
-<meta property="og:description" content="Local / World, a KeyFlow tool for Maya: Switch a control between local and world space.">
+<meta property="og:description" content="Local / World, a KeyFlow tool for Maya: Copy / Paste XForm Relationship and World Space, unified in one button.">
 <meta property="og:url" content="https://keyflowtool.com/tool-xf.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261119b">
 <meta property="og:image:width" content="1200">
@@ -390,10 +390,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">XForm</span></div>
         <h1>Local&nbsp;/ World</h1>
-        <p class="lede">Switch a control between local and world space.</p>
+        <p class="lede">Copy / Paste XForm Relationship and World Space, unified in one button.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/xf.mp4" muted loop playsinline preload="metadata" aria-label="Local / World in action"></video>
+        <video id="tclip-video" data-src="media/tools/xf.mp4?v=20261120" poster="media/tools/posters/xf.jpg?v=20261120" muted loop playsinline preload="metadata" aria-label="Local / World in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -403,7 +403,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>The four XForm tools in one button: right-click picks the action, Ctrl + click pastes.</p>
+<p>The same actions as <a href="tool-xfcr.html">Relationship</a> and <a href="tool-xfcw.html">World Space</a>, in one button: right-click picks one.</p>
 <p><b>Actions</b> (right-click):
 <span class="opt"><b>Copy XForm Relationship:</b> store the controls relative to a reference (select it first).</span>
 <span class="opt"><b>Paste XForm Relationship:</b> put them back wherever the reference is now.</span>
