@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>World Lock – KeyFlow for Maya</title>
-<meta name="description" content="World Lock, a KeyFlow tool for Maya: Lock a foot to the world during its contacts.">
+<meta name="description" content="World Lock, a KeyFlow tool for Maya: Pin the feet where they stop, and walk the character along a path.">
 <link rel="stylesheet" href="fonts.css?v=eafbdcff">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="World Lock – KeyFlow for Maya">
-<meta property="og:description" content="World Lock, a KeyFlow tool for Maya: Lock a foot to the world during its contacts.">
+<meta property="og:description" content="World Lock, a KeyFlow tool for Maya: Pin the feet where they stop, and walk the character along a path.">
 <meta property="og:url" content="https://keyflowtool.com/tool-wl.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261119b">
 <meta property="og:image:width" content="1200">
@@ -323,6 +323,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
+.prose .opt{display:block;padding-left:1.2em}
+.prose .opt b{color:var(--lime)}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -377,7 +379,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">XForm</span></div>
         <h1>World Lock</h1>
-        <p class="lede">Lock a foot to the world during its contacts.</p>
+        <p class="lede">Pin the feet where they stop, and walk the character along a path.</p>
       </div>
       <div class="tclip" id="tclip">
         <video id="tclip-video" data-src="media/tools/wl.mp4?v=20261121" poster="media/tools/posters/wl.jpg?v=20261121" muted loop playsinline preload="metadata" aria-label="World Lock in action"></video>
@@ -390,7 +392,26 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Lock feet to the world during their ground contacts, and walk the character along a path you can edit or draw. The result goes to its own layer, over your untouched animation.</p>
+<p>Pin the feet of a walk where they really stop, and send the character along a path you take from the COG, draw or shape. Everything goes to its own layer, over your untouched animation.</p>
+<p><b>Fix Foot Sliding:</b>
+<span class="opt"><b>Check Contacts:</b> counts the steps; too few, raise Contact.</span>
+<span class="opt"><b>World Lock:</b> pins each IK foot where it stops and shows the slide before → after.</span></p>
+<p><b>Path:</b>
+<span class="opt"><b>Path From COG:</b> a path from the route the walk already travels.</span>
+<span class="opt"><b>Draw Path:</b> click your own route in the viewport, then Enter.</span>
+<span class="opt"><b>Follow Path:</b> the walk travels the path; move its CVs and the walk follows.</span>
+<span class="opt"><b>Follow Ground:</b> keeps the feet on the selected mesh.</span></p>
+<p><b>Edit Path:</b>
+<span class="opt"><b>Add Points On Path:</b> a new CV under the character on this frame.</span>
+<span class="opt"><b>Turn From Here:</b> rotate the rest of the path, then Accept Turn.</span>
+<span class="opt"><b>Straighten Path:</b> from this frame on, straight on X or Z.</span>
+<span class="opt"><b>Smooth Path:</b> rounds the corners, a bit more on each click.</span></p>
+<p><b>In-Place Cycle:</b>
+<span class="opt"><b>Cycle Along Path:</b> turns a cycle in place into a walk along the path.</span></p>
+<p><b>Finish:</b>
+<span class="opt"><b>Bake:</b> keeps the result in its own layer.</span>
+<span class="opt"><b>Remove:</b> back to your original animation. One Ctrl + Z undoes either.</span></p>
+<p>On KF_path, in the Channel Box: Slide, hips height, body tilt and knees. Several characters, each with its own path.</p>
 <p><b>Good for:</b> killing foot slide after moving a cycle with the COG, turning a cycle into a walk along a route, and walking over uneven ground.</p>
       </div>
     </div>
