@@ -168,8 +168,8 @@ section{scroll-margin-top:80px}
 
 /* module cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.card{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-color .2s,transform .2s}
-.card:hover,.card:focus-within{border-color:color-mix(in srgb,var(--g) 70%,var(--line-2));transform:translateY(-3px)}
+.card{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+.card:hover,.card:focus-within{border-color:color-mix(in srgb,var(--g) 70%,var(--line-2));box-shadow:0 0 0 1px color-mix(in srgb,var(--g) 70%,var(--line-2));transform:translateY(-3px)}
 .prev{position:relative;aspect-ratio:16/11;max-width:100%;padding:18px;display:flex;flex-direction:column;background:
   radial-gradient(120% 90% at 100% 0%,color-mix(in srgb,var(--g) 55%,transparent),transparent 70%),
   linear-gradient(180deg,color-mix(in srgb,var(--g) 22%,var(--panel-2)),var(--panel-2));border-bottom:1px solid var(--line);overflow:hidden}
