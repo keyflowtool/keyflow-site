@@ -352,7 +352,15 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   .sec h2,.maker blockquote{font-size:19px!important;line-height:1.2}
   .tb-grid{grid-template-columns:minmax(0,1fr)}
   .tip{grid-template-columns:72px minmax(0,1fr);height:150px}.tip p{height:4.5em;-webkit-line-clamp:3}
-  .maker{grid-template-columns:minmax(0,1fr)}
+  /* 2026-11-22 (he: "y por ultimo esto"): logo beside the text as on PC, and the footer in one row */
+  .maker{grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start}
+  .maker-logo{width:70px;margin-top:2px}
+  .maker p{font-size:13px}
+  footer{padding-block:18px}
+  footer .wrap{flex-direction:row;flex-wrap:nowrap;justify-content:space-between;text-align:left;gap:10px;font-size:11px}
+  footer .wrap > span:first-child,footer .ft-end{flex:none}
+  footer .contact .contact-lbl{display:none}
+  footer .contact a{font-size:12px}
   .brand small{display:none}
 }
 /* Small phones (2026-11-22, he: "1 solo renglon"): the five numbers in ONE row, number on top, label under it. */
