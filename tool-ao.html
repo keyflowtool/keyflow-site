@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Axis Orient – KeyFlow for Maya</title>
-<meta name="description" content="Axis Orient, a KeyFlow tool for Maya: Orient the manipulator to an axis or to the camera.">
+<meta name="description" content="Axis Orient, a KeyFlow tool for Maya: Orient the manipulator to another object or to the camera.">
 <link rel="stylesheet" href="fonts.css?v=eafbdcff">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="Axis Orient – KeyFlow for Maya">
-<meta property="og:description" content="Axis Orient, a KeyFlow tool for Maya: Orient the manipulator to an axis or to the camera.">
+<meta property="og:description" content="Axis Orient, a KeyFlow tool for Maya: Orient the manipulator to another object or to the camera.">
 <meta property="og:url" content="https://keyflowtool.com/tool-ao.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261119b">
 <meta property="og:image:width" content="1200">
@@ -323,6 +323,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
+.prose .opt{display:block;padding-left:1.2em}
+.prose .opt b{color:var(--lime)}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -388,7 +390,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Align</span></div>
         <h1>Axis Orient</h1>
-        <p class="lede">Orient the manipulator to an axis or to the camera.</p>
+        <p class="lede">Orient the manipulator to another object or to the camera.</p>
       </div>
       <div class="tclip" id="tclip">
         <video id="tclip-video" data-src="media/tools/ao.mp4" muted loop playsinline preload="metadata" aria-label="Axis Orient in action"></video>
@@ -401,7 +403,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Turn the manipulator's axes toward another object or the camera, for Move, Rotate and Scale. Your animation is not touched, and Reset brings back Maya's axes.</p>
+<p>Turn the Move, Rotate and Scale manipulator to the axes you need. Your animation is not touched.</p>
+<p><b>Options</b> (right-click):
+<span class="opt"><b>Orient to Selected:</b> the manipulator takes the axes of the last selected object.</span>
+<span class="opt"><b>Orient to Camera:</b> one axis points at the camera, to push toward or away from it.</span>
+<span class="opt"><b>Reset:</b> back to Maya's own object axes.</span></p>
+<p>A click runs the option you picked last.</p>
 <p><b>Good for:</b> pushing a control toward or away from the camera, or sliding a foot along a tilted floor.</p>
       </div>
     </div>
