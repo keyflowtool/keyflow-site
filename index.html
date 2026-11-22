@@ -255,6 +255,17 @@ section{scroll-margin-top:80px}
   .mi-cell:nth-last-child(-n+7){border-bottom:1px solid var(--line)}
   .mi-cell:nth-last-child(-n+2){border-bottom:0}
 }
+/* Phones (2026-11-22, he: "2 pills no, pueden ser 3 pills, achicando el ancho"): 3 modules per row, narrower cells. */
+@media (max-width:560px){
+  .mindex{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:0}  /* the cards under it are hidden on phones: no extra gap */
+  .mi-cell{gap:7px;padding:14px 10px}
+  .mi-ico{width:16px;height:16px}
+  .mi-name{font-size:13px}
+  .mi-cell:nth-child(2n){border-right:1px solid var(--line)}
+  .mi-cell:nth-child(3n){border-right:0}
+  .mi-cell:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+  .mi-cell:nth-last-child(-n+2){border-bottom:0}
+}
 .card{cursor:pointer}
 .crumbs{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:-8px 0 22px}
 .crumbs button{font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg);background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:8px 14px;cursor:pointer}
@@ -325,6 +336,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   #modules .sec-head{grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
   #modules .count{font-size:58px}
   #modules .sec-head h2{font-size:19px;line-height:1.2}
+  /* 2026-11-22 (he: keep the big text one size, the modules heading's): every section heading and the maker quote */
+  .sec h2,.maker blockquote{font-size:19px!important;line-height:1.2}
   .tb-grid{grid-template-columns:minmax(0,1fr)}
   .tip{grid-template-columns:72px minmax(0,1fr);height:150px}.tip p{height:4.5em;-webkit-line-clamp:3}
   .maker{grid-template-columns:minmax(0,1fr)}
