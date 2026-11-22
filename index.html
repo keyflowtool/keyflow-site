@@ -330,7 +330,19 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   .nav-links a:not(.nav-cl){display:none}
 }
 @media (max-width:560px){
-  .prices{grid-template-columns:minmax(0,1fr)}
+  /* 2026-11-22 (he: "muy importante adaptarlo al celular"): License compact on phones, prices 2 x 2 like on PC, points in 2 columns */
+  .prices{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .price{padding:13px 12px;gap:6px}
+  .price .t{font-size:9px;letter-spacing:.06em}
+  .price .amt{font-size:30px}
+  .price .amt small{font-size:11px;margin-left:4px}
+  .price p{font-size:11.5px;line-height:1.4}
+  .price .btn{font-size:12px;padding:7px 8px;white-space:nowrap}
+  .guarantee{font-size:11px}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;margin-top:20px}
+  .facts div{border-left-width:2px;padding-left:10px}
+  .facts h3{font-size:14px}
+  .facts p{font-size:12px;line-height:1.4}
   .sec-head{grid-template-columns:minmax(0,1fr)}
   /* 2026-11-22 (he: "1 solo renglon"): the 14 MODULES count and its heading side by side on phones too */
   #modules .sec-head{grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
