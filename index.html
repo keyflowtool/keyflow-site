@@ -321,6 +321,10 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (max-width:560px){
   .prices{grid-template-columns:minmax(0,1fr)}
   .sec-head{grid-template-columns:minmax(0,1fr)}
+  /* 2026-11-22 (he: "1 solo renglon"): the 14 MODULES count and its heading side by side on phones too */
+  #modules .sec-head{grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
+  #modules .count{font-size:58px}
+  #modules .sec-head h2{font-size:19px;line-height:1.2}
   .tb-grid{grid-template-columns:minmax(0,1fr)}
   .tip{grid-template-columns:72px minmax(0,1fr);height:150px}.tip p{height:4.5em;-webkit-line-clamp:3}
   .maker{grid-template-columns:minmax(0,1fr)}
