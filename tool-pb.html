@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Playblast Mode – KeyFlow for Maya</title>
-<meta name="description" content="Playblast Mode, a KeyFlow tool for Maya: Clean up the viewport for playblasts in one click.">
+<meta name="description" content="Playblast Mode, a KeyFlow tool for Maya: Clean up the viewport for playblasts in one click, and get it back exactly as it was.">
 <link rel="stylesheet" href="fonts.css?v=fc069dab">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="Playblast Mode – KeyFlow for Maya">
-<meta property="og:description" content="Playblast Mode, a KeyFlow tool for Maya: Clean up the viewport for playblasts in one click.">
+<meta property="og:description" content="Playblast Mode, a KeyFlow tool for Maya: Clean up the viewport for playblasts in one click, and get it back exactly as it was.">
 <meta property="og:url" content="https://keyflowtool.com/tool-pb.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261119b">
 <meta property="og:image:width" content="1200">
@@ -377,7 +377,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Camera</span></div>
         <h1>Playblast Mode</h1>
-        <p class="lede">Clean up the viewport for playblasts in one click.</p>
+        <p class="lede">Clean up the viewport for playblasts in one click, and get it back exactly as it was.</p>
       </div>
       <div class="tclip" id="tclip">
         <video id="tclip-video" data-src="media/tools/pb.mp4" muted loop playsinline preload="metadata" aria-label="Playblast Mode in action"></video>
@@ -390,8 +390,23 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Clean up the viewport for playblasts in one click: only the geometry stays visible. Click again and every viewport setting comes back as it was.</p>
-<p><b>Good for:</b> a clean playblast or a quick look at the animation without rig clutter.</p>
+<p>Hides everything except the geometry with one click: controls, joints, locators, grid, HUD and more. Click again and every viewport setting comes back exactly as it was.</p>
+<p><b>Good for:</b> a clean playblast, or a quick look at the animation without rig clutter, without losing your viewport setup.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tsec">
+    <div class="wrap">
+      <h2>Why it beats Maya's Show menu</h2>
+      <div class="prose">
+<ul>
+<li><b>One click, not a menu dive.</b> In Maya you turn off each type in the <i>Show</i> menu, or pick <i>None</i> and turn the geometry back on. Here it is one button or one hotkey.</li>
+<li><b>It remembers your setup.</b> <i>Show &rarr; All</i> turns on everything, including what you had hidden on purpose. Playblast Mode restores each type exactly as you left it.</li>
+<li><b>More than &ldquo;ornaments&rdquo;.</b> Turning off ornaments in the playblast options hides the HUD and other overlays, but not rig controls, joints or locators. Playblast Mode hides all 18 types.</li>
+<li><b>Safe across sessions.</b> Saved a scene with the viewport clean? Reopen it and one click brings everything back.</li>
+<li><b>Works with Toggle Geometry.</b> Hide the meshes while it&rsquo;s on, and they stay the way you left them when you turn it off.</li>
+</ul>
       </div>
     </div>
   </section>
