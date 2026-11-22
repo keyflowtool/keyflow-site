@@ -418,6 +418,22 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
 
   <section class="tsec">
     <div class="wrap">
+      <h2>Why it beats Maya's own 2D Pan/Zoom</h2>
+      <div class="prose">
+<ul>
+<li><b>It follows the object.</b> Maya's 2D Pan/Zoom Tool frames a still view: when the character moves, it leaves the frame and you reframe by hand. Track Selected follows it frame by frame and frames it for you.</li>
+<li><b>Your camera stays untouched.</b> Maya writes the pan and zoom on your camera, shot camera included, and they stay in the scene until you reset them. KeyFlow works on a copy.</li>
+<li><b>One click back.</b> Stop Tracking deletes the copy and returns you to your camera, exactly as it was.</li>
+<li><b>Smooth playback.</b> Maya itself does the following, with a constraint. No script runs on every frame.</li>
+<li><b>Other views stay put.</b> Panning only moves the tracking view, never the camera of another view.</li>
+<li><b>Hotkey and clear state.</b> One hotkey turns it on and off, and the window always shows whether it is on.</li>
+</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="tsec">
+    <div class="wrap">
       <h2>How to use it</h2>
       <div class="keys-tiles">
           <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left drag</b><span>Pan</span></div></div>
