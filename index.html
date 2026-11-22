@@ -86,6 +86,19 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;te
 .specs li.os{display:inline-flex;align-items:center;gap:7px}
 .os-ico{width:12px;height:12px;fill:var(--fg);flex:none}
 .specs li b{color:var(--fg);font-weight:700}
+/* Phone (2026-11-22, he picked "Shorter tags"): the five tags in ONE row, shorter words and smaller type. PC unchanged. */
+.specs .sp-short{display:none}
+@media (max-width:600px){
+  .specs{flex-wrap:nowrap;gap:4px;justify-content:space-between}
+  .specs li{flex:none;white-space:nowrap;font-size:10px;padding:5px 6px}
+  .specs li.ver-pill{padding:0}
+  .specs li.ver-pill a{font-size:10px;padding:6px 7px}
+  .specs li.os{gap:4px}
+  .specs .os-ico{width:10px;height:10px}
+  .specs .sp-long{display:none}
+  .specs .sp-short{display:inline}
+}
+@media (max-width:370px){.specs{gap:3px}.specs li{font-size:9.5px;padding:5px 5px}.specs li.ver-pill a{font-size:9.5px;padding:6px 6px}}
 
 /* toolbar mock */
 .tb-stage{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
@@ -313,14 +326,15 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   .maker{grid-template-columns:minmax(0,1fr)}
   .brand small{display:none}
 }
-/* Small phones: the numbers become a compact list, number on the left and label on the right. */
+/* Small phones (2026-11-22, he: "1 solo renglon"): the five numbers in ONE row, number on top, label under it. */
 @media (max-width:560px){
-  .stats-row{grid-template-columns:minmax(0,1fr)}
-  .stats-row div,.stats-row div:nth-child(-n+2){flex-direction:row;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
-  .stats-row div:first-child{border-top:0}
-  .stats-row b{font-size:30px;min-width:76px;text-align:right}
+  .stats-row{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .stats-row div,.stats-row div:nth-child(-n+2){flex-direction:column;align-items:center;text-align:center;gap:5px;padding:14px 3px;border-top:0;border-left:1px solid var(--line)}
+  .stats-row div:first-child{border-left:0}
+  .stats-row div:last-child{grid-column:auto}
+  .stats-row b{font-size:24px}
   .stats-row .has-plus span::before{display:none}
-  .stats-row span{font-size:10.5px;letter-spacing:.1em}
+  .stats-row span{font-size:7.5px;letter-spacing:.04em;line-height:1.3}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -354,10 +368,10 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
         <p class="lede">I built KeyFlow for the parts of the job that get in the&nbsp;way of animating.</p>
         <ul class="specs">
           <li class="ver-pill"><a href="changelog.html" title="See what is new in 1.7.1">v1.7.1</a></li>
-          <li>Maya <b>2024 · 2026 · 2027</b></li>
+          <li>Maya <b class="sp-long">2024 · 2026 · 2027</b><b class="sp-short">24–27</b></li>
           <li class="os"><svg class="os-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="0" y="0" width="7.5" height="7.5"/><rect x="8.5" y="0" width="7.5" height="7.5"/><rect x="0" y="8.5" width="7.5" height="7.5"/><rect x="8.5" y="8.5" width="7.5" height="7.5"/></svg><b>Windows</b></li>
-          <li>Perpetual · <b>transferable</b></li>
-          <li>Works <b>offline</b></li>
+          <li><span class="sp-long">Perpetual · <b>transferable</b></span><b class="sp-short">Perpetual</b></li>
+          <li><span class="sp-long">Works <b>offline</b></span><b class="sp-short">Offline</b></li>
         </ul>
       </div>
     </div>
