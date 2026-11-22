@@ -322,6 +322,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose{max-width:46em;color:#d6dacf;font-size:16.5px}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .prose b{color:var(--orange);font-weight:700}
 .prose .opt{display:block;padding-left:1.2em}
 .prose .opt b{color:var(--lime)}
@@ -392,9 +395,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>Axis Orient</h1>
         <p class="lede">Orient the manipulator to another object or to the camera.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/ao.mp4" muted loop playsinline preload="metadata" aria-label="Axis Orient in action"></video>
+        <video id="tclip-video" data-src="media/tools/ao.mp4?v=20261121" poster="media/tools/posters/ao.jpg?v=20261121" muted loop playsinline preload="metadata" aria-label="Axis Orient in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Animation: <a href="https://www.linkedin.com/in/zohair-khan-60b902332/" target="_blank" rel="noopener">Zohair Khan</a> · Stormtrooper rig: <a href="https://milio-serrano.gumroad.com/" target="_blank" rel="noopener">Milio Serrano</a></p>
       </div>
     </div>
   </section>
