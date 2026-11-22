@@ -397,10 +397,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       </div>
       <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/ao.mp4?v=20261121b" poster="media/tools/posters/ao.jpg?v=20261121b" muted loop playsinline preload="metadata" aria-label="Axis Orient in action"></video>
+        <video id="tclip-video" data-src="media/tools/ao.mp4?v=20261122" poster="media/tools/posters/ao.jpg?v=20261122" muted loop playsinline preload="metadata" aria-label="Axis Orient in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
-      <p class="tclip-credit">Rig: <a href="https://truongcgartist.gumroad.com/" target="_blank" rel="noopener">Truong CG Artist</a></p>
+      <p class="tclip-credit">Rig: <a href="https://truongcgartist.gumroad.com/" target="_blank" rel="noopener">Truong CG Artist</a> · Ball rig: <a href="https://www.highend3d.com/maya/downloads/character-rigs/c/ball-rig-7-for-maya-107178" target="_blank" rel="noopener">Ball Rig 7</a></p>
       </div>
     </div>
   </section>
@@ -412,7 +412,8 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
 <p>Turn the Move, Rotate and Scale manipulator to the axes you need. Your animation is not touched.</p>
 <p><b>Options</b> (right-click):
 <span class="opt"><b>Orient to Selected:</b> the manipulator takes the axes of the last selected object.</span>
-<span class="opt"><b>Orient to Camera:</b> one axis points at the camera, to push toward or away from it.</span>
+<span class="opt"><b>Orient to Camera:</b> the manipulator takes the camera's axes, to move flat to the screen.</span>
+<span class="opt"><b>Aim at Camera:</b> Z points at the camera: the object comes closer without leaving its spot.</span>
 <span class="opt"><b>Reset:</b> back to Maya's own object axes.</span></p>
 <p>A click runs the option you picked last.</p>
 <p><b>Good for:</b> pushing a control toward or away from the camera, or sliding a foot along a tilted floor.</p>
@@ -425,7 +426,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>How to use it</h2>
       <div class="keys-tiles">
           <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b on" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Left click</b><span>Orient (active action)</span></div></div>
-          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Orient to Selected, to Camera, Reset</span></div></div>
+          <div class="kt"><svg class="kt-mouse" viewBox="0 0 30 42" aria-hidden="true"><path class="b" d="M15 3H11A8 8 0 0 0 3 11V17H15Z"/><path class="b on" d="M15 3H19A8 8 0 0 1 27 11V17H15Z"/><rect class="o" x="3" y="3" width="24" height="36" rx="12"/><path class="o" d="M3 17H27M15 3V17"/></svg><div class="kt-txt"><b>Right click</b><span>Orient to Selected, to Camera, Aim at Camera, Reset</span></div></div>
       </div>
     </div>
   </section>
