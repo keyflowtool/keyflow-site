@@ -158,7 +158,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       <h1>What's new in <span>KeyFlow</span></h1>
       <p>Updates are free, and each one installs on top of the version you have.</p>
       <div class="head-row">
-        <a class="pill cur" id="latest-pill" href="#v1.7.1">Latest: 1.7.1</a>
+        <a class="pill cur" id="latest-pill" href="#v1.7.2">Latest: 1.7.2</a>
       </div>
     </div>
   </section>
@@ -197,6 +197,19 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
+    { v:"1.7.2", d:"2026-11-23", t:"Camera, Align & Viewport", big:true, c:[
+      ["n","<b>Axis Orient: Aim at Camera</b> points the object at the camera, so you can move it closer without it drifting across the frame."],
+      ["n","<b>Align Objects: Keep Offset</b> keeps the distance you had, for example a rider sitting on a running creature."],
+      ["n","<b>Cycle Along Path</b> works with creatures whose cycle curves have different lengths."],
+      ["i","<b>Align Objects</b> aligns parents before children, follows a cycling target with All Keys, and no longer flickers or jumps after a bake."],
+      ["i","<b>Micro Manipulator</b> follows the Custom axis in Move and Rotate (Axis Orient to Camera / to Selected), and the first drag right after turning it on works."],
+      ["i","<b>Axis Orient: Orient to Camera</b> tells you which camera it used."],
+      ["i","<b>Follow Cam:</b> in rotation-only mode the camera turns around the object, and it works with two viewports."],
+      ["i","<b>Playblast Mode</b> brings your viewport back exactly as it was, and a scene saved with it on comes back with one click."],
+      ["i","<b>Toggle Geometry:</b> each viewport on its own, remembers which geometry types you had visible, and hides GPU caches too."],
+      ["i","<b>2D Pan/Zoom</b> works in scenes in feet, pans 1:1 with the mouse, never touches the camera of another viewport, and the window follows the hotkey. New help."],
+      ["i","<b>Hotkeys:</b> removing a KeyFlow shortcut gives the key back to Maya, and the Follow Cam hotkey works with the KeyFlow bar closed."],
+      ["i","New <b>Mirror</b> icons."]]},
     { v:"1.7.1", d:"2026-11-20", t:"XForm and World Lock", big:true, c:[
       ["n","<b>Copy XForm World Space Range.</b> Copies where an object is on every frame and pastes it back on the same frames, for example to merge animation layers into one."],
       ["n","<b>Paste On Keys onto another object</b> brings the copied object's keys: copy the plate, paste on the apple, and the apple gets the plate's keys."],
