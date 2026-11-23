@@ -315,6 +315,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -392,9 +395,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>2D Pan/Zoom</h1>
         <p class="lede">Pan and zoom the view without moving the camera, following a moving object.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/pz.mp4" muted loop playsinline preload="metadata" aria-label="2D Pan/Zoom in action"></video>
+        <video id="tclip-video" data-src="media/tools/pz.mp4?v=20261122" poster="media/tools/posters/pz.jpg?v=20261122" muted loop playsinline preload="metadata" aria-label="2D Pan/Zoom in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Animation by <a href="https://www.linkedin.com/in/camila-abadia-77704a188/" target="_blank" rel="noopener">Camila Abadia</a> · Rig by <a href="https://www.animum3d.com/" target="_blank" rel="noopener">Animum 3D</a></p>
       </div>
     </div>
   </section>
@@ -410,7 +416,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
 <span class="opt"><b>Drag:</b> slides the framing.</span>
 <span class="opt"><b>Ctrl + drag:</b> zoom, right to zoom in and left to zoom out.</span>
 <span class="opt"><b>Middle-mouse drag:</b> zoom too, same as Ctrl + drag.</span>
-<b>Good to know:</b> other views stay as they are, and the view keeps following when you switch tools until you stop it. It also has a hotkey, 2D Pan/Zoom Toggle, in the Hotkeys window.</p>
+<b>Good to know:</b> other views stay put, and it keeps following across tools until you stop it.</p>
 <p><b>Good for:</b> checking a hand, a face or a prop up close while the character runs across the shot.</p>
       </div>
     </div>
@@ -421,12 +427,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <h2>Why it beats Maya's own 2D Pan/Zoom</h2>
       <div class="prose">
 <ul>
-<li><b>It follows the object.</b> Maya's 2D Pan/Zoom Tool frames a still view: when the character moves, it leaves the frame and you reframe by hand. Track Selected follows it frame by frame and frames it for you.</li>
-<li><b>Your camera stays untouched.</b> Maya writes the pan and zoom on your camera, shot camera included, and they stay in the scene until you reset them. KeyFlow works on a copy.</li>
+<li><b>It follows the object.</b> Maya frames a still view; KeyFlow keeps the character framed.</li>
+<li><b>Your camera stays untouched.</b> Maya writes pan and zoom on it; KeyFlow uses a copy.</li>
 <li><b>One click back.</b> Stop Tracking deletes the copy and returns you to your camera, exactly as it was.</li>
 <li><b>Smooth playback.</b> Maya itself does the following, with a constraint. No script runs on every frame.</li>
 <li><b>Other views stay put.</b> Panning only moves the tracking view, never the camera of another view.</li>
-<li><b>Hotkey and clear state.</b> One hotkey turns it on and off, and the window always shows whether it is on.</li>
+<li><b>Hotkey and clear state.</b> One hotkey toggles it, and the window shows when it is on.</li>
 </ul>
       </div>
     </div>
