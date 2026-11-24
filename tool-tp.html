@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Temp Pivot – KeyFlow for Maya</title>
-<meta name="description" content="Temp Pivot, a KeyFlow tool for Maya: Rotate or scale around a temporary pivot.">
+<meta name="description" content="Temp Pivot, a KeyFlow tool for Maya: Rotate controls around any point you choose, then bake it back.">
 <link rel="stylesheet" href="fonts.css?v=fc069dab">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="Temp Pivot – KeyFlow for Maya">
-<meta property="og:description" content="Temp Pivot, a KeyFlow tool for Maya: Rotate or scale around a temporary pivot.">
+<meta property="og:description" content="Temp Pivot, a KeyFlow tool for Maya: Rotate controls around any point you choose, then bake it back.">
 <meta property="og:url" content="https://keyflowtool.com/tool-tp.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261119b">
 <meta property="og:image:width" content="1200">
@@ -315,6 +315,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -388,11 +391,14 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Temp</span></div>
         <h1>Temp Pivot</h1>
-        <p class="lede">Rotate or scale around a temporary pivot.</p>
+        <p class="lede">Rotate controls around any point you choose, then bake it back.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/tp.mp4" muted loop playsinline preload="metadata" aria-label="Temp Pivot in action"></video>
+        <video id="tclip-video" data-src="media/tools/tp.mp4?v=20261124" poster="media/tools/posters/tp.jpg?v=20261124" muted loop playsinline preload="metadata" aria-label="Temp Pivot in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Hulk animation: <a href="https://www.youtube.com/@stefan_iverson" target="_blank" rel="noopener">Stefan Iverson</a> · Rig: <a href="https://amazinganimation.gumroad.com/l/hulk" target="_blank" rel="noopener">AmazingAnimation</a></p>
       </div>
     </div>
   </section>
@@ -401,7 +407,11 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Rotate or scale around a temporary pivot placed on a control, an object or a vertex. Bake only the edited range back to your keys, or delete it with no changes.</p>
+<p>Rotate controls around any point, then bake only that range back to your keys:</p>
+<p><b>Pivot:</b> on the control itself. <b>Edit</b> moves it anywhere without moving the controls.</p>
+<p><b>To Last:</b> on the object, or the vertex, edge or face, you select last.</p>
+<p><b>Aim:</b> for props. The tip points at a target, with a pole so it never flips.</p>
+<p><b>Bake:</b> only the edited range; right-click for on 2s, 3s or 4s. <b>Delete</b> leaves your animation as it was.</p>
 <p><b>Good for:</b> rolling a foot, swinging a prop, rotating several controls from one point.</p>
       </div>
     </div>
