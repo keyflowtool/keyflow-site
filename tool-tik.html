@@ -5,7 +5,7 @@
 <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Temp IK – KeyFlow for Maya</title>
-<meta name="description" content="Temp IK, a KeyFlow tool for Maya: Pin the tip of an FK chain, pose it like IK, then bake back.">
+<meta name="description" content="Temp IK, a KeyFlow tool for Maya: Pin a fingertip, pose the finger like IK, then bake it back to FK.">
 <link rel="stylesheet" href="fonts.css?v=fc069dab">
 <script src="smooth-scroll.js?v=43386a2a" defer></script>
 <script src="mobile-nav.js?v=a57ad6d0" defer></script>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KeyFlow">
 <meta property="og:title" content="Temp IK – KeyFlow for Maya">
-<meta property="og:description" content="Temp IK, a KeyFlow tool for Maya: Pin the tip of an FK chain, pose it like IK, then bake back.">
+<meta property="og:description" content="Temp IK, a KeyFlow tool for Maya: Pin a fingertip, pose the finger like IK, then bake it back to FK.">
 <meta property="og:url" content="https://keyflowtool.com/tool-tik.html">
 <meta property="og:image" content="https://keyflowtool.com/og-image.jpg?v=20261119b">
 <meta property="og:image:width" content="1200">
@@ -323,6 +323,8 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 .prose p{margin:0 0 14px} .prose p:last-child{margin-bottom:0}
 /* "Good for:" and "Tip:" labels in the brand orange so they stand out from the text. */
 .prose b{color:var(--orange);font-weight:700}
+.prose .opt{display:block;padding-left:1.2em}
+.prose .opt b{color:var(--lime)}
 .prose ul{margin:0 0 14px;padding-left:1.1em} .prose li{margin:4px 0}
 .keys-list{display:grid;gap:10px;max-width:46em}
 .keys-list div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
@@ -377,10 +379,10 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div>
         <div class="row"><span class="cat">Temp</span></div>
         <h1>Temp IK</h1>
-        <p class="lede">Pin the tip of an FK chain, pose it like IK, then bake back.</p>
+        <p class="lede">Pin a fingertip, pose the finger like IK, then bake it back to FK.</p>
       </div>
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/tik.mp4" muted loop playsinline preload="metadata" aria-label="Temp IK in action"></video>
+        <video id="tclip-video" data-src="media/tools/tik.mp4?v=20261124" poster="media/tools/posters/tik.jpg?v=20261124" muted loop playsinline preload="metadata" aria-label="Temp IK in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
       </div>
     </div>
@@ -390,8 +392,17 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
     <div class="wrap">
       <h2>What it does</h2>
       <div class="prose">
-<p>Pin the tip of a 3-control FK chain, like a finger, and pose it like IK. Bake only the posed range back to FK, or delete with no changes.</p>
-<p><b>Good for:</b> fingers on a prop or a surface.</p>
+<p>Pin the tip of a 3-control FK chain, like a finger, and pose it like IK. Your FK keys are kept:</p>
+<p><b>Temp IK:</b> shows the pole guide first. <b>Flip Pole</b> if it points the wrong way.</p>
+<p><b>Range:</b>
+<span class="opt"><b>All:</b> bakes only where you used the IK.</span>
+<span class="opt"><b>Timeline:</b> bakes the visible range.</span>
+<b>Follow:</b>
+<span class="opt"><b>Full:</b> the tips follow position and rotation.</span>
+<span class="opt"><b>Translate:</b> position only.</span></p>
+<p><b>World</b> plants the tips, <b>Follow</b> sticks them to an object, and <b>FK</b> switches with no pop.</p>
+<p><b>Bake</b> puts the pose on FK. <b>Delete</b> keeps your keys as they were. <b>Bake All</b> does every one.</p>
+<p><b>Good for:</b> fingers on a prop or a surface, like a hand gripping a ball.</p>
       </div>
     </div>
   </section>
