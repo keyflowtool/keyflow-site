@@ -315,6 +315,9 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
 @media (min-width:861px){.thero.has-clip .wrap{align-items:start}.thero.has-clip .wrap>div:first-child{padding-top:clamp(32px,7vw,96px)}}
 .tclip{position:relative;aspect-ratio:16/11;max-width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:var(--panel-2)}
 .tclip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tclip-credit{margin:8px 2px 0;text-align:right;font:500 12px/1.4 var(--body);color:var(--muted)}
+.tclip-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.tclip-credit a:hover{color:var(--fg)}
 .tsec{padding-block:clamp(32px,4vw,56px);border-bottom:1px solid var(--line)}
 .tsec:last-of-type{border-bottom:0}
 .tsec .wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
@@ -379,9 +382,12 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
         <h1>Toggle Geometry</h1>
         <p class="lede">Show or hide the scene geometry in one click, and get your view back exactly as it was.</p>
       </div>
+      <div class="tclip-col">
       <div class="tclip" id="tclip">
-        <video id="tclip-video" data-src="media/tools/gv.mp4" muted loop playsinline preload="metadata" aria-label="Toggle Geometry in action"></video>
+        <video id="tclip-video" data-src="media/tools/gv.mp4?v=20261123" poster="media/tools/posters/gv.jpg?v=20261123" muted loop playsinline preload="metadata" aria-label="Toggle Geometry in action"></video>
         <div class="tclip-dots" id="tclip-dots" hidden></div>
+      </div>
+      <p class="tclip-credit">Animation by <a href="https://www.linkedin.com/in/camila-abadia-77704a188/" target="_blank" rel="noopener">Camila Abadia</a> · Rig by <a href="https://www.animum3d.com/" target="_blank" rel="noopener">Animum 3D</a></p>
       </div>
     </div>
   </section>
@@ -392,6 +398,7 @@ kbd{font:700 11.5px var(--mono);color:var(--fg);background:var(--panel-2);border
       <div class="prose">
 <p>Show or hide the scene geometry in one click, only in the 3D view you last used. Controls and joints stay visible, and nothing in the scene is changed.</p>
 <p><b>Good for:</b> picking controls buried inside the mesh, or checking the rig's motion on its own.</p>
+<p><b>Tip:</b> put it on a hotkey and flip the meshes on and off as you work.</p>
       </div>
     </div>
   </section>
