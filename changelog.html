@@ -158,7 +158,7 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
       <h1>What's new in <span>KeyFlow</span></h1>
       <p>Updates are free, and each one installs on top of the version you have.</p>
       <div class="head-row">
-        <a class="pill cur" id="latest-pill" href="#v1.7.2">Latest: 1.7.2</a>
+        <a class="pill cur" id="latest-pill" href="#v1.7.4">Latest: 1.7.4</a>
       </div>
     </div>
   </section>
@@ -197,6 +197,15 @@ footer .contact a{color:var(--fg);font-weight:600;user-select:all}
   addEventListener("pageshow", e => { if (e.persisted) { kfMoved = false; toTop(); } });
   // n = new, i = improved, f = fixed
   const R = [
+    { v:"1.7.4", d:"2026-11-27", t:"Security update", big:true, c:[
+      ["i","<b>License window:</b> \"Someone shared a seat with you?\" now also shows while the free trial is active."],
+      ["i","<b>User guide:</b> new \"Your second computer\" section with the steps to activate KeyFlow on your second computer."]]},
+    { v:"1.7.3", d:"2026-11-26", t:"New tool: Smear", big:true, c:[
+      ["n","<b>Smear.</b> Stretches fast-moving parts of your character along their own path, like classic 2D smear frames. Apply it on any frame; the rig is never touched."],
+      ["n","<b>Zones:</b> every smear you apply on vertices is kept in a list. Its checkbox shows / hides it, a click selects its vertices again, and the \"i\" lists its frames (click one to go there)."],
+      ["n","<b>Sculpt:</b> shape the smear of a frame with Maya's own sculpt brushes, only inside the zone or on the whole mesh, with Freeze and Unfreeze."],
+      ["n","<b>Falloff</b> (Off / Volume / Surface), <b>Length</b>, <b>Threshold</b> and <b>Strength</b>."],
+      ["n","Works with several meshes, and clothes that follow the body with a <b>Wrap</b> follow the smear too."]]},
     { v:"1.7.2", d:"2026-11-23", t:"Camera, Align & Viewport", big:true, c:[
       ["n","<b>Axis Orient: Aim at Camera</b> points the object at the camera, so you can move it closer without it drifting across the frame."],
       ["n","<b>Align Objects: Keep Offset</b> keeps the distance you had, for example a rider sitting on a running creature."],
